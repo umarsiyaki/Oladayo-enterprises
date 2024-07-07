@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Message User</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="assets/images/logo.png" alt="Logo" class="logo">
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/admin">Dashboard</a>
+      <a href="/market">Market</a>
+      <a href="/blogs">Blogs</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+  <main class="auth-container">
+    <div class="form-container">
+      <h2>Message User</h2>
+      <form id="message-user-form">
+        <div class="form-group">
+          <label for="user-email">User Email</label>
+          <input type="email" id="user-email" name="user-email" required>
+        </div>
+        <div class="form-group">
+          <label for="message-subject">Subject</label>
+          <input type="text" id="message-subject" name="message-subject" required>
+        </div>
+        <div class="form-group">
+          <label for="message-content">Message</label>
+          <textarea id="message-content" name="message-content" required></textarea>
+        </div>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2024 Oladayo Enterprises</p>
+  </footer>
+  <script src="assets/js/message-user.js"></script>
+</body>
+</html>

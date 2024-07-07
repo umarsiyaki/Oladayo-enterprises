@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Marketplace</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="assets/images/logo.png" alt="Logo" class="logo">
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/user">Dashboard</a>
+      <a href="/blogs">Blogs</a>
+      <a href="/contact">Contact</a>
+    </nav>
+    <div class="user-info">
+      <span>Welcome, Username</span>
+      <input type="text" placeholder="Search products..." class="search-bar">
+      <button type="button" class="search-btn">Search</button>
+      <img src="assets/images/user-avatar.png" alt="User Avatar" class="user-avatar">
+      <div class="notification-bell">
+        <img src="assets/images/bell-icon.png" alt="Notifications">
+      </div>
+    </div>
+  </header>
+  <main>
+    <section id="product-search">
+      <h2>Product Search</h2>
+      <form id="search-form">
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <select id="category" name="category">
+            <option value="all">All</option>
+            <option value="coca-cola">Coca-Cola</option>
+            <option value="bigi">Bigi</option>
+            <option value="viju">Viju</option>
+            <option value="pepsi">Pepsi</option>
+            <option value="maltina">Maltina</option>
+            <option value="holandia">Holandia</option>
+            <option value="exotics">Exotics</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="size">Size:</label>
+          <input type="text" id="size" name="size">
+        </div>
+        <div class="form-group">
+          <label for="price-range">Price Range:</label>
+          <input type="text" id="price-range" name="price-range">
+        </div>
+        <button type="submit" class="btn">Search</button>
+      </form>
+    </section>
+    <section id="product-list">
+      <h2>Products</h2>
+      <div class="product-grid">
+        <!-- Products will be dynamically inserted here -->
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2024 Oladayo Enterprises</p>
+  </footer>
+  <script src="assets/js/marketing.js"></script>
+</body>
+</html>

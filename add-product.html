@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Product</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="assets/images/logo.png" alt="Logo" class="logo">
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/admin">Dashboard</a>
+      <a href="/market">Market</a>
+      <a href="/blogs">Blogs</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+  <main class="auth-container">
+    <div class="form-container">
+      <h2>Add Product</h2>
+      <form id="add-product-form">
+        <div class="form-group">
+          <label for="product-name">Product Name</label>
+          <input type="text" id="product-name" name="product-name" required>
+        </div>
+        <div class="form-group">
+          <label for="product-category">Category</label>
+          <input type="text" id="product-category" name="product-category" required>
+        </div>
+        <div class="form-group">
+          <label for="product-size">Size</label>
+          <input type="text" id="product-size" name="product-size" required>
+        </div>
+        <div class="form-group">
+          <label for="product-quantity">Quantity</label>
+          <input type="number" id="product-quantity" name="product-quantity" required>
+        </div>
+        <div class="form-group">
+          <label for="product-price">Price</label>
+          <input type="text" id="product-price" name="product-price" required>
+        </div>
+        <div class="form-group">
+          <label for="product-image">Product Image</label>
+          <input type="file" id="product-image" name="product-image" required>
+        </div>
+        <button type="submit" class="btn">Add Product</button>
+      </form>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2024 Oladayo Enterprises</p>
+  </footer>
+  <script src="assets/js/add-product.js"></script>
+</body>
+</html>
