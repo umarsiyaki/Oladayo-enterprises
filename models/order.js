@@ -39,3 +39,37 @@ const OrderSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Order', OrderSchema);
+
+
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
+const User = require('./User');
+const Product = require('./Product');
+
+const Order = sequelize.define('Order', {
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: User,
+      key: 'id',
+    },
+  },
+  totalAmount: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+  },
+  status: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 'pending',
+  },
+}, {
+  timestamps: true,
+});
+
+Order.belongsTo(User, { foreignKey: 'userId' });
+Order.belongsToMany(Product, { through: 'OrderProducts', foreignKey: 'orderId' });
+Product.belongsToMany(Order, { through: 'OrderProducts', foreignKey: 'productId' });
+
+module.exports = Order;
