@@ -1,0 +1,96 @@
+To ensure all necessary files are in place, let's review and update the components and routes for the project, ensuring proper user redirection, authentication, and functionalities. We will create and update the following:
+
+1. Authentication middleware to check if users are logged in.
+2. Routes to handle redirection and data fetching.
+3. Views for user registration, login, and admin functionalities.
+4. Necessary frontend logic to manage authentication and navigation.
+
+### Middleware
+
+#### `middleware/authMiddleware.js`
+```javascript
+```
+
+### Routes
+
+#### `routes/auth.js`
+```javascript
+```
+
+#### `routes/admin.js`
+```javascript
+```
+
+#### `routes/cashier.js`
+```javascript
+```
+
+### Models
+
+#### `models/User.js`
+```javascript
+
+```
+
+#### `models/Order.js`
+```javascript-side Routes and Components
+
+
+```
+
+### Client
+#### `src/App.js`
+```javascript
+
+
+#### `src/components/AdminDashboard.js`
+```javascript
+
+
+
+
+#### `src/components/CashierDashboard.js`
+```javascript
+
+
+### Redux Actions
+
+#### `src/actions/authActions.js`
+```javascript
+
+```
+
+#### `src/actions/adminActions.js`
+```javascript
+
+```
+
+This setup ensures that all necessary files and functionalities are in place. The authentication middleware handles token validation, while the routes manage user registration, login, and data fetching. The admin and cashier dashboards fetch and display relevant data, and the client-side logic manages authentication and navigation.
+```javascript;
+```
+
+#### `src/components/PrivateRoute.js`
+```javascript
+
+```
+
+#### `src/components/AdminDashboard.js`
+```javascript
+
+
+```
+
+#### `src/actions/adminActions.js`
+```javascript
+
+#### `src/reducers/adminReducer.js`
+```javascript
+
+```
+
+### `types.js`
+```javascript
+
+```
+
+With these updates, the admin dashboard is now integrated with the backend and dynamically fetches data to display various sections such as top products, top cashiers, cashier performance, cashier activity, and monthly business performance. The authentication middleware ensures only authorized users can access these routes, and the private routes in React manage the user access on the frontend.
