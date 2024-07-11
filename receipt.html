@@ -1,17 +1,49 @@
-<!DOCTYPE html>
-<html>
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>receipt download</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receipt</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-
 <body>
-<div class="order-reciept" onload="this.fetch();">
-  <h3 class="receipt">Oladayo enterprises Kaiama</h3>
- .<button onclick="document.print()">print receipt</button>
-</div>
+  <header>
+    <div class="logo-container">
+      <img src="assets/images/logo.png" alt="Logo" class="logo">
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/market">Products</a>
+      <a href="/user">Dashboard</a>
+      <a href="/blogs">Blogs</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <section class="receipt">
+      <h1>Oladayo Enterprises</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Tracking ID</th>
+            <th>Product Number</th>
+            <th>Quantity</th>
+            <th>Size</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody id="receipt-body">
+          <!-- Receipt details will be dynamically inserted here -->
+        </tbody>
+      </table>
+      <button id="print-receipt">Print Receipt</button>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2024 Oladayo Enterprises</p>
+  </footer>
+  <script src="assets/js/receipt.js"></script>
 </body>
-
 </html>

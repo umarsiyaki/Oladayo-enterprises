@@ -1,14 +1,56 @@
-<!DOCTYPE html>
-<html>
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-
 <body>
-
+  <header>
+    <div class="logo-container">
+      <img src="assets/images/logo.png" alt="Logo" class="logo">
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/market">Products</a>
+      <a href="/user">Dashboard</a>
+      <a href="/blogs">Blogs</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <section class="payment">
+      <h2>Payment</h2>
+      <form id="payment-form">
+        <div class="form-group">
+          <label for="payment-mode">Payment Mode:</label>
+          <select id="payment-mode" name="payment-mode">
+            <option value="cash">Cash</option>
+            <option value="direct-deposit">Direct Deposit</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="product-id">Product ID:</label>
+          <input type="text" id="product-id" name="product-id">
+        </div>
+        <div class="form-group">
+          <label for="quantity">Quantity:</label>
+          <input type="number" id="quantity" name="quantity">
+        </div>
+        <div class="form-group">
+          <label for="total-amount">Total Amount:</label>
+          <input type="text" id="total-amount" name="total-amount" readonly>
+        </div>
+        <button type="button" id="cancel-payment">Cancel</button>
+        <button type="button" id="confirm-payment">Confirm Payment</button>
+      </form>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2024 Oladayo Enterprises</p>
+  </footer>
+  <script src="assets/js/payment.js"></script>
 </body>
-
 </html>
