@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .section {
+      display: none;
+    }
+    .section.show {
+      display: block;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -22,20 +31,105 @@
   <main>
     <aside>
       <ul>
-        <li><a href="add-product.html">Add Product</a></li>
-        <li><a href="add-cashier.html">Add Cashier</a></li>
-        <li><a href="message-user.html">Message User</a></li>
+        <li><a href="#add-product-section" class="nav-link">Add Product</a></li>
+        <li><a href="#add-cashier-section" class="nav-link">Add Cashier</a></li>
+        <li><a href="#message-user-section" class="nav-link">Message User</a></li>
         <li><a href="update-product.html">Update Product Information</a></li>
       </ul>
     </aside>
     <section id="admin-content">
       <h2>Admin Dashboard</h2>
       <p>Welcome to the admin dashboard. Use the links in the sidebar to manage the store.</p>
+      
+      <section id="add-product-section" class="section">
+        <h2>Add Product</h2>
+        <form id="add-product-form">
+          <div class="form-group">
+            <label for="product-name">Product Name</label>
+            <input type="text" id="product-name" name="product-name" required>
+          </div>
+          <div class="form-group">
+            <label for="product-category">Category</label>
+            <input type="text" id="product-category" name="product-category" required>
+          </div>
+          <div class="form-group">
+            <label for="product-size">Size</label>
+            <input type="text" id="product-size" name="product-size" required>
+          </div>
+          <div class="form-group">
+            <label for="product-quantity">Quantity</label>
+            <input type="number" id="product-quantity" name="product-quantity" required>
+          </div>
+          <div class="form-group">
+            <label for="product-price">Price</label>
+            <input type="text" id="product-price" name="product-price" required>
+          </div>
+          <div class="form-group">
+            <label for="product-image">Product Image</label>
+            <input type="file" id="product-image" name="product-image" required>
+          </div>
+          <button type="submit" class="btn">Add Product</button>
+        </form>
+      </section>
+
+      <section id="add-cashier-section" class="section">
+        <h2>Add Cashier</h2>
+        <form id="add-cashier-form">
+          <div class="form-group">
+            <label for="cashier-name">Cashier Name</label>
+            <input type="text" id="cashier-name" name="cashier-name" required>
+          </div>
+          <div class="form-group">
+            <label for="cashier-email">Email</label>
+            <input type="email" id="cashier-email" name="cashier-email" required>
+          </div>
+          <div class="form-group">
+            <label for="cashier-password">Password</label>
+            <input type="password" id="cashier-password" name="cashier-password" required>
+          </div>
+          <button type="submit" class="btn">Add Cashier</button>
+        </form>
+      </section>
+
+      <section id="message-user-section" class="section">
+        <h2>Message User</h2>
+        <form id="message-user-form">
+          <div class="form-group">
+            <label for="user-email">User Email</label>
+            <input type="email" id="user-email" name="user-email" required>
+          </div>
+          <div class="form-group">
+            <label for="message-subject">Subject</label>
+            <input type="text" id="message-subject" name="message-subject" required>
+          </div>
+          <div class="form-group">
+            <label for="message-content">Message</label>
+            <textarea id="message-content" name="message-content" required></textarea>
+          </div>
+          <button type="submit" class="btn">Send Message</button>
+        </form>
+      </section>
     </section>
   </main>
   <footer>
     <p>&copy; 2024 Oladayo Enterprises</p>
   </footer>
-  <script src="assets/js/admin.js"></script>
+  <script>
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function(event) {
+        event.preventDefault();
+        document.querySelectorAll('.section').forEach(section => section.classList.remove('show'));
+        const targetSection = document.querySelector(this.getAttribute('href'));
+        if (targetSection) {
+          targetSection.classList.add('show');
+        }
+      });
+    });
+
+    // Simulate receiving a message
+    setTimeout(function() {
+      document.querySelector('#message-user-section').classList.add('show');
+    }, 2000);
+  </script>
 </body>
 </html>

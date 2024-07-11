@@ -1,12 +1,83 @@
 /* General Styles */
+
+
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background-color: #f9f9f9;
-  color: #333;
+  font-family: 'Roboto', sans-serif;
+  background-color: silver;
 }
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.product-card {
+  background-color: rgba(192, 192, 255, 0.5);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 15px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.product-card img {
+  border-radius: 50%;
+  border: 3px solid silver;
+  width: 150px;
+  height: 150px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 10px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+}
+
+.navbar a:hover {
+  background-color: #575757;
+  border-radius: 5px;
+}
+
+@media (max-width: 600px) {
+  .product-card {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .navbar a {
+    padding: 6px 12px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .product-card {
+    width: 48%;
+    padding: 15px;
+  }
+
+  .navbar a {
+    padding: 7px 14px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .product-card {
+    width: 30%;
+    padding: 20px;
+  }
+}
+  .navbar a {
+    padding: 8px 16px;
+  }
+
 
 header {
   display: flex;
