@@ -478,3 +478,134 @@ footer {
 .btn:hover {
   background-color: #45a049;
 }
+
+.notifications-dropdown {
+display: none;
+position: absolute;
+right: 0;
+background: white;
+border: 1px solid #ccc;
+width: 200px;
+box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.notification-bell:hover .notifications-dropdown {
+display: block;
+}
+.notification {
+padding: 10px;
+border-bottom: 1px solid #eee;
+}
+.messaging-window {
+display: none;
+position: fixed;
+bottom: 0;
+right: 0;
+background: white;
+border: 1px solid #ccc;
+width: 300px;
+height: 400px;
+box-shadow: 0 0 10px rgba(0,0,0,0.1);
+padding: 10px;
+}
+.messaging-window.open {
+display: block;
+}
+.messages {
+overflow-y: auto;
+height: 300px;
+}
+.message {
+padding: 5px;
+border-bottom: 1px solid #eee;
+}
+
+#product-calculator {
+margin: 20px 0;
+}
+#product-calculator .form-group {
+margin-bottom: 15px;
+}
+#product-calculator .form-group label {
+display: block;
+margin-bottom: 5px;
+}
+#product-calculator .form-group select,
+#product-calculator .form-group input {
+width: 100%;
+padding: 8px;
+box-sizing: border-box;
+}
+#product-calculator .form-group button {
+padding: 8px 12px;
+margin-right: 5px;
+}
+#product-calculator .form-group p {
+margin: 10px 0;
+}
+
+#happy-customers {
+  margin: 40px 0;
+}
+
+.customer-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.customer-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  width: 200px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.customer-card p {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.customer-card span {
+  display: block;
+  font-weight: bold;
+  text-align: right;
+}
+
+
+#product-calculator {
+  margin: 20px 0;
+}
+
+#product-calculator-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+#product-calculator-container .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+#product-calculator-container .form-group label {
+  margin-bottom: 5px;
+}
+
+#product-calculator-container .form-group select,
+#product-calculator-container .form-group input,
+#product-calculator-container .form-group button {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+#product-calculator-container .form-group button {
+  margin-top: 10px;
+}
+
+#product-calculator-container .form-group p {
+  margin: 10px 0;
+}

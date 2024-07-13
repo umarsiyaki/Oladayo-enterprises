@@ -47,6 +47,7 @@
       <li><a href="#message-area">Messages</a></li>
     </ul>
   </aside>
+
   <main>
     <section id="wallet">
       <h2>Wallet</h2>
@@ -67,19 +68,6 @@
     <section id="notifications">
       <h2>Notifications</h2>
       <!-- Content for notifications -->
-    </section>
-    <section id="message-area" class="message-area">
-      <h2>Messages</h2>
-      <div id="messages">
-        <!-- Messages will be dynamically loaded here -->
-      </div>
-      <form id="message-form">
-        <div class="form-group">
-          <label for="message-content">Your Message</label>
-          <textarea id="message-content" name="message-content" required></textarea>
-        </div>
-        <button type="submit" class="btn">Send Message</button>
-      </form>
     </section>
   </main>
   <footer>
@@ -115,5 +103,8 @@
       document.getElementById('message-area').classList.add('show');
     }, 2000);
   </script>
+    <script src="assets/js/user.js"></script>
+  <script src="assets/js/cart.js"></script>
 </body>
 </html>
+

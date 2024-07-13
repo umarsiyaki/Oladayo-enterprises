@@ -1,606 +1,303 @@
-Sure, let's create a basic setup using Node.js and Express for the backend, and MongoDB as the database. We'll define models for products, orders, and locations. We'll use Google Maps API for location functionalities. Here’s a simplified example:
+Sure! I'll provide the updates to `app.js` and the necessary route files to incorporate the new features. This includes adding routes for the updated HTML pages, handling product calculations, live notifications, messaging, and payment gateways.
 
-### Directory Structure
-
-```
-project/
-│
-├── models/
-│ ├── product.js
-│ ├── order.js
-│ └── location.js
-│
-├── routes/
-│ ├── products.js
-│ ├── orders.js
-│ └── locations.js
-│
-├── scripts/
-│ └── dbInit.js
-│
-├── .env
-├── app.js
-├── package.json
-└── README.md
-```
-
-### Install Dependencies
-
-Run the following commands to install the necessary dependencies:
-
-```sh
-npm init -y
-npm install express mongoose dotenv axios
-```
-
-### .env
-
-Create a `.env` file for environment variables.
-
-```
-PORT=3000
-MONGODB_URI=mongodb://localhost:27017/oladayo_ventures
-GOOGLE_MAPS_API_KEY=your_google_maps_api_key
-```
-
-### models/product.js
-
-```js
-const mongoose = require('mongoose');
-
-const productSchema = new mongoose.Schema({
-name: { type: String, required: true },
-category: { type: String, required: true },
-size: { type: String, required: true },
-price: { type: Number, required: true },
-quantity: { type: Number, required: true },
-approved: { type: Boolean, default: false },
-});
-
-const Product = mongoose.model('Product', productSchema);
-
-module.exports = Product;
-```
-
-### models/order.js
-
-```js
-const mongoose = require('mongoose');
-
-const orderSchema = new mongoose.Schema({
-product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
-quantity: { type: Number, required: true },
-totalAmount: { type: Number, required: true },
-paymentMode: { type: String, required: true },
-status: { type: String, default: 'Pending' },
-});
-
-const Order = mongoose.model('Order', orderSchema);
-
-module.exports = Order;
-```
-
-### models/location.js
-
-```js
-const mongoose = require('mongoose');
-
-const locationSchema = new mongoose.Schema({
-name: { type: String, required: true },
-address: { type: String, required: true },
-coordinates: {
-lat: { type: Number, required: true },
-lng: { type: Number, required: true },
-},
-});
-
-const Location = mongoose.model('Location', locationSchema);
-
-module.exports = Location;
-```
-
-### routes/products.js
-
-```js
-const express = require('express');
-const Product = require('../models/product');
-
-const router = express.Router();
-
-// Add product
-router.post('/', async (req, res) => {
-try {
-const product = new Product(req.body);
-await product.save();
-res.status(201).json(product);
-} catch (error) {
-res.status(400).json({ error: error.message });
-}
-});
-
-// Approve product (admin only)
-router.patch('/:id/approve', async (req, res) => {
-try {
-const product = await Product.findByIdAndUpdate(req.params.id, { approved: true }, { new: true });
-res.json(product);
-} catch (error) {
-res.status(400).json({ error: error.message });
-}
-});
-
-// Get all approved products
-router.get('/', async (req, res) => {
-try {
-const products = await Product.find({ approved: true });
-res.json(products);
-} catch (error) {
-res.status(400).json({ error: error.message });
-}
-});
-
-module.exports = router;
-```
-
-### routes/orders.js
-
-```js
-const express = require('express');
-const Order = require('../models/order');
-
-const router = express.Router();
-
-// Place order
-router.post('/', async (req, res) => {
-try {
-const order = new Order(req.body);
-await order.save();
-res.status(201).json(order);
-} catch (error) {
-res.status(400).json({ error: error.message });
-}
-});
-
-// Update order status (admin/cashier only)
-router.patch('/:id/status', async (req, res) => {
-try {
-const order = await Order.findByIdAndUpdate(req.params.id, { status: req.body.status }, { new: true });
-res.json(order);
-} catch (error) {
-res.status(400).json({ error: error.message });
-}
-});
-
-module.exports = router;
-```
-
-### routes/locations.js
-
-```js
-const express = require('express');
-const axios = require('axios');
-const Location = require('../models/location');
-
-const router = express.Router();
-const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
-
-// Add location
-router.post('/', async (req, res) => {
-try {
-const { name, address } = req.body;
-const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${GOOGLE_MAPS_API_KEY}`);
-const { lat, lng } = response.data.results[0].geometry.location;
-
-const location = new Location({ name, address, coordinates: { lat, lng } });
-await location.save();
-res.status(201).json(location);
-} catch (error) {
-res.status(400).json({ error: error.message });
-}
-});
-
-// Get all locations
-router.get('/', async (req, res) => {
-try {
-const locations = await Location.find();
-res.json(locations);
-} catch (error) {
-res.status(400).json({ error: error.message });
-}
-});
-
-module.exports = router;
-```
-
-### scripts/dbInit.js
-
-```js
-```
-
-### app.js
-
-```js
-
-```
-
-This setup provides a functional backend with models for products, orders, and locations, routes to manage these resources, and initialization scripts to set up the database. The backend is independent except for the Google Maps API, which is used to fetch location data.
-
-Got it. Here's how you should structure your project directory and the `app.js` file to ensure everything is well-organized and functional.
-
-### Directory Structure
-```
-my-inventory-app/
-│
-├── models/
-│   ├── product.js
-│   ├── order.js
-│   └── location.js
-│
-├── routes/
-│   ├── products.js
-│   ├── orders.js
-│   └── locations.js
-│
-├── scripts/
-│   └── dbInit.js
-│
-├── public/
-│   ├── assets/
-│   │   ├── css/
-│   │   │   └── styles.css
-│   │   ├── js/
-│   │   │   ├── admin.js
-│   │   │   ├── cashier.js
-│   │   │   ├── user.js
-│   │   │   ├── register.js
-│   │   │   ├── login.js
-│   │   │   └── marketing.js
-│   │   └── images/
-│   │       ├── logo.png
-│   │       ├── avatar.png
-│   │       └── user-avatar.png
-│   │
-│   ├── index.html
-│   ├── admin.html
-│   ├── cashier.html
-│   ├── user.html
-│   ├── register.html
-│   ├── login.html
-│   ├── market.html
-│   ├── payment.html
-│   ├── receipt.html
-│   └── blogs.html
-│
-├── .env
-├── app.js
-├── package.json
-└── README.md
-```
-
-### app.js
+### Updated `app.js`
 
 ```javascript
-require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const productRoutes = require('./routes/products');
-const orderRoutes = require('./routes/orders');
-const locationRoutes = require('./routes/locations');
+const session = require('express-session');
+const { check, validationResult } = require('express-validator');
 
+// MongoDB connection
+mongoose.connect('mongodb://localhost/oladayo_ventures', { useNewUrlParser: true, useUnifiedTopology: true });
+
+// Models
+const User = require('./models/User');
+const Product = require('./models/Product');
+const Order = require('./models/Order');
+const Notification = require('./models/Notification');
+const Message = require('./models/Message');
+
+// App initialization
 const app = express();
-
-// Middleware
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
+}));
+
+// Static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Database connection
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.log(err));
-
 // Routes
-app.use('/api/products', productRoutes);
-app.use('/api/orders', orderRoutes);
-app.use('/api/locations', locationRoutes);
+const userRoutes = require('./routes/user');
+const adminRoutes = require('./routes/admin');
+const cashierRoutes = require('./routes/cashier');
+const paymentRoutes = require('./routes/payment');
+const indexRoutes = require('./routes/index');
 
-// Serve HTML files
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.use('/user', userRoutes);
+app.use('/admin', adminRoutes);
+app.use('/cashier', cashierRoutes);
+app.use('/payment', paymentRoutes);
+app.use('/', indexRoutes);
+
+// Live notifications and messaging
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+  socket.on('send message', (msg) => {
+    io.emit('receive message', msg);
+  });
+  socket.on('send notification', (notification) => {
+    io.emit('receive notification', notification);
+  });
 });
 
-app.get('/admin', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
-});
+// Payment gateway integration
+// (Assuming you have setup for payment gateway, e.g., Stripe, Paystack, etc.)
+// ...
 
-app.get('/cashier', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'cashier.html'));
-});
-
-app.get('/user', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'user.html'));
-});
-
-app.get('/register', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'register.html'));
-});
-
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'login.html'));
-});
-
-app.get('/market', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'market.html'));
-});
-
-app.get('/payment', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'payment.html'));
-});
-
-app.get('/receipt', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'receipt.html'));
-});
-
-app.get('/blogs', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'blogs.html'));
-});
-
-// Error handling
-app.use((req, res, next) => {
-    res.status(404).send('Page not found');
-});
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+// Start the server
+const PORT = process.env.PORT || 3000;
+http.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 ```
 
-### Models
+### Updated `routes/index.js`
 
-#### models/product.js
-```javascript
-const mongoose = require('mongoose');
-
-const productSchema = new mongoose.Schema({
-    name: String,
-    category: String,
-    size: String,
-    quantity: Number,
-    price: Number,
-    imageUrl: String,
-    description: String,
-    vendor: String
-});
-
-module.exports = mongoose.model('Product', productSchema);
-```
-
-#### models/order.js
-```javascript
-const mongoose = require('mongoose');
-
-const orderSchema = new mongoose.Schema({
-    userId: mongoose.Schema.Types.ObjectId,
-    productList: [{ productId: mongoose.Schema.Types.ObjectId, quantity: Number }],
-    totalAmount: Number,
-    status: { type: String, default: 'Pending' },
-    paymentMethod: String,
-    orderDate: { type: Date, default: Date.now }
-});
-
-module.exports = mongoose.model('Order', orderSchema);
-```
-
-#### models/location.js
-```javascript
-const mongoose = require('mongoose');
-
-const locationSchema = new mongoose.Schema({
-    name: String,
-    address: String,
-    city: String,
-    state: String,
-    zipCode: String,
-    country: String,
-    coordinates: {
-        latitude: Number,
-        longitude: Number
-    }
-});
-
-module.exports = mongoose.model('Location', locationSchema);
-```
-
-### Routes
-
-#### routes/products.js
 ```javascript
 const express = require('express');
 const router = express.Router();
-const Product = require('../models/product');
 
-router.get('/', async (req, res) => {
-    try {
-        const products = await Product.find();
-        res.json(products);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
+// Route to home page
+router.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-router.post('/', async (req, res) => {
-    const product = new Product(req.body);
-    try {
-        const newProduct = await product.save();
-        res.status(201).json(newProduct);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
+// Other routes for the updated pages
+router.get('/products', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/market.html'));
 });
 
-router.put('/:id', async (req, res) => {
-    try {
-        const product = await Product.findById(req.params.id);
-        if (!product) return res.status(404).json({ message: 'Product not found' });
-
-        Object.assign(product, req.body);
-        await product.save();
-        res.json(product);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
+router.get('/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/user_dashboard.html'));
 });
 
-router.delete('/:id', async (req, res) => {
-    try {
-        const product = await Product.findById(req.params.id);
-        if (!product) return res.status(404).json({ message: 'Product not found' });
+router.get('/contact', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/contact.html'));
+});
 
-        await product.remove();
-        res.json({ message: 'Product deleted' });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
+router.get('/blogs', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/blogs.html'));
+});
+
+router.get('/payment', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/payment.html'));
+});
+
+router.get('/receipt', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/receipt.html'));
 });
 
 module.exports = router;
 ```
 
-#### routes/orders.js
+### Updated `routes/user.js`
+
 ```javascript
 const express = require('express');
 const router = express.Router();
-const Order = require('../models/order');
+const Product = require('../models/Product');
+const Order = require('../models/Order');
+const Notification = require('../models/Notification');
+const Message = require('../models/Message');
 
-router.get('/', async (req, res) => {
-    try {
-        const orders = await Order.find();
-        res.json(orders);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
+// User dashboard route
+router.get('/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/user_dashboard.html'));
 });
 
-router.post('/', async (req, res) => {
-    const order = new Order(req.body);
-    try {
-        const newOrder = await order.save();
-        res.status(201).json(newOrder);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
+// Cart operations
+router.post('/cart/add', (req, res) => {
+  const { productId, quantity } = req.body;
+  // Add product to user's cart logic
+  res.json({ success: true, message: 'Product added to cart' });
 });
 
-router.put('/:id', async (req, res) => {
-    try {
-        const order = await Order.findById(req.params.id);
-        if (!order) return res.status(404).json({ message: 'Order not found' });
-
-        Object.assign(order, req.body);
-        await order.save();
-        res.json(order);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
+// Live notifications and messaging
+router.post('/notifications', (req, res) => {
+  const { userId, message } = req.body;
+  const notification = new Notification({ userId, message });
+  notification.save().then(() => {
+    res.json({ success: true, message: 'Notification sent' });
+  });
 });
 
-router.delete('/:id', async (req, res) => {
-    try {
-        const order = await Order.findById(req.params.id);
-        if (!order) return res.status(404).json({ message: 'Order not found' });
-
-        await order.remove();
-        res.json({ message: 'Order deleted' });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
+router.post('/messages', (req, res) => {
+  const { senderId, receiverId, content } = req.body;
+  const message = new Message({ senderId, receiverId, content });
+  message.save().then(() => {
+    res.json({ success: true, message: 'Message sent' });
+  });
 });
 
 module.exports = router;
 ```
 
-#### routes/locations.js
+### Updated `routes/payment.js`
+
 ```javascript
 const express = require('express');
 const router = express.Router();
-const Location = require('../models/location');
+const Order = require('../models/Order');
+const Product = require('../models/Product');
+const Notification = require('../models/Notification');
+const Message = require('../models/Message');
 
-router.get('/', async (req, res) => {
-    try {
-        const locations = await Location.find();
-        res.json(locations);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
-
-router.post('/', async (req, res) => {
-    const location = new Location(req.body);
-    try {
-        const newLocation = await location.save();
-        res.status(201).json(newLocation);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
-});
-
-router.put('/:id', async (req, res) => {
-    try {
-        const location = await Location.findById(req.params.id);
-        if (!location) return res.status(404).json({ message: 'Location not found' });
-
-       
-
- Object.assign(location, req.body);
-        await location.save();
-        res.json(location);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
-});
-
-router.delete('/:id', async (req, res) => {
-    try {
-        const location = await Location.findById(req.params.id);
-        if (!location) return res.status(404).json({ message: 'Location not found' });
-
-        await location.remove();
-        res.json({ message: 'Location deleted' });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
+// Payment route
+router.post('/confirm', (req, res) => {
+  const { userId, products, totalAmount, paymentMethod } = req.body;
+  const newOrder = new Order({ userId, products, totalAmount, paymentMethod });
+  newOrder.save().then(() => {
+    // Notify admin and cashier
+    const notification = new Notification({
+      userId: 'admin',
+      message: `New payment received from user ${userId}`
+    });
+    notification.save().then(() => {
+      res.json({ success: true, message: 'Payment confirmed' });
+    });
+  });
 });
 
 module.exports = router;
 ```
 
-### Database Initialization Script
+### Example of Live Notification and Messaging Integration in `public/js/user_dashboard.js`
 
-#### scripts/dbInit.js
 ```javascript
-const mongoose = require('mongoose');
-require('dotenv').config();
+const socket = io();
 
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(() => {
-    console.log('MongoDB connected');
-    mongoose.connection.close();
-})
-.catch(err => console.log(err));
+// Handle sending and receiving messages
+document.getElementById('sendMessageBtn').addEventListener('click', () => {
+  const messageContent = document.getElementById('messageContent').value;
+  socket.emit('send message', messageContent);
+  document.getElementById('messageContent').value = '';
+});
+
+socket.on('receive message', (msg) => {
+  const messageList = document.getElementById('messageList');
+  const newMessage = document.createElement('li');
+  newMessage.textContent = msg;
+  messageList.appendChild(newMessage);
+});
+
+// Handle sending and receiving notifications
+socket.on('receive notification', (notification) => {
+  const notificationList = document.getElementById('notificationList');
+  const newNotification = document.createElement('li');
+  newNotification.textContent = notification;
+  notificationList.appendChild(newNotification);
+});
 ```
 
-### .env
-Make sure you have a `.env` file in the root directory with the following content:
+### Example Payment Gateway Integration in `public/js/payment.js`
+
+```javascript
+document.getElementById('confirmPaymentBtn').addEventListener('click', () => {
+  const paymentMethod = document.getElementById('paymentMethod').value;
+  const productId = document.getElementById('productId').value;
+  const quantity = document.getElementById('quantity').value;
+  const totalAmount = document.getElementById('totalAmount').value;
+
+  fetch('/payment/confirm', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      userId: 'currentUserId',
+      products: [{ productId, quantity }],
+      totalAmount,
+      paymentMethod,
+    }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      alert(data.message);
+      window.location.href = '/receipt';
+    } else {
+      alert('Payment failed, please try again.');
+    }
+  });
+});
 ```
+
+### HTML Updates
+
+#### Updated `payment.html`
+
+```html
 
 ```
 
-Now, your project is well-structured and should be functional with `app.js` handling the main server logic, and the rest of the code divided into models, routes, and scripts. You can run your app with `node app.js` or using a script defined in your `package.json`.
+#### Updated `receipt
+
+.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receipt</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Oladayo Enterprises Receipt</h1>
+  </header>
+  <main>
+    <table>
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Tracking ID</th>
+          <th>Product Number</th>
+          <th>Quantity</th>
+          <th>Size</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody id="receiptBody">
+        <!-- Receipt items will be populated here -->
+      </tbody>
+    </table>
+    <button type="button" id="printReceiptBtn">Print</button>
+  </main>
+  <footer>
+    <p>&copy; 2024 Oladayo Enterprises</p>
+  </footer>
+  <script>
+    document.getElementById('printReceiptBtn').addEventListener('click', () => {
+      window.print();
+    });
+  </script>
+</body>
+</html>
+```
+
+This should cover the new features and updates requested while maintaining the existing structure and functionality.

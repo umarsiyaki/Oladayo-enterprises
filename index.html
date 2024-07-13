@@ -13,59 +13,69 @@
     </div>
     <nav>
       <a href="/">Home</a>
-      <a href="/market">Products</a>
+      <a href="/products">Products</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/blogs">Blogs</a>
+      <a href="/contact">Contact</a>
       <input type="text" placeholder="Search products..." class="search-bar">
       <button type="button" class="search-btn">Search</button>
-      <a href="/login">Login</a> / <a href="/register">Register</a>
-      <a href="/cart">Cart</a>
-      <a href="/locate">Locate Store</a>
-      <a href="/user">Dashboard</a>
-      <a href="/blogs">Blogs</a>
+      <a href="/login" class="login-btn">Login/Register</a>
+      <a href="/cart" class="cart-btn">Cart</a>
+      <a href="/locate-store" class="locate-store-btn">Locate Store</a>
     </nav>
   </header>
-  <main>
-    <section class="slideshow">
-      <div class="slides">
-        <!-- Slides will be dynamically inserted here -->
-        <img src="assets/images/slide1.jpg" alt="Slide 1">
-        <img src="assets/images/slide2.jpg" alt="Slide 2">
-        <img src="assets/images/slide3.jpg" alt="Slide 3">
+
+  <section id="slideshow">
+    <!-- Slideshow content goes here -->
+  </section>
+
+  <section id="about-us">
+    <h2>About Us</h2>
+    <p>We are the number 1 Kaiama soft drinks wholesale supplier. Our extensive range of products ensures that you have a variety of options to choose from. We pride ourselves on providing top-notch service and quality products to our customers. Our commitment to excellence has made us a trusted name in the industry. Come experience the best in soft drink wholesale supplies with Oladayo Enterprises.</p>
+  </section>
+
+  <section id="happy-customers">
+    <h2>Happy Customers</h2>
+    <div class="customer-cards">
+      <div class="customer-card">
+        <p>"Oladayo Enterprises always delivers quality products on time. I highly recommend them!"</p>
+        <span>- John Doe</span>
       </div>
-    </section>
-    <section class="about-us">
-      <h2>About Us</h2>
-      <p>We are the number 1 Kaiama soft drinks wholesale supplier, providing the best quality beverages at competitive prices. Our mission is to offer a wide range of products to meet the diverse needs of our customers, ensuring satisfaction and convenience. With a dedicated team and a robust supply chain, we aim to be your trusted partner in the beverage industry.</p>
-    </section>
-    <section class="contact">
-      <h2>Contact Us</h2>
-      <form>
-        <div class="form-group">
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="name">
-        </div>
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email">
-        </div>
-        <div class="form-group">
-          <label for="message">Message:</label>
-          <textarea id="message" name="message"></textarea>
-        </div>
-        <button type="submit">Send</button>
-      </form>
-    </section>
-  </main>
+      <div class="customer-card">
+        <p>"The best wholesale supplier I have ever dealt with. Great prices and excellent customer service."</p>
+        <span>- Jane Smith</span>
+      </div>
+      <div class="customer-card">
+        <p>"Their product range is fantastic. I can always find what I need for my store."</p>
+        <span>- Mike Johnson</span>
+      </div>
+      <div class="customer-card">
+        <p>"Reliable, efficient, and always friendly. I couldn't ask for more."</p>
+        <span>- Sarah Williams</span>
+      </div>
+      <div class="customer-card">
+        <p>"Top-notch service and products. Oladayo Enterprises is my go-to supplier."</p>
+        <span>- David Brown</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>For any inquiries or orders, please reach out to us at:</p>
+    <p>Email: contact@oladayoenterprises.com</p>
+    <p>Phone: +234 123 456 7890</p>
+    <p>Address: 123 Kaiama Street, Lagos, Nigeria</p>
+  </section>
+
   <footer>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/market">Products</a>
-      <a href="/contact">Contact</a>
-      <a href="/about">About Us</a>
-      <a href="/privacy">Privacy Policy</a>
-      <a href="/terms">Terms of Service</a>
-    </nav>
+    <div class="footer-links">
+      <a href="/privacy-policy">Privacy Policy</a>
+      <a href="/terms-of-service">Terms of Service</a>
+      <a href="/faq">FAQ</a>
+      <a href="/support">Support</a>
+    </div>
     <p>&copy; 2024 Oladayo Enterprises</p>
   </footer>
-  <script src="assets/js/index.js"></script>
 </body>
 </html>

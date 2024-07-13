@@ -71,7 +71,116 @@
           <button type="submit" class="btn">Add Product</button>
         </form>
       </section>
+<section id="product-calculator">
+  <h2>Product Calculator</h2>
+  <div class="form-group">
+    <label for="product-name">Product Name:</label>
+    <select id="product-name">
+      <option value="coke">Coke</option>
+      <option value="lucizade">Lucizade</option>
+      <option value="pepsi">Pepsi</option>
+      <option value="fearless">Fearless</option>
+      <option value="fantastic">Fantastic</option>
+      <option value="pulpy">Pulpy</option>
+      <option value="5alive">5Alive</option>
+      <option value="v-cool">V-Cool</option>
+      <option value="viju-chocolate">Viju Chocolate</option>
+      <option value="viju-pineapple-juice">Viju Pineapple Juice</option>
+      <option value="viju-apple">Viju Apple</option>
+      <option value="viju-water">Viju Water</option>
+      <option value="maltina">Maltina</option>
+      <option value="exotics">Exotics</option>
+      <option value="holandia">Holandia</option>
+      <option value="viju-youghort">Viju Youghort</option>
+      <option value="peak-youghort">Peak Youghort</option>
+      <option value="smoove">Smoove</option>
+      <option value="7up">7Up</option>
+      <option value="bigi-apple">Bigi Apple</option>
+      <option value="bigi-tropical">Bigi Tropical</option>
+      <option value="bigi-chapman">Bigi Chapman</option>
+      <option value="bigi-fantastic">Bigi Fantastic</option>
+      <option value="sprite">Sprite</option>
+      <option value="team">Team</option>
+      <option value="limca">Limca</option>
+      <option value="schweppes">Schweppes</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="category">Category:</label>
+    <select id="category">
+      <option value="cook">Cook</option>
+      <option value="orange">Orange</option>
+      <option value="tropical">Tropical</option>
+      <option value="chapman">Chapman</option>
+      <option value="strawberry">Strawberry</option>
+      <option value="youghort">Youghort</option>
+      <option value="maltina">Maltina</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="size">Size:</label>
+    <select id="size">
+      <option value="big">Big</option>
+      <option value="small">Small</option>
+      <option value="medium">Medium</option>
+      <option value="1liter">1 Liter</option>
+      <option value="50cl">50cl</option>
+      <option value="40cl">40cl</option>
+      <option value="35cl">35cl</option>
+      <option value="60cl">60cl</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="type">Type:</label>
+    <select id="type">
+      <option value="youghort">Youghort</option>
+      <option value="energy-drinks">Energy Drinks</option>
+      <option value="maltina">Maltina</option>
+      <option value="water">Water</option>
+      <option value="lemon-juice">Lemon Juice</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price">
+  </div>
+  <div class="form-group">
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" value="1" min="1">
+  </div>
+  <div class="form-group">
+    <button id="count-add-btn">+</button>
+    <button id="count-subtract-btn">-</button>
+    <button id="count-multiply-btn">*</button>
+  </div>
+  <div class="form-group">
+    <button id="update-product-btn">Update Product Details</button>
+  </div>
+  <div class="form-group">
+    <p id="total-products">Total Products: 0</p>
+    <p id="updated-details">Updated Details: N/A</p>
+  </div>
+</section>
 
+<!--notification button-->
+
+<div class="notification-bell">
+  <img src="assets/images/bell-icon.png" alt="Notifications">
+  <div id="notifications" class="notifications-dropdown">
+    <!-- Notifications will be dynamically inserted here -->
+  </div>
+</div>
+<div class="messaging">
+  <button id="open-messaging-btn">Messages</button>
+  <div id="messaging-window" class="messaging-window">
+    <div id="messages" class="messages">
+      <!-- Messages will be dynamically inserted here -->
+    </div>
+    <input type="text" id="message-input" placeholder="Type your message...">
+    <button id="send-message-btn">Send</button>
+  </div>
+</div>
+<!--add cashier-->
       <section id="add-cashier-section" class="section">
         <h2>Add Cashier</h2>
         <form id="add-cashier-form">
@@ -110,6 +219,7 @@
         </form>
       </section>
     </section>
+    
   </main>
   <footer>
     <p>&copy; 2024 Oladayo Enterprises</p>
