@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Dashboard</title>
   <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .message-area {
+      display: none;
+      margin: 20px 0;
+    }
+    .message-area.show {
+      display: block;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -22,6 +31,7 @@
           <a href="#contact-sales">Contact Sales</a>
           <a href="#tickets">Tickets</a>
           <a href="#notifications">Notifications</a>
+          <a href="#message-area">Messages</a>
         </div>
       </div>
     </nav>
@@ -34,8 +44,10 @@
       <li><a href="#contact-sales">Contact Sales</a></li>
       <li><a href="#tickets">Tickets</a></li>
       <li><a href="#notifications">Notifications</a></li>
+      <li><a href="#message-area">Messages</a></li>
     </ul>
   </aside>
+
   <main>
     <section id="wallet">
       <h2>Wallet</h2>
@@ -61,6 +73,38 @@
   <footer>
     <p>&copy; 2024 Oladayo Enterprises</p>
   </footer>
-  <script src="assets/js/user.js"></script>
+  <script>
+    document.getElementById('message-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      var messageContent = document.getElementById('message-content').value;
+      
+      // Simulate sending a message (replace this with actual message sending logic)
+      setTimeout(function() {
+        var messagesDiv = document.getElementById('messages');
+        var newMessage = document.createElement('div');
+        newMessage.textContent = 'You: ' + messageContent;
+        messagesDiv.appendChild(newMessage);
+        
+        document.getElementById('message-content').value = '';
+        
+        // Show the message area
+        document.getElementById('message-area').classList.add('show');
+      }, 500);
+    });
+
+    // Simulate receiving a message
+    setTimeout(function() {
+      var messagesDiv = document.getElementById('messages');
+      var newMessage = document.createElement('div');
+      newMessage.textContent = 'Admin: Hello, how can we assist you?';
+      messagesDiv.appendChild(newMessage);
+      
+      // Show the message area
+      document.getElementById('message-area').classList.add('show');
+    }, 2000);
+  </script>
+    <script src="assets/js/user.js"></script>
+  <script src="assets/js/cart.js"></script>
 </body>
 </html>
+

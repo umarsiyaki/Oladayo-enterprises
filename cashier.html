@@ -5,62 +5,229 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cashier Dashboard</title>
   <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .section {
+      display: none;
+    }
+    .section.show {
+      display: block;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <img src="assets/images/logo.png" alt="Logo" class="logo">
+    <div class="logo-container">
+      <img src="assets/images/logo.png" alt="Logo" class="logo">
+    </div>
     <nav>
       <a href="/">Home</a>
+      <a href="/cashier">Dashboard</a>
       <a href="/market">Market</a>
       <a href="/blogs">Blogs</a>
       <a href="/contact">Contact</a>
-      <div class="dropdown">
-        <button class="dropbtn">Cashier Menu</button>
-        <div class="dropdown-content">
-          <a href="#sales-orders">Sales & Orders</a>
-          <a href="#payments">Payments</a>
-          <a href="#delivery-tracking">Delivery Tracking</a>
-          <a href="#contact-admin">Contact Admin</a>
-          <a href="#notifications">Notifications</a>
-        </div>
-      </div>
     </nav>
   </header>
-  <aside class="sidebar">
-    <h2>Cashier Menu</h2>
-    <ul>
-      <li><a href="#sales-orders">Sales & Orders</a></li>
-      <li><a href="#payments">Payments</a></li>
-      <li><a href="#delivery-tracking">Delivery Tracking</a></li>
-      <li><a href="#contact-admin">Contact Admin</a></li>
-      <li><a href="#notifications">Notifications</a></li>
-    </ul>
-  </aside>
-  <main>
-    <section id="sales-orders">
-      <h2>Sales & Orders</h2>
-      <!-- Content for monitoring sales and orders -->
+ <h2>Cart</h2>
+ <ul id="cart-items">
+   <!-- Cart items will be dynamically inserted here -->
+ </ul>
+ <button id="checkout-btn">Checkout</button>
+ </aside>
+ <main>
+   <section id="wallet">
+     <h2>Wallet</h2>
+     <!-- Content for wallet -->
+   </section>
+   <section id="order-tracking">
+     <h2>Order Tracking</h2>
+     <!-- Content for tracking orders -->
+   </section>
+   <section id="contact-sales">
+     <h2>Contact Sales</h2>
+     <!-- Content for contacting sales department -->
+   </section>
+   <section id="tickets">
+     <h2>Tickets</h2>
+     <!-- Content for creating and managing tickets -->
+   </section>
+   <section id="notifications">
+     <h2>Notifications</h2>
+     <!-- Content for notifications -->
+   </section>
+    <aside>
+      <ul>
+        <li><a href="#add-product-section" class="nav-link">Add Product</a></li>
+        <li><a href="#message-user-section" class="nav-link">Message User</a></li>
+      </ul>
+    </aside>
+    <section id="cashier-content">
+      <h2>Cashier Dashboard</h2>
+      <p>Welcome to the cashier dashboard. Use the links in the sidebar to manage your tasks.</p>
+      
+      <section id="add-product-section" class="section">
+        <h2>Add Product</h2>
+        <form id="add-product-form">
+          <div class="form-group">
+            <label for="product-name">Product Name</label>
+            <input type="text" id="product-name" name="product-name" required>
+          </div>
+          <div class="form-group">
+            <label for="product-category">Category</label>
+            <input type="text" id="product-category" name="product-category" required>
+          </div>
+          <div class="form-group">
+            <label for="product-size">Size</label>
+            <input type="text" id="product-size" name="product-size" required>
+          </div>
+          <div class="form-group">
+            <label for="product-quantity">Quantity</label>
+            <input type="number" id="product-quantity" name="product-quantity" required>
+          </div>
+          <div class="form-group">
+            <label for="product-price">Price</label>
+            <input type="text" id="product-price" name="product-price" required>
+          </div>
+          <div class="form-group">
+            <label for="product-image">Product Image</label>
+            <input type="file" id="product-image" name="product-image" required>
+          </div>
+          <button type="submit" class="btn">Add Product</button>
+        </form>
+      </section>
+
+      <section id="message-user-section" class="section">
+        <h2>Message User</h2>
+        <form id="message-user-form">
+          <div class="form-group">
+            <label for="user-email">User Email</label>
+            <input type="email" id="user-email" name="user-email" required>
+          </div>
+          <div class="form-group">
+            <label for="message-subject">Subject</label>
+            <input type="text" id="message-sub
+
+ject" name="message-subject" required>
+          </div>
+          <div class="form-group">
+            <label for="message-content">Message</label>
+            <textarea id="message-content" name="message-content" required></textarea>
+          </div>
+          <button type="submit" class="btn">Send Message</button>
+        </form>
+      </section>
     </section>
-    <section id="payments">
-      <h2>Payments</h2>
-      <!-- Content for handling payments -->
-    </section>
-    <section id="delivery-tracking">
-      <h2>Delivery Tracking</h2>
-      <!-- Content for tracking deliveries -->
-    </section>
-    <section id="contact-admin">
-      <h2>Contact Admin</h2>
-      <!-- Content for contacting admin -->
-    </section>
-    <section id="notifications">
-      <h2>Notifications</h2>
-      <!-- Content for notifications -->
-    </section>
+<section id="product-calculator">
+  <h2>Product Calculator</h2>
+  <div class="form-group">
+    <label for="product-name">Product Name:</label>
+    <select id="product-name">
+      <option value="coke">Coke</option>
+      <option value="lucizade">Lucizade</option>
+      <option value="pepsi">Pepsi</option>
+      <option value="fearless">Fearless</option>
+      <option value="fantastic">Fantastic</option>
+      <option value="pulpy">Pulpy</option>
+      <option value="5alive">5Alive</option>
+      <option value="v-cool">V-Cool</option>
+      <option value="viju-chocolate">Viju Chocolate</option>
+      <option value="viju-pineapple-juice">Viju Pineapple Juice</option>
+      <option value="viju-apple">Viju Apple</option>
+      <option value="viju-water">Viju Water</option>
+      <option value="maltina">Maltina</option>
+      <option value="exotics">Exotics</option>
+      <option value="holandia">Holandia</option>
+      <option value="viju-youghort">Viju Youghort</option>
+      <option value="peak-youghort">Peak Youghort</option>
+      <option value="smoove">Smoove</option>
+      <option value="7up">7Up</option>
+      <option value="bigi-apple">Bigi Apple</option>
+      <option value="bigi-tropical">Bigi Tropical</option>
+      <option value="bigi-chapman">Bigi Chapman</option>
+      <option value="bigi-fantastic">Bigi Fantastic</option>
+      <option value="sprite">Sprite</option>
+      <option value="team">Team</option>
+      <option value="limca">Limca</option>
+      <option value="schweppes">Schweppes</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="category">Category:</label>
+    <select id="category">
+      <option value="cook">Cook</option>
+      <option value="orange">Orange</option>
+      <option value="tropical">Tropical</option>
+      <option value="chapman">Chapman</option>
+      <option value="strawberry">Strawberry</option>
+      <option value="youghort">Youghort</option>
+      <option value="maltina">Maltina</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="size">Size:</label>
+    <select id="size">
+      <option value="big">Big</option>
+      <option value="small">Small</option>
+      <option value="medium">Medium</option>
+      <option value="1liter">1 Liter</option>
+      <option value="50cl">50cl</option>
+      <option value="40cl">40cl</option>
+      <option value="35cl">35cl</option>
+      <option value="60cl">60cl</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="type">Type:</label>
+    <select id="type">
+      <option value="youghort">Youghort</option>
+      <option value="energy-drinks">Energy Drinks</option>
+      <option value="maltina">Maltina</option>
+      <option value="water">Water</option>
+      <option value="lemon-juice">Lemon Juice</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price">
+  </div>
+  <div class="form-group">
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" value="1" min="1">
+  </div>
+  <div class="form-group">
+    <button id="count-add-btn">+</button>
+    <button id="count-subtract-btn">-</button>
+    <button id="count-multiply-btn">*</button>
+  </div>
+  <div class="form-group">
+    <button id="update-product-btn">Update Product Details</button>
+  </div>
+  <div class="form-group">
+    <p id="total-products">Total Products: 0</p>
+    <p id="updated-details">Updated Details: N/A</p>
+  </div>
+</section>
   </main>
   <footer>
     <p>&copy; 2024 Oladayo Enterprises</p>
   </footer>
-  <script src="assets/js/cashier.js"></script>
+  <script>
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function(event) {
+        event.preventDefault();
+        document.querySelectorAll('.section').forEach(section => section.classList.remove('show'));
+        const targetSection = document.querySelector(this.getAttribute('href'));
+        if (targetSection) {
+          targetSection.classList.add('show');
+        }
+      });
+    });
+
+    // Simulate receiving a message
+    setTimeout(function() {
+      document.querySelector('#message-user-section').classList.add('show');
+    }, 2000);
+  </script>
+    <script src="assets/js/user.js"></script>
+  <script src="assets/js/cart.js"></script>
 </body>
 </html>

@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receipt</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <header>
+    <img src="assets/images/logo.png" alt="Logo" class="logo">
+    <nav>
+      <a href="/">Home</a>
+      <a href="/market">Market</a>
+      <a href="/blogs">Blogs</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <section id="receipt">
+      <h2>Oladayo Enterprises</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Tracking ID</th>
+            <th>Product Number</th>
+            <th>Quantities</th>
+            <th>Size</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody id="receipt-items">
+          <!-- Receipt items will be dynamically inserted here -->
+        </tbody>
+      </table>
+      <button id="print-receipt-btn">Print Receipt</button>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2024 Oladayo Enterprises</p>
+  </footer>
+  <script src="assets/js/receipt.js"></script>
+  
+  <script>
+    document.getElementById('printReceiptBtn').addEventListener('click', () => {
+      window.print();
+    });
+  </script>
+</body>
+</html>

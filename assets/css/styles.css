@@ -1,12 +1,83 @@
 /* General Styles */
+
+
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background-color: #f9f9f9;
-  color: #333;
+  font-family: 'Roboto', sans-serif;
+  background-color: silver;
 }
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.product-card {
+  background-color: rgba(192, 192, 255, 0.5);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 15px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.product-card img {
+  border-radius: 50%;
+  border: 3px solid silver;
+  width: 150px;
+  height: 150px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 10px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+}
+
+.navbar a:hover {
+  background-color: #575757;
+  border-radius: 5px;
+}
+
+@media (max-width: 600px) {
+  .product-card {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .navbar a {
+    padding: 6px 12px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .product-card {
+    width: 48%;
+    padding: 15px;
+  }
+
+  .navbar a {
+    padding: 7px 14px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .product-card {
+    width: 30%;
+    padding: 20px;
+  }
+}
+  .navbar a {
+    padding: 8px 16px;
+  }
+
 
 header {
   display: flex;
@@ -406,4 +477,135 @@ footer {
 
 .btn:hover {
   background-color: #45a049;
+}
+
+.notifications-dropdown {
+display: none;
+position: absolute;
+right: 0;
+background: white;
+border: 1px solid #ccc;
+width: 200px;
+box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.notification-bell:hover .notifications-dropdown {
+display: block;
+}
+.notification {
+padding: 10px;
+border-bottom: 1px solid #eee;
+}
+.messaging-window {
+display: none;
+position: fixed;
+bottom: 0;
+right: 0;
+background: white;
+border: 1px solid #ccc;
+width: 300px;
+height: 400px;
+box-shadow: 0 0 10px rgba(0,0,0,0.1);
+padding: 10px;
+}
+.messaging-window.open {
+display: block;
+}
+.messages {
+overflow-y: auto;
+height: 300px;
+}
+.message {
+padding: 5px;
+border-bottom: 1px solid #eee;
+}
+
+#product-calculator {
+margin: 20px 0;
+}
+#product-calculator .form-group {
+margin-bottom: 15px;
+}
+#product-calculator .form-group label {
+display: block;
+margin-bottom: 5px;
+}
+#product-calculator .form-group select,
+#product-calculator .form-group input {
+width: 100%;
+padding: 8px;
+box-sizing: border-box;
+}
+#product-calculator .form-group button {
+padding: 8px 12px;
+margin-right: 5px;
+}
+#product-calculator .form-group p {
+margin: 10px 0;
+}
+
+#happy-customers {
+  margin: 40px 0;
+}
+
+.customer-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.customer-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  width: 200px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.customer-card p {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.customer-card span {
+  display: block;
+  font-weight: bold;
+  text-align: right;
+}
+
+
+#product-calculator {
+  margin: 20px 0;
+}
+
+#product-calculator-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+#product-calculator-container .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+#product-calculator-container .form-group label {
+  margin-bottom: 5px;
+}
+
+#product-calculator-container .form-group select,
+#product-calculator-container .form-group input,
+#product-calculator-container .form-group button {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+#product-calculator-container .form-group button {
+  margin-top: 10px;
+}
+
+#product-calculator-container .form-group p {
+  margin: 10px 0;
 }
