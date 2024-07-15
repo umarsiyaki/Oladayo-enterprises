@@ -38,6 +38,17 @@ document.addEventListener('DOMContentLoaded', function() {
       quantity: parseInt(quantity.value)
     };
 
+    // Order completion logic
+function completeOrder(orderDetails) {
+  // Notify admin and cashier
+  const notificationMessage = `New order from ${orderDetails.username}. Order ID: ${orderDetails.id}`;
+  socket.emit('send notification', notificationMessage);
+
+  // Show the receipt
+  showReceipt(orderDetails);
+}
+
+
     totalQuantity += productDetails.quantity;
 
     totalProducts.textContent = `Total Products: ${totalQuantity}`;

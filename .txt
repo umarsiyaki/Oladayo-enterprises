@@ -3,213 +3,31 @@ Sure! I'll provide the updates to `app.js` and the necessary route files to inco
 ### Updated `app.js`
 
 ```javascript
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const session = require('express-session');
-const { check, validationResult } = require('express-validator');
 
-// MongoDB connection
-mongoose.connect('mongodb://localhost/oladayo_ventures', { useNewUrlParser: true, useUnifiedTopology: true });
-
-// Models
-const User = require('./models/User');
-const Product = require('./models/Product');
-const Order = require('./models/Order');
-const Notification = require('./models/Notification');
-const Message = require('./models/Message');
-
-// App initialization
-const app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(session({
-  secret: 'secret',
-  resave: true,
-  saveUninitialized: true
-}));
-
-// Static files
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Routes
-const userRoutes = require('./routes/user');
-const adminRoutes = require('./routes/admin');
-const cashierRoutes = require('./routes/cashier');
-const paymentRoutes = require('./routes/payment');
-const indexRoutes = require('./routes/index');
-
-app.use('/user', userRoutes);
-app.use('/admin', adminRoutes);
-app.use('/cashier', cashierRoutes);
-app.use('/payment', paymentRoutes);
-app.use('/', indexRoutes);
-
-// Live notifications and messaging
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
-
-io.on('connection', (socket) => {
-  console.log('a user connected');
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-  socket.on('send message', (msg) => {
-    io.emit('receive message', msg);
-  });
-  socket.on('send notification', (notification) => {
-    io.emit('receive notification', notification);
-  });
-});
-
-// Payment gateway integration
-// (Assuming you have setup for payment gateway, e.g., Stripe, Paystack, etc.)
-// ...
-
-// Start the server
-const PORT = process.env.PORT || 3000;
-http.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
 ```
 
 ### Updated `routes/index.js`
 
 ```javascript
-const express = require('express');
-const router = express.Router();
 
-// Route to home page
-router.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'));
-});
-
-// Other routes for the updated pages
-router.get('/products', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/market.html'));
-});
-
-router.get('/dashboard', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/user_dashboard.html'));
-});
-
-router.get('/contact', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/contact.html'));
-});
-
-router.get('/blogs', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/blogs.html'));
-});
-
-router.get('/payment', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/payment.html'));
-});
-
-router.get('/receipt', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/receipt.html'));
-});
-
-module.exports = router;
 ```
 
 ### Updated `routes/user.js`
 
 ```javascript
-const express = require('express');
-const router = express.Router();
-const Product = require('../models/Product');
-const Order = require('../models/Order');
-const Notification = require('../models/Notification');
-const Message = require('../models/Message');
 
-// User dashboard route
-router.get('/dashboard', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/user_dashboard.html'));
-});
-
-// Cart operations
-router.post('/cart/add', (req, res) => {
-  const { productId, quantity } = req.body;
-  // Add product to user's cart logic
-  res.json({ success: true, message: 'Product added to cart' });
-});
-
-// Live notifications and messaging
-router.post('/notifications', (req, res) => {
-  const { userId, message } = req.body;
-  const notification = new Notification({ userId, message });
-  notification.save().then(() => {
-    res.json({ success: true, message: 'Notification sent' });
-  });
-});
-
-router.post('/messages', (req, res) => {
-  const { senderId, receiverId, content } = req.body;
-  const message = new Message({ senderId, receiverId, content });
-  message.save().then(() => {
-    res.json({ success: true, message: 'Message sent' });
-  });
-});
-
-module.exports = router;
 ```
 
 ### Updated `routes/payment.js`
 
 ```javascript
-const express = require('express');
-const router = express.Router();
-const Order = require('../models/Order');
-const Product = require('../models/Product');
-const Notification = require('../models/Notification');
-const Message = require('../models/Message');
 
-// Payment route
-router.post('/confirm', (req, res) => {
-  const { userId, products, totalAmount, paymentMethod } = req.body;
-  const newOrder = new Order({ userId, products, totalAmount, paymentMethod });
-  newOrder.save().then(() => {
-    // Notify admin and cashier
-    const notification = new Notification({
-      userId: 'admin',
-      message: `New payment received from user ${userId}`
-    });
-    notification.save().then(() => {
-      res.json({ success: true, message: 'Payment confirmed' });
-    });
-  });
-});
-
-module.exports = router;
 ```
 
 ### Example of Live Notification and Messaging Integration in `public/js/user_dashboard.js`
 
 ```javascript
-const socket = io();
 
-// Handle sending and receiving messages
-document.getElementById('sendMessageBtn').addEventListener('click', () => {
-  const messageContent = document.getElementById('messageContent').value;
-  socket.emit('send message', messageContent);
-  document.getElementById('messageContent').value = '';
-});
-
-socket.on('receive message', (msg) => {
-  const messageList = document.getElementById('messageList');
-  const newMessage = document.createElement('li');
-  newMessage.textContent = msg;
-  messageList.appendChild(newMessage);
-});
-
-// Handle sending and receiving notifications
-socket.on('receive notification', (notification) => {
-  const notificationList = document.getElementById('notificationList');
-  const newNotification = document.createElement('li');
-  newNotification.textContent = notification;
-  notificationList.appendChild(newNotification);
-});
 ```
 
 ### Example Payment Gateway Integration in `public/js/payment.js`

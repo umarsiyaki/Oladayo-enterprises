@@ -29,4 +29,13 @@ document.addEventListener('DOMContentLoaded', function() {
   // Example product to add to cart
   addToCart({ name: 'Coca-Cola', quantity: 1, price: 1.5 });
 });
+// Order completion logic
+function completeOrder(orderDetails) {
+  // Notify admin and cashier
+  const notificationMessage = `New order from ${orderDetails.username}. Order ID: ${orderDetails.id}`;
+  socket.emit('send notification', notificationMessage);
+
+  // Show the receipt
+  showReceipt(orderDetails);
+}
 

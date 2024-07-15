@@ -109,3 +109,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Use fetch or another method to send the data to the server
   }
 });
+// Order completion logic
+function completeOrder(orderDetails) {
+  // Notify admin and cashier
+  const notificationMessage = `New order from ${orderDetails.username}. Order ID: ${orderDetails.id}`;
+  socket.emit('send notification', notificationMessage);
+
+  // Show the receipt
+  showReceipt(orderDetails);
+}
