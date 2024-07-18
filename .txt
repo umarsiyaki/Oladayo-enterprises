@@ -1,121 +1,122 @@
-Sure! I'll provide the updates to `app.js` and the necessary route files to incorporate the new features. This includes adding routes for the updated HTML pages, handling product calculations, live notifications, messaging, and payment gateways.
+To create the HTML structure based on your requirements for the admin, cashier, and user dashboards, let's break down the design approach and elements needed for each section.
 
-### Updated `app.js`
-
-```javascript
-
-```
-
-### Updated `routes/index.js`
-
-```javascript
-
-```
-
-### Updated `routes/user.js`
-
-```javascript
-
-```
-
-### Updated `routes/payment.js`
-
-```javascript
-
-```
-
-### Example of Live Notification and Messaging Integration in `public/js/user_dashboard.js`
-
-```javascript
-
-```
-
-### Example Payment Gateway Integration in `public/js/payment.js`
-
-```javascript
-document.getElementById('confirmPaymentBtn').addEventListener('click', () => {
-  const paymentMethod = document.getElementById('paymentMethod').value;
-  const productId = document.getElementById('productId').value;
-  const quantity = document.getElementById('quantity').value;
-  const totalAmount = document.getElementById('totalAmount').value;
-
-  fetch('/payment/confirm', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      userId: 'currentUserId',
-      products: [{ productId, quantity }],
-      totalAmount,
-      paymentMethod,
-    }),
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      alert(data.message);
-      window.location.href = '/receipt';
-    } else {
-      alert('Payment failed, please try again.');
-    }
-  });
-});
-```
-
-### HTML Updates
-
-#### Updated `payment.html`
-
-```html
-
-```
-
-#### Updated `receipt
-
-.html`
+### Admin Dashboard HTML Structure
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Receipt</title>
-  <link rel="stylesheet" href="assets/css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Include CSS files -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Oladayo Enterprises Receipt</h1>
-  </header>
-  <main>
-    <table>
-      <thead>
-        <tr>
-          <th>Product Name</th>
-          <th>Tracking ID</th>
-          <th>Product Number</th>
-          <th>Quantity</th>
-          <th>Size</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody id="receiptBody">
-        <!-- Receipt items will be populated here -->
-      </tbody>
-    </table>
-    <button type="button" id="printReceiptBtn">Print</button>
-  </main>
-  <footer>
-    <p>&copy; 2024 Oladayo Enterprises</p>
-  </footer>
-  <script>
-    document.getElementById('printReceiptBtn').addEventListener('click', () => {
-      window.print();
-    });
-  </script>
+    <!-- Logo and Navbar -->
+    <header>
+        <div class="logo">
+            <!-- Your logo image or text -->
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">Sales</a></li>
+                <li><a href="#">Reports</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Side Menu -->
+    <aside class="side-menu">
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Cashiers</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Orders</a></li>
+            <li><a href="#">Notifications</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Welcome Message -->
+        <section class="welcome">
+            <h1>Welcome, Admin!</h1>
+            <!-- Additional information or statistics can be added here -->
+        </section>
+
+        <!-- Track Business Records -->
+        <section class="business-records">
+            <h2>Business Records</h2>
+            <!-- Display and track business records information -->
+        </section>
+
+        <!-- Track Cashier Performance -->
+        <section class="cashier-performance">
+            <h2>Cashier Performance</h2>
+            <!-- Display and track cashier performance information -->
+        </section>
+
+        <!-- Track Products -->
+        <section class="track-products">
+            <h2>Track Products</h2>
+            <!-- Display product information, trends, stock alerts, etc. -->
+        </section>
+
+        <!-- Calculate Gain or Loss -->
+        <section class="calculate-gain-loss">
+            <h2>Calculate Gain/Loss</h2>
+            <!-- Display calculations for the last 31 days -->
+        </section>
+
+        <!-- Add/Remove Cashier -->
+        <section class="add-remove-cashier">
+            <h2>Add/Remove Cashier</h2>
+            <!-- Form to add or remove cashiers -->
+        </section>
+
+        <!-- Add New Product -->
+        <section class="add-new-product">
+            <h2>Add New Product</h2>
+            <!-- Form to add new products with fields like ID, vendor, category, size, quantity, price, description -->
+        </section>
+
+        <!-- Print/Send Receipt -->
+        <section class="print-send-receipt">
+            <h2>Print/Send Receipt</h2>
+            <!-- Option to print or send receipts -->
+        </section>
+
+        <!-- Update Product Information -->
+        <section class="update-product-info">
+            <h2>Update Product Information</h2>
+            <!-- Form to update product details such as price, size, vendor, category, quality -->
+        </section>
+
+        <!-- Notifications -->
+        <section class="notifications">
+            <h2>Notifications</h2>
+            <!-- Display notifications for orders, stock alerts, etc. -->
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <!-- Footer content -->
+    </footer>
+
+    <!-- Include JavaScript files -->
+    <script src="admin.js"></script>
 </body>
 </html>
 ```
 
-This should cover the new features and updates requested while maintaining the existing structure and functionality.
+### Cashier Dashboard and User Dashboard
+
+For the Cashier and User dashboards, you would follow a similar structure but tailor it to their specific tasks and needs as outlined in your previous messages. You can use the above structure as a template and modify sections, styles, and functionalities accordingly.
+
+If you need further assistance with specific sections or functionalities (like dynamic product adding, notifications, etc.), feel free to ask!
