@@ -46,7 +46,7 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
                 <a href="index.html" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>DarkPan</h3>
+                    <h5 class="text-primary"><img src="assets/images/logo.png" alt="logo" style="height: 3rem; width: 3rem;">oladayo enterprises</h5>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
@@ -441,7 +441,7 @@ rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40
                 <div class="bg-secondary rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                            &copy; <a href="#">oladayo enterprises</a>, All Right Reserved. 
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!-- This template is free to use as long as you don't remove the back link. -->
@@ -471,6 +471,41 @@ rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+       <!-- Bootstrap JS and dependencies -->
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.3/umd/popper.min.js"></script>
+       <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+       <!-- Chart.js for charts -->
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+       <!-- Custom script for charts -->
+       <script>
+           // Sample data for the chart
+           const salesData = {
+               labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+               datasets: [{
+                   label: 'Sales',
+                   data: [50, 60, 70, 80, 90, 100],
+                   backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                   borderColor: 'rgba(75, 192, 192, 1)',
+                   borderWidth: 1
+               }]
+           };
+   
+           // Chart configuration
+           const salesConfig = {
+               type: 'line',
+               data: salesData,
+               options: {
+                   scales: {
+                       y: {
+                           beginAtZero: true
+                       }
+                   }
+               }
+           };
+   
+           // Initialize the chart
+           var salesChart = new Chart(document.getElementById('salesChart'), salesConfig);
+       </script>
     <script src="assets/js/marketing.js"></script>
     <script src="assets/js/receipt.js"></script>
     <script src="assets/js/cashier.js"></script>
@@ -492,3 +527,7 @@ rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40
 </body>
 
 </html>
+
+
+
+

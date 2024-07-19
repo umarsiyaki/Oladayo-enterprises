@@ -1,6 +1,4 @@
 const express = require('express');
-const router = express.Router();
-const Product = require('../models/product');
 
 router.get('/', async (req, res) => {
   try {
@@ -66,7 +64,6 @@ module.exports = mongoose.model('Product', productSchema);
 
 
 const express = require('express');
-const Product = require('../models/product');
 
 const router = express.Router();
 

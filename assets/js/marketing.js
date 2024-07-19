@@ -157,3 +157,97 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initial fetch to display products
   fetchProducts();
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Sidebar
+  const sidebarToggle = document.querySelector(".sidebar-toggler");
+  if (sidebarToggle) {
+      sidebarToggle.addEventListener("click", () => {
+          document.querySelector(".sidebar").classList.toggle("open");
+      });
+  }
+
+  // Fetch and display marketing-related data
+  fetchMarketingData();
+
+  function fetchMarketingData() {
+      // Example fetch for marketing data
+      fetch('/api/marketing/data')
+          .then(response => response.json())
+          .then(data => {
+              // Populate the page with data
+              document.getElementById('today-campaigns').innerText = `$${data.todayCampaigns}`;
+              document.getElementById('total-campaigns').innerText = `$${data.totalCampaigns}`;
+              document.getElementById('today-reach').innerText = `$${data.todayReach}`;
+              document.getElementById('total-reach').innerText = `$${data.totalReach}`;
+              // Populate recent campaigns
+              populateRecentCampaigns(data.recentCampaigns);
+          })
+          .catch(error => console.error('Error fetching marketing data:', error));
+  }
+
+  function populateRecentCampaigns(campaigns) {
+      const campaignsTableBody = document.querySelector("#recent-campaigns tbody");
+      campaignsTableBody.innerHTML = "";
+      campaigns.forEach(campaign => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+              <td><input class="form-check-input" type="checkbox"></td>
+              <td>${campaign.date}</td>
+              <td>${campaign.name}</td>
+              <td>${campaign.reach}</td>
+              <td>${campaign.status}</td>
+              <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+          `;
+          campaignsTableBody.appendChild(row);
+      });
+  }
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Sidebar
+  const sidebarToggle = document.querySelector(".sidebar-toggler");
+  if (sidebarToggle) {
+      sidebarToggle.addEventListener("click", () => {
+          document.querySelector(".sidebar").classList.toggle("open");
+      });
+  }
+
+  // Fetch and display marketing-related data
+  fetchMarketingData();
+
+  function fetchMarketingData() {
+      // Example fetch for marketing data
+      fetch('/api/marketing/data')
+          .then(response => response.json())
+          .then(data => {
+              // Populate the page with data
+              document.getElementById('today-campaigns').innerText = `$${data.todayCampaigns}`;
+              document.getElementById('total-campaigns').innerText = `$${data.totalCampaigns}`;
+              document.getElementById('today-reach').innerText = `$${data.todayReach}`;
+              document.getElementById('total-reach').innerText = `$${data.totalReach}`;
+              // Populate recent campaigns
+              populateRecentCampaigns(data.recentCampaigns);
+          })
+          .catch(error => console.error('Error fetching marketing data:', error));
+  }
+
+  function populateRecentCampaigns(campaigns) {
+      const campaignsTableBody = document.querySelector("#recent-campaigns tbody");
+      campaignsTableBody.innerHTML = "";
+      campaigns.forEach(campaign => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+              <td><input class="form-check-input" type="checkbox"></td>
+              <td>${campaign.date}</td>
+              <td>${campaign.name}</td>
+              <td>${campaign.reach}</td>
+              <td>${campaign.status}</td>
+              <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+          `;
+          campaignsTableBody.appendChild(row);
+      });
+  }
+});

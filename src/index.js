@@ -31,4 +31,15 @@ router.get('/receipt', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/receipt.html'));
 });
 
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css'; // Import global CSS (optional)
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root') // Attach to a DOM element with id 'root'
+);
+
 module.exports = router;

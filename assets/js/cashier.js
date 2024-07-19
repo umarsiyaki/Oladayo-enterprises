@@ -103,3 +103,98 @@ setInterval(() => {
 showNotification('New notification received.');
 }, 5000);
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Sidebar
+  const sidebarToggle = document.querySelector(".sidebar-toggler");
+  if (sidebarToggle) {
+      sidebarToggle.addEventListener("click", () => {
+          document.querySelector(".sidebar").classList.toggle("open");
+      });
+  }
+
+  // Fetch and display cashier-related data
+  fetchCashierData();
+
+  function fetchCashierData() {
+      // Example fetch for cashier data
+      fetch('/api/cashier/data')
+          .then(response => response.json())
+          .then(data => {
+              // Populate the page with data
+              document.getElementById('today-sale').innerText = `$${data.todaySale}`;
+              document.getElementById('total-sale').innerText = `$${data.totalSale}`;
+              document.getElementById('today-revenue').innerText = `$${data.todayRevenue}`;
+              document.getElementById('total-revenue').innerText = `$${data.totalRevenue}`;
+              // Populate recent sales
+              populateRecentSales(data.recentSales);
+          })
+          .catch(error => console.error('Error fetching cashier data:', error));
+  }
+
+  function populateRecentSales(sales) {
+      const salesTableBody = document.querySelector("#recent-sales tbody");
+      salesTableBody.innerHTML = "";
+      sales.forEach(sale => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+              <td><input class="form-check-input" type="checkbox"></td>
+              <td>${sale.date}</td>
+              <td>${sale.invoice}</td>
+              <td>${sale.customer}</td>
+              <td>${sale.amount}</td>
+              <td>${sale.status}</td>
+              <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+          `;
+          salesTableBody.appendChild(row);
+      });
+  }
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Sidebar
+  const sidebarToggle = document.querySelector(".sidebar-toggler");
+  if (sidebarToggle) {
+      sidebarToggle.addEventListener("click", () => {
+          document.querySelector(".sidebar").classList.toggle("open");
+      });
+  }
+
+  // Fetch and display cashier-related data
+  fetchCashierData();
+
+  function fetchCashierData() {
+      // Example fetch for cashier data
+      fetch('/api/cashier/data')
+          .then(response => response.json())
+          .then(data => {
+              // Populate the page with data
+              document.getElementById('today-sale').innerText = `$${data.todaySale}`;
+              document.getElementById('total-sale').innerText = `$${data.totalSale}`;
+              document.getElementById('today-revenue').innerText = `$${data.todayRevenue}`;
+              document.getElementById('total-revenue').innerText = `$${data.totalRevenue}`;
+              // Populate recent sales
+              populateRecentSales(data.recentSales);
+          })
+          .catch(error => console.error('Error fetching cashier data:', error));
+  }
+
+  function populateRecentSales(sales) {
+      const salesTableBody = document.querySelector("#recent-sales tbody");
+      salesTableBody.innerHTML = "";
+      sales.forEach(sale => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+              <td><input class="form-check-input" type="checkbox"></td>
+              <td>${sale.date}</td>
+              <td>${sale.invoice}</td>
+              <td>${sale.customer}</td>
+              <td>${sale.amount}</td>
+              <td>${sale.status}</td>
+              <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+          `;
+          salesTableBody.appendChild(row);
+      });
+  }
+});

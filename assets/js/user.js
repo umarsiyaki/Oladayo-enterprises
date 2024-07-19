@@ -211,3 +211,97 @@ function completeOrder(orderDetails) {
     showReceipt(orderDetails);
   }
   
+document.addEventListener("DOMContentLoaded", () => {
+  // Sidebar
+  const sidebarToggle = document.querySelector(".sidebar-toggler");
+  if (sidebarToggle) {
+      sidebarToggle.addEventListener("click", () => {
+          document.querySelector(".sidebar").classList.toggle("open");
+      });
+  }
+
+  // Fetch and display user-related data
+  fetchUserData();
+
+  function fetchUserData() {
+      // Example fetch for user data
+      fetch('/api/user/data')
+          .then(response => response.json())
+          .then(data => {
+              // Populate the page with data
+              document.getElementById('today-purchase').innerText = `$${data.todayPurchase}`;
+              document.getElementById('total-purchase').innerText = `$${data.totalPurchase}`;
+              document.getElementById('today-spent').innerText = `$${data.todaySpent}`;
+              document.getElementById('total-spent').innerText = `$${data.totalSpent}`;
+              // Populate recent purchases
+              populateRecentPurchases(data.recentPurchases);
+          })
+          .catch(error => console.error('Error fetching user data:', error));
+  }
+
+  function populateRecentPurchases(purchases) {
+      const purchasesTableBody = document.querySelector("#recent-purchases tbody");
+      purchasesTableBody.innerHTML = "";
+      purchases.forEach(purchase => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+              <td><input class="form-check-input" type="checkbox"></td>
+              <td>${purchase.date}</td>
+              <td>${purchase.invoice}</td>
+              <td>${purchase.vendor}</td>
+              <td>${purchase.amount}</td>
+              <td>${purchase.status}</td>
+              <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+          `;
+          purchasesTableBody.appendChild(row);
+      });
+  }
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Sidebar
+  const sidebarToggle = document.querySelector(".sidebar-toggler");
+  if (sidebarToggle) {
+      sidebarToggle.addEventListener("click", () => {
+          document.querySelector(".sidebar").classList.toggle("open");
+      });
+  }
+
+  // Fetch and display user-related data
+  fetchUserData();
+
+  function fetchUserData() {
+      // Example fetch for user data
+      fetch('/api/user/data')
+          .then(response => response.json())
+          .then(data => {
+              // Populate the page with data
+              document.getElementById('today-purchase').innerText = `$${data.todayPurchase}`;
+              document.getElementById('total-purchase').innerText = `$${data.totalPurchase}`;
+              document.getElementById('today-spent').innerText = `$${data.todaySpent}`;
+              document.getElementById('total-spent').innerText = `$${data.totalSpent}`;
+              // Populate recent purchases
+              populateRecentPurchases(data.recentPurchases);
+          })
+          .catch(error => console.error('Error fetching user data:', error));
+  }
+
+  function populateRecentPurchases(purchases) {
+      const purchasesTableBody = document.querySelector("#recent-purchases tbody");
+      purchasesTableBody.innerHTML = "";
+      purchases.forEach(purchase => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+              <td><input class="form-check-input" type="checkbox"></td>
+              <td>${purchase.date}</td>
+              <td>${purchase.invoice}</td>
+              <td>${purchase.vendor}</td>
+              <td>${purchase.amount}</td>
+              <td>${purchase.status}</td>
+              <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+          `;
+          purchasesTableBody.appendChild(row);
+      });
+  }
+});

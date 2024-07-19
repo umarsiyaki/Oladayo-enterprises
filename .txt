@@ -1,122 +1,288 @@
-To create the HTML structure based on your requirements for the admin, cashier, and user dashboards, let's break down the design approach and elements needed for each section.
+Here's an updated version of each route file considering best practices, ensuring proper structure and handling of errors. 
 
-### Admin Dashboard HTML Structure
+### `location.js`
+```javascript
+const express = require('express');
+const axios = require('axios');
+const Location = require('../models/location');
+const router = express.Router();
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <!-- Include CSS files -->
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- Logo and Navbar -->
-    <header>
-        <div class="logo">
-            <!-- Your logo image or text -->
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Products</a></li>
-                <li><a href="#">Sales</a></li>
-                <li><a href="#">Reports</a></li>
-                <li><a href="#">Settings</a></li>
-            </ul>
-        </nav>
-    </header>
+// Google Maps API key
+const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
-    <!-- Side Menu -->
-    <aside class="side-menu">
-        <ul>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Cashiers</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Orders</a></li>
-            <li><a href="#">Notifications</a></li>
-            <li><a href="#">Settings</a></li>
-        </ul>
-    </aside>
+// Add a new location
+router.post('/', async (req, res) => {
+  try {
+    const { name, address } = req.body;
+    const response = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+      params: {
+        address,
+        key: GOOGLE_MAPS_API_KEY
+      }
+    });
+    const { lat, lng } = response.data.results[0].geometry.location;
 
-    <!-- Main Content Area -->
-    <main>
-        <!-- Welcome Message -->
-        <section class="welcome">
-            <h1>Welcome, Admin!</h1>
-            <!-- Additional information or statistics can be added here -->
-        </section>
+    const location = new Location({ name, address, coordinates: { lat, lng } });
+    await location.save();
 
-        <!-- Track Business Records -->
-        <section class="business-records">
-            <h2>Business Records</h2>
-            <!-- Display and track business records information -->
-        </section>
+    res.status(201).json(location);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
-        <!-- Track Cashier Performance -->
-        <section class="cashier-performance">
-            <h2>Cashier Performance</h2>
-            <!-- Display and track cashier performance information -->
-        </section>
+// Get all locations
+router.get('/', async (req, res) => {
+  try {
+    const locations = await Location.find();
+    res.json(locations);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
-        <!-- Track Products -->
-        <section class="track-products">
-            <h2>Track Products</h2>
-            <!-- Display product information, trends, stock alerts, etc. -->
-        </section>
-
-        <!-- Calculate Gain or Loss -->
-        <section class="calculate-gain-loss">
-            <h2>Calculate Gain/Loss</h2>
-            <!-- Display calculations for the last 31 days -->
-        </section>
-
-        <!-- Add/Remove Cashier -->
-        <section class="add-remove-cashier">
-            <h2>Add/Remove Cashier</h2>
-            <!-- Form to add or remove cashiers -->
-        </section>
-
-        <!-- Add New Product -->
-        <section class="add-new-product">
-            <h2>Add New Product</h2>
-            <!-- Form to add new products with fields like ID, vendor, category, size, quantity, price, description -->
-        </section>
-
-        <!-- Print/Send Receipt -->
-        <section class="print-send-receipt">
-            <h2>Print/Send Receipt</h2>
-            <!-- Option to print or send receipts -->
-        </section>
-
-        <!-- Update Product Information -->
-        <section class="update-product-info">
-            <h2>Update Product Information</h2>
-            <!-- Form to update product details such as price, size, vendor, category, quality -->
-        </section>
-
-        <!-- Notifications -->
-        <section class="notifications">
-            <h2>Notifications</h2>
-            <!-- Display notifications for orders, stock alerts, etc. -->
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <!-- Footer content -->
-    </footer>
-
-    <!-- Include JavaScript files -->
-    <script src="admin.js"></script>
-</body>
-</html>
+module.exports = router;
 ```
 
-### Cashier Dashboard and User Dashboard
+### `admin.js`
+```javascript
+const express = require('express');
+const authMiddleware = require('../middleware/authMiddleware');
+const Order = require('../models/Order');
+const Product = require('../models/Product'); // Ensure correct path
+const Cashier = require('../models/Cashier');
+const router = express.Router();
 
-For the Cashier and User dashboards, you would follow a similar structure but tailor it to their specific tasks and needs as outlined in your previous messages. You can use the above structure as a template and modify sections, styles, and functionalities accordingly.
+// Middleware to log activities
+const logActivity = (req, res, next) => {
+  console.log(`${req.method} request to ${req.originalUrl} at ${new Date().toISOString()}`);
+  next();
+};
 
-If you need further assistance with specific sections or functionalities (like dynamic product adding, notifications, etc.), feel free to ask!
+router.use(logActivity);
+
+// Get Top Selling Products
+router.get('/top-products', authMiddleware, async (req, res) => {
+  try {
+    const topProducts = await Order.aggregate([
+      { $unwind: '$products' },
+      { $group: { _id: '$products.productId', totalSales: { $sum: '$products.quantity' } } },
+      { $sort: { totalSales: -1 } },
+      { $limit: 10 }
+    ]);
+    res.json(topProducts);
+  } catch (err) {
+    console.error('Error fetching top products:', err);
+    res.status(500).json({ msg: 'Error fetching top products' });
+  }
+});
+
+// Get Top Cashiers
+router.get('/top-cashiers', authMiddleware, async (req, res) => {
+  try {
+    const topCashiers = await Order.aggregate([
+      { $group: { _id: '$cashierId', totalSales: { $sum: '$total' } } },
+      { $sort: { totalSales: -1 } },
+      { $limit: 10 }
+    ]);
+    res.json(topCashiers);
+  } catch (err) {
+    console.error('Error fetching top cashiers:', err);
+    res.status(500).json({ msg: 'Error fetching top cashiers' });
+  }
+});
+
+// Get Cashier Activity
+router.get('/cashier-activity', authMiddleware, async (req, res) => {
+  try {
+    const cashierActivity = await Cashier.find({}).select('name activity');
+    res.json(cashierActivity);
+  } catch (err) {
+    console.error('Error fetching cashier activity:', err);
+    res.status(500).json({ msg: 'Error fetching cashier activity' });
+  }
+});
+
+// Get Monthly Business Performance
+router.get('/monthly-performance', authMiddleware, async (req, res) => {
+  try {
+    const monthlyPerformance = await Order.aggregate([
+      {
+        $group: {
+          _id: { month: { $month: '$createdAt' }, year: { $year: '$createdAt' } },
+          totalSales: { $sum: '$total' },
+          totalOrders: { $sum: 1 }
+        }
+      },
+      { $sort: { '_id.year': 1, '_id.month': 1 } }
+    ]);
+    res.json(monthlyPerformance);
+  } catch (err) {
+    console.error('Error fetching monthly performance:', err);
+    res.status(500).json({ msg: 'Error fetching monthly performance' });
+  }
+});
+
+// Update Product Details
+router.put('/updateProduct/:productId', authMiddleware, async (req, res) => {
+  const productId = req.params.productId;
+  const { name, size, category, price, quantity } = req.body;
+
+  try {
+    const updatedProduct = await Product.findByIdAndUpdate(productId, { name, size, category, price, quantity }, { new: true });
+    res.json(updatedProduct);
+  } catch (error) {
+    console.error('Error updating product:', error);
+    res.status(500).json({ msg: 'Error updating product' });
+  }
+});
+
+// Add New Cashier
+router.post('/addCashier', authMiddleware, async (req, res) => {
+  const { username, email, phoneNumber, address, password } = req.body;
+
+  try {
+    const newCashier = new Cashier({ username, email, phoneNumber, address, password });
+    const result = await newCashier.save();
+    res.json({ success: true, cashier: result });
+  } catch (error) {
+    console.error('Error adding cashier:', error);
+    res.status(500).json({ success: false, msg: 'Error adding cashier', error });
+  }
+});
+
+// Example additional endpoint: Get Products by Category
+router.get('/products/category/:category', authMiddleware, async (req, res) => {
+  const { category } = req.params;
+
+  try {
+    const products = await Product.find({ category });
+    res.json(products);
+  } catch (err) {
+    console.error('Error fetching products by category:', err);
+    res.status(500).json({ msg: 'Error fetching products by category' });
+  }
+});
+
+module.exports = router;
+```
+
+### `order.js`
+```javascript
+const express = require('express');
+const Order = require('../models/order');
+const router = express.Router();
+
+// Get all orders
+router.get('/', async (req, res) => {
+  try {
+    const orders = await Order.find();
+    res.json(orders);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Create a new order
+router.post('/', async (req, res) => {
+  const order = new Order(req.body);
+  try {
+    const newOrder = await order.save();
+    res.status(201).json(newOrder);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// Update an existing order
+router.put('/:id', async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+    if (!order) return res.status(404).json({ message: 'Order not found' });
+
+    Object.assign(order, req.body);
+    await order.save();
+    res.json(order);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// Delete an order
+router.delete('/:id', async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+    if (!order) return res.status(404).json({ message: 'Order not found' });
+
+    await order.remove();
+    res.json({ message: 'Order deleted' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+module.exports = router;
+```
+
+### `payment.js`
+```javascript
+const express = require('express');
+const router = express.Router();
+const Product = require('../models/Product');
+const Order = require('../models/Order');
+const Notification = require('../models/Notification');
+const Message = require('../models/Message');
+const User = require('../models/User');
+
+// Confirm payment and create order
+router.post('/confirm', async (req, res) => {
+  const { userId, products, totalAmount, paymentMethod } = req.body;
+
+  try {
+    // Create new order
+    const newOrder = new Order({ userId, products, totalAmount, paymentMethod });
+    await newOrder.save();
+
+    // Update product quantities
+    for (const item of products) {
+      const product = await Product.findById(item.productId);
+      if (product) {
+        product.quantity -= item.quantity;
+        await product.save();
+      }
+    }
+
+    // Notify user (example)
+    const user = await User.findById(userId);
+    if (user) {
+      const notification = new Notification({
+        userId,
+        message: `Your order with ID ${newOrder._id} has been placed successfully.`,
+        type: 'Order Confirmation'
+      });
+      await notification.save();
+
+      const message = new Message({
+        to: user.email,
+        subject: 'Order Confirmation',
+        body: `Your order has been confirmed. Order ID: ${newOrder._id}`
+      });
+      await message.save();
+    }
+
+    res.status(201).json(newOrder);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+module.exports = router;
+```
+
+### Summary of Updates:
+1. **Error Handling:** Improved error messages and response codes for better clarity.
+2. **Consistency:** Ensured consistency in API responses and added `async/await` where necessary.
+3. **Middleware:** Added activity logging middleware where appropriate.
+4. **Data Handling:** Ensured that data is correctly manipulated and saved in the database.
+
+Let
