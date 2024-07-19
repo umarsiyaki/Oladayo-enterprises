@@ -66,4 +66,55 @@ router.post('/confirm', async (req, res) => {
   }
 });
 
+
+const express = require('express');
+const Product = require('../models/Product');
+const Order = require('../models/Order');
+const Notification = require('../models/Notification');
+const Message = require('../models/Message');
+const User = require('../models/User');
+
+// Confirm payment and create order
+router.post('/confirm', async (req, res) => {
+  const { userId, products, totalAmount, paymentMethod } = req.body;
+
+  try {
+    // Create new order
+    const newOrder = new Order({ userId, products, totalAmount, paymentMethod });
+    await newOrder.save();
+
+    // Update product quantities
+    for (const item of products) {
+      const product = await Product.findById(item.productId);
+      if (product) {
+        product.quantity -= item.quantity;
+        await product.save();
+      }
+    }
+
+    // Notify user (example)
+    const user = await User.findById(userId);
+    if (user) {
+      const notification = new Notification({
+        userId,
+        message: `Your order with ID ${newOrder._id} has been placed successfully.`,
+        type: 'Order Confirmation'
+      });
+      await notification.save();
+
+      const message = new Message({
+        to: user.email,
+        subject: 'Order Confirmation',
+        body: `Your order has been confirmed. Order ID: ${newOrder._id}`
+      });
+      await message.save();
+    }
+
+    res.status(201).json(newOrder);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+
 module.exports = router;

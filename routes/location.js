@@ -4,7 +4,6 @@ const Location = require('../models/location');
 const router = express.Router();
 
 // Google Maps API key
-const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
 // Add a new location
 router.post('/', async (req, res) => {
@@ -44,4 +43,44 @@ router.get('/', async (req, res) => {
   }
 });
 
+
+const express = require('express');
+const axios = require('axios');
+const Location = require('../models/location');
+
+// Google Maps API key
+const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
+
+// Add a new location
+router.post('/', async (req, res) => {
+  try {
+    const { name, address } = req.body;
+    const response = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+      params: {
+        address,
+        key: GOOGLE_MAPS_API_KEY
+      }
+    });
+    const { lat, lng } = response.data.results[0].geometry.location;
+
+    const location = new Location({ name, address, coordinates: { lat, lng } });
+    await location.save();
+
+    res.status(201).json(location);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// Get all locations
+router.get('/', async (req, res) => {
+  try {
+    const locations = await Location.find();
+    res.json(locations);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+module.exports = router;
 module.exports = router;

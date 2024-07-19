@@ -25,7 +25,6 @@ const Notification = require('./models/Notification');
 const Message = require('./models/Message');
 
 // Initialize app
-const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
@@ -90,7 +89,35 @@ app.use((req, res, next) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+
+const express = require('express');
+const connectDB = require('./dbinit');
+const app = express();
+
+// Load environment variables
+require('dotenv').config();
+
+// Connect to the database
+connectDB();
+
+// Middleware and routes setup
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Example route files
+const locationRoutes = require('./routes/location');
+const adminRoutes = require('./routes/admin');
+const orderRoutes = require('./routes/order');
+const paymentRoutes = require('./routes/payment');
+
+// Use route files
+app.use('/api/locations', locationRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/payments', paymentRoutes);
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
