@@ -92,7 +92,6 @@ app.use((req, res, next) => {
 
 const express = require('express');
 const connectDB = require('./dbinit');
-const app = express();
 
 // Load environment variables
 require('dotenv').config();
@@ -116,8 +115,81 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/payments', paymentRoutes);
 
-const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+app.use(bodyParser.json());
+
+let products = [
+  // Sample products
+  { id: '1', name: 'Energy Drink', description: 'Refreshing drink.', price: 2.5, image: 'path/to/image1.jpg', category: 'Energy Drinks', size: '500ml', vendor: 'Vendor A' },
+  // Add more products
+];
+
+// Get all products
+app.get('/api/products', (req, res) => {
+  res.json(products);
+});
+
+// Add a new product
+app.post('/api/products', (req, res) => {
+  const { id, name, description, price, image, category, size, vendor } = req.body;
+  const newProduct = { id, name, description, price, image, category, size, vendor };
+  products.push(newProduct);
+  res.status(201).json({ message: 'Product added successfully.' });
+});
+
+// Update an existing product
+app.put('/api/products/:id', (req, res) => {
+  const { id } = req.params;
+  const { name, description, price, image, category, size, vendor } = req.body;
+  const productIndex = products.findIndex(p => p.id === id);
+  if (productIndex !== -1) {
+    products[productIndex] = { id, name, description, price, image, category, size, vendor };
+    res.json({ message: 'Product updated successfully.' });
+  } else {
+    res.status(404).json({ message: 'Product not found.' });
+  }
+});
+
+// Delete a product
+app.delete('/api/products/:id', (req, res) => {
+  const { id } = req.params;
+  const productIndex = products.findIndex(p => p.id === id);
+  if (productIndex !== -1) {
+    products.splice(productIndex, 1);
+    res.json({ message: 'Product deleted successfully.' });
+  } else {
+    res.status(404).json({ message: 'Product not found.' });
+  }
+});
+
+// Search products
+app.get('/api/products/search', (req, res) => {
+  const query = req.query.q.toLowerCase();
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(query) ||
+    product.category.toLowerCase().includes(query) ||
+    product.size.toLowerCase().includes(query) ||
+    product.vendor.toLowerCase().includes(query)
+  );
+  res.json(filteredProducts);
+});
+
+// Serve the market.html file
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'market.html'));
+});
+
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

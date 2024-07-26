@@ -198,3 +198,31 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 });
+
+// cashier.js
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Fetch initial data for cashier dashboard
+  fetchDashboardData();
+
+  // Event listeners for navigation
+  document.querySelector('a[href="addproduct.html"]').addEventListener('click', () => navigateToPage('addproduct.html'));
+  document.querySelector('a[href="calculator.html"]').addEventListener('click', () => navigateToPage('calculator.html'));
+  document.querySelector('a[href="widget.html"]').addEventListener('click', () => navigateToPage('widget.html'));
+  document.querySelector('a[href="form.html"]').addEventListener('click', () => navigateToPage('form.html'));
+  document.querySelector('a[href="table.html"]').addEventListener('click', () => navigateToPage('table.html'));
+  document.querySelector('a[href="chart.html"]').addEventListener('click', () => navigateToPage('chart.html'));
+  document.querySelector('a[href="marketing.html"]').addEventListener('click', () => navigateToPage('marketing.html'));
+  document.querySelector('a[href="payment.html"]').addEventListener('click', () => navigateToPage('payment.html'));
+  document.querySelector('a[href="receipt.html"]').addEventListener('click', () => navigateToPage('receipt.html'));
+});
+
+// Fetch initial data for the dashboard
+function fetchDashboardData() {
+  // Dummy data fetch - Replace with actual server call
+  const notificationCount = 2;
+  const messageCount = 4;
+
+  updateNotificationCount(notificationCount);
+  updateMessageCount(messageCount);
+}

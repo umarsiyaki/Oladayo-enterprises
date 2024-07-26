@@ -305,3 +305,5 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 });
+
+              // Populate the page with data

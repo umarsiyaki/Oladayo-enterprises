@@ -1,24 +1,24 @@
-To integrate a form for writing new messages or replying to existing messages within your current `message.html` file, you can follow the steps below. This approach ensures that the new form functionality is added without removing the existing code or features.
+Let's streamline and ensure there are no redundant sections in the code provided. Here’s a cleaned-up version of both the backend and frontend JavaScript code:
 
-### Steps to Add Message Form:
+### Backend JavaScript (server.js)
 
-1. **Add the Form in the HTML:**
-   Place the form at an appropriate location within your HTML structure where users can easily access it. Typically, it can be added at the top or bottom of the message section.
-
-2. **Update JavaScript to Handle Form Submission:**
-   Add JavaScript to handle the form submission, including fetching the data and updating the messages.
-
-3. **Preserve Existing Functionality:**
-   Ensure that existing features like dynamic fetching and rendering of messages are not affected.
-
-Here is the complete `message.html` file with the added form and necessary JavaScript updates:
-
-```html
+```javascript
 ```
 
-### Key Changes:
-1. **Form Added**: The form for sending new messages is added before the existing messages section.
-2. **JavaScript Updates**:
-   - **Fetching Messages**: Added function `fetchMessages()` to fetch and render messages.
-   - **Form Submission Handling**: Added an event listener to handle form submission, send the new message to the server, and refresh the messages.
+### Frontend JavaScript (marketing.js)
 
+```javascript
+```
+
+### Explanation
+
+1. **Backend JavaScript**:
+   - Consolidates product management (create, update, delete) into clean, individual endpoints.
+   - Handles search functionality based on various product attributes.
+
+2. **Frontend JavaScript**:
+   - Uses `DOMContentLoaded` to ensure the script runs after the DOM is fully loaded.
+   - Avoids duplication in event listeners and functions.
+   - Consolidates product display and cart management into reusable functions.
+
+This cleanup should help keep your code organized and eliminate redundancy. If you need further adjustments, feel free to ask!

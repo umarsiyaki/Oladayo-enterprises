@@ -46,3 +46,81 @@ List.add("dropdown-item", "text-center");
         messageContainer.appendChild(seeAllMessages);
     }
 });
+
+
+// Function to fetch messages
+const fetchMessages = async () => {
+    try {
+        const response = await fetch('/api/messages');
+        const messages = await response.json();
+        const messagesContainer = document.getElementById('messages-container');
+        messagesContainer.innerHTML = '';
+        messages.forEach(message => {
+            const messageElement = document.createElement('div');
+            messageElement.className = 'bg-light rounded p-3 mb-3';
+            messageElement.innerHTML = `
+                <div class="d-flex justify-content-between">
+                    <p>${message.content}</p>
+                    <button class="btn btn-danger btn-sm" onclick="deleteMessage(${message.id})">Delete</button>
+                </div>
+                <small class="text-muted">${new Date(message.createdAt).toLocaleString()}</small>
+            `;
+            messagesContainer.appendChild(messageElement);
+        });
+    } catch (error) {
+        console.error('Error fetching messages:', error);
+    }
+};
+
+// Function to send a new message
+const sendMessage = async (event) => {
+    event.preventDefault();
+    const messageContent = document.getElementById('messageContent').value;
+    try {
+        await fetch('/api/messages', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ content: messageContent }),
+        });
+        document.getElementById('message-form').reset();
+        fetchMessages();
+    } catch (error) {
+        console.error('Error sending message:', error);
+    }
+};
+
+// Function to delete a message
+const deleteMessage = async (messageId) => {
+    try {
+        await fetch(`/api/messages/${messageId}`, {
+            method: 'DELETE',
+        });
+        fetchMessages();
+    } catch (error) {
+        console.error('Error deleting message:', error);
+    }
+};
+
+
+document.getElementById('message-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+    
+    const messageContent = document.getElementById('messageContent').value;
+    if (messageContent.trim() === '') {
+      return;
+    }
+    
+    const messageContainer = document.createElement('div');
+    messageContainer.className = 'd-flex align-items-center rounded-circle ms-2 fw-normal text-muted';
+    messageContainer.textContent = messageContent;
+    
+    document.getElementById('messages-container').appendChild(messageContainer);
+    document.getElementById('messageContent').value = '';
+  });
+// Initialize the messages on page load
+document.addEventListener('DOMContentLoaded', fetchMessages);
+
+// Add event listener to the form
+document.getElementById('message-form').addEventListener('submit', sendMessage);

@@ -27,7 +27,6 @@ const Modal = ({ closeModal }) => {
     );
 };
 
-export default Modal;
 
 
 import React, { useState } from 'react';
@@ -51,14 +50,13 @@ const AdminDashboard = () => {
         </div>
     );
 };
-export default AdminDashboard Modal;
+export default AdminDashboard;
 
 
 
 // routes/admin.js
 
 const express = require('express');
-const router = express.Router();
 
 // POST route to add new cashier
 router.post('/addCashier', (req, res) => {
@@ -87,3 +85,43 @@ router.put('/updateProduct/:productId', (req, res) => {
             res.status(500).json({ error: 'Internal server error' });
         });
 });
+
+
+const express = require('express');
+const router = express.Router();
+const Message = require('../models/Message'); // Assuming you have a Message model
+
+// Get all messages
+router.get('/messages', async (req, res) => {
+    try {
+        const messages = await Message.find();
+        res.json(messages);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Post a new message
+router.post('/messages', async (req, res) => {
+    try {
+        const { content } = req.body;
+        const newMessage = new Message({ content, createdAt: new Date() });
+        await newMessage.save();
+        res.status(201).json(newMessage);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Delete a message
+router.delete('/messages/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await Message.findByIdAndDelete(id);
+        res.status(204).end();
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+module.exports = router;

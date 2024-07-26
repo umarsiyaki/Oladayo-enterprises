@@ -201,3 +201,66 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Checking notifications...');
     }
 });
+
+// admin.js
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Fetch initial data for admin dashboard
+    fetchDashboardData();
+
+    // Event listeners for navigation
+    document.querySelector('a[href="addproduct.html"]').addEventListener('click', () => navigateToPage('addproduct.html'));
+    document.querySelector('a[href="calculator.html"]').addEventListener('click', () => navigateToPage('calculator.html'));
+    document.querySelector('a[href="element.html"]').addEventListener('click', () => navigateToPage('element.html'));
+    document.querySelector('a[href="widget.html"]').addEventListener('click', () => navigateToPage('widget.html'));
+    document.querySelector('a[href="form.html"]').addEventListener('click', () => navigateToPage('form.html'));
+    document.querySelector('a[href="table.html"]').addEventListener('click', () => navigateToPage('table.html'));
+    document.querySelector('a[href="chart.html"]').addEventListener('click', () => navigateToPage('chart.html'));
+    document.querySelector('a[href="addcashier.html"]').addEventListener('click', () => navigateToPage('addcashier.html'));
+    document.querySelector('a[href="marketing.html"]').addEventListener('click', () => navigateToPage('marketing.html'));
+    document.querySelector('a[href="blank.html"]').addEventListener('click', () => navigateToPage('blank.html'));
+    document.querySelector('a[href="payment.html"]').addEventListener('click', () => navigateToPage('payment.html'));
+    document.querySelector('a[href="receipt.html"]').addEventListener('click', () => navigateToPage('receipt.html'));
+});
+
+// Fetch initial data for the dashboard
+function fetchDashboardData() {
+    // Dummy data fetch - Replace with actual server call
+    const notificationCount = 5;
+    const messageCount = 3;
+
+    updateNotificationCount(notificationCount);
+    updateMessageCount(messageCount);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Code for initializing the spinner and removing it after content load
+    const spinner = document.getElementById('spinner');
+    spinner.classList.remove('show');
+  
+    // Initialize Calendar (Placeholder: replace with actual calendar logic)
+    const calendarElement = document.getElementById('calendar');
+    calendarElement.textContent = 'Calendar will be here...';
+  
+    // Populate orders and messages (Placeholder: replace with actual logic)
+    const orders = [
+      { id: 1, customer: 'John Doe', date: '2024-07-20', amount: '$100', status: 'Completed' },
+      { id: 2, customer: 'Jane Smith', date: '2024-07-21', amount: '$150', status: 'Pending' },
+    ];
+  
+    const ordersTableBody = document.querySelector('.table tbody');
+    orders.forEach(order => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${order.id}</td>
+        <td>${order.customer}</td>
+        <td>${order.date}</td>
+        <td>${order.amount}</td>
+        <td>${order.status}</td>
+      `;
+      ordersTableBody.appendChild(row);
+    });
+  
+    const messagesContainer = document.getElementById('messages-container');
+    messagesContainer.textContent = 'No new messages';
+  });
