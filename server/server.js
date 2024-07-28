@@ -193,3 +193,65 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+
+// server.js
+const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
+const cors = require('cors');
+const helmet = require('helmet');
+
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost/advanced-implementation', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+// Define middleware
+app.use(cors());
+app.use(helmet());
+app.use(express.json());
+
+// Define routes
+const productRoutes = require('./routes/productRoutes');
+const blogPostRoutes = require('./routes/blogPostRoutes');
+const userRoutes = require('./routes/userRoutes');
+
+app.use('/api/products', productRoutes);
+app.use('/api/blog', blogPostRoutes);
+app.use('/api/users', userRoutes);
+
+// Start server
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Server started on port ${port}`);
+});
+
+
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.post('/api/products', (req, res) => {
+  // save product data to database
+  res.json({ message: 'Product added successfully' });
+});
+
+app.post('/api/calculator', (req, res) => {
+  // calculate total amount and number per product
+  res.json({ totalAmount: 100, numberPerProduct: 5 });
+});
+
+app.post('/api/blog', (req, res) => {
+  // save blog data to database
+  res.json({ message: 'Blog posted successfully' });
+});
+
+app.listen(port, () => {
+  console.log(`Server started on port ${port}`);
+});
+

@@ -1,3 +1,4 @@
+
 const updateProductInfo = async (productId, updatedInfo) => {
     try {
         const response = await fetch(`/api/admin/updateProduct/${productId}`, {

@@ -1,24 +1,85 @@
-Let's streamline and ensure there are no redundant sections in the code provided. Here’s a cleaned-up version of both the backend and frontend JavaScript code:
+Here are the HTML templates for the requested pages:
 
-### Backend JavaScript (server.js)
+add-product.html
 
-```javascript
-```
 
-### Frontend JavaScript (marketing.js)
+calculator.html
 
-```javascript
-```
 
-### Explanation
+blog.html
 
-1. **Backend JavaScript**:
-   - Consolidates product management (create, update, delete) into clean, individual endpoints.
-   - Handles search functionality based on various product attributes.
+Here is the JavaScript code for each page:
 
-2. **Frontend JavaScript**:
-   - Uses `DOMContentLoaded` to ensure the script runs after the DOM is fully loaded.
-   - Avoids duplication in event listeners and functions.
-   - Consolidates product display and cart management into reusable functions.
+add-product.js
 
-This cleanup should help keep your code organized and eliminate redundancy. If you need further adjustments, feel free to ask!
+
+calculator.js
+
+
+
+
+And here is the server.js code:
+
+And here is some basic styling for each page:
+
+styles.css
+
+
+Here's the advanced version of the code:
+
+Server (Node.js with Express.js)
+
+
+
+
+
+
+
+
+
+Here is the complete code for the AddProduct component:
+
+
+This code completes the AddProduct component by adding the functionality to handle form submission and send a POST request to the /api/products endpoint to create a new product.
+
+
+
+
+No, that's not all. I'll continue with the rest of the code.
+
+
+
+
+//Here is the complete code for the Admin component:
+
+This code completes the Admin component by adding the functionality to update the inventory. It allows the admin to select a product and enter a quantity, and then updates the inventory accordingly.
+
+
+
+
+
+
+
+
+
+
+
+Here is the rest of the code for the calculator functionalities:
+
+
+
+
+
+
+This code adds the calculator functionalities to the application. It allows users to select a category and size, enter a quantity, and calculate the total price of the products. The calculator also displays a list of products that match the selected category and size.
+
+
+Here is an advanced version of the marketing.html file:
+
+
+
+And here is an advanced version of the payment.html file:
+
+
+
+Please note that this is an advanced version and you will need to add more functionality and styles to make it work as expected. Also, you will need to create the necessary JavaScript files to handle the logic for the marketing and payment pages.

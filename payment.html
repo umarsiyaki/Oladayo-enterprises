@@ -57,6 +57,27 @@
       </form>
     </section>
   </main>
+  
+  
+<main>
+<section class="payment-methods">
+<h2>Payment Methods</h2>
+<ul id="payment-methods-list">
+<li>Cash Payment</li>
+<li>POS</li>
+<li>Direct Deposit</li>
+<li>Gateway</li>
+</ul>
+</section>
+<section class="payment-details">
+<h2>Payment Details</h2>
+<p>Total Amount: <span id="total-amount">amount</span></p>
+<button id="confirm-payment-button">Confirm Payment</button>
+</section>
+</main>
+<script>
+// JavaScript code to handle payment functionality
+</script>
   <footer>
     <p>&copy; 2024 Oladayo Enterprises</p>
   </footer>
@@ -64,63 +85,3 @@
 </body>
 </html>
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Payment</title>
-  <link rel="stylesheet" href="assets/css/styles.css">
-</head>
-<body>
-  <header>
-    <h1>Oladayo Enterprises Payment</h1>
-  </header>
-  <main>
-    <form id="paymentForm">
-      <div class="form-group">
-        <label for="paymentMethod">Payment Method:</label>
-        <select id="paymentMethod">
-          <option value="cash">Cash</option>
-          <option value="directDeposit">Direct Deposit</option>
-          <option value="debitCard">Debit Card</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="productId">Product ID:</label>
-        <input type="text" id="productId" required>
-      </div>
-      <div class="form-group">
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" min="1" required>
-      </div>
-      <div class="form-group">
-        <label for="totalAmount">Total Amount:</label>
-        <input type="number" id="totalAmount" required>
-      </div>
-      <button type="button" id="confirmPaymentBtn">Confirm Payment</button>
-      <button type="button" id="cancelPaymentBtn">Cancel</button>
-    </form>
-  </main>
-  <footer>
-    <p>&copy; 2024 Oladayo Enterprises</p>
-  </footer>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="assets/js/payment.js"></script>
-  <script src="assets/js/receipt.js"></script>
-  <script src="assets/js/cashier.js"></script>
-  <script src="assets/js/register-login.js"></script>
-  <script src="assets/js/payment.js"></script>
-  <script src="assets/js/product-update.js"></script>
-  <script src="assets/js/receipt.js"></script>
-  <script src="assets/js/add-cashier.js"></script>
-  <script src="assets/js/add-product.js"></script>
-  <script src="assets/js/message-user.js"></script>
-  <script src="assets/js/marketing.js"></script>
-  <script src="assets/js/cart.js"></script>
-  <script src="assets/js/index.js"></script>
-  <script src="assets/js/user.js"></script>
-  <script src="assets/js/types.js"></script>
-</body>
-</html>
