@@ -1,88 +1,4 @@
-To achieve the desired functionality in your project, you need to implement several JavaScript functions to handle profile updates, settings (for dark and light mode), and logout functionality. Here's a detailed breakdown of how to implement each feature:
-
-#
-```
-
-#### JavaScript Functions
-
-1. **Profile Management:**
-```javascript
-
-```
-
-2. **Settings Management:**
-```javascript
-document.getElementById('settings').addEventListener('click', () => {
-    // Logic to open the settings modal or page
-    // Toggle dark/light mode
-    const currentMode = localStorage.getItem('theme') || 'light';
-    if (currentMode === 'light') {
-        setDarkMode();
-    } else {
-        setLightMode();
-    }
-});
-
-function setDarkMode() {
-    document.body.classList.add('dark-mode');
-    document.body.classList.remove('light-mode');
-    localStorage.setItem('theme', 'dark');
-}
-
-function setLightMode() {
-    document.body.classList.add('light-mode');
-    document.body.classList.remove('dark-mode');
-    localStorage.setItem('theme', 'light');
-}
-
-// Apply theme on page load
-document.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        setDarkMode();
-    } else {
-        setLightMode();
-    }
-});
-```
-
-3. **Logout Functionality:**
-```javascript
-document.getElementById('login_logout').addEventListener('click', () => {
-    // Logic to log the user out
-    fetch('/logout', {
-        method: 'POST'
-    }).then(response => {
-        if (response.ok) {
-            window.location.href = 'signin.html';
-        } else {
-            alert('Error logging out');
-        }
-    });
-});
-```
-
-### Backend Endpoints
-Ensure your backend supports the following endpoints:
-
-1. `/update-profile`: To update user profile details.
-2. `/add-admin`: To add a new admin.
-3. `/remove-admin/{adminId}`: To remove an admin by their ID.
-4. `/logout`: To log the user out.
-
-### CSS for Dark Mode
-```css
-
-```
-
-By implementing these features, you can provide the required dynamic functionalities for profile management, settings (dark/light mode), and logout in your project.
-
-
-
-
-
-
-
+this is our add product.html
 <!DOCTYPE html>
 <html>
 
@@ -211,3 +127,220 @@ By implementing these features, you can provide the required dynamic functionali
 </body>
 
 </html>
+as you can see, we hav lot of categories, task includes:
+1. with this file (
+document.addEventListener('DOMContentLoaded', () => {
+    const addProductForm = document.getElementById('addProductForm');
+    
+    addProductForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const vendorCategory = document.getElementById('vendorCategory').value;
+      const brandCategory = document.getElementById('brandCategory').value;
+      const productSize = document.getElementById('productSize').value;
+      const productName = document.getElementById('productName').value;
+      const productPrice = document.getElementById('productPrice').value;
+      
+      const newProduct = {
+        id: Date.now(), // unique ID for the product
+        vendorCategory,
+        brandCategory,
+        productSize,
+        productName,
+        productPrice
+      };
+      
+      // Fetch current inventory from localStorage or initialize empty array if not present
+      let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+      
+      // Add new product to inventory
+      inventory.push(newProduct);
+      
+      // Save updated inventory back to localStorage
+      localStorage.setItem('inventory', JSON.stringify(inventory));
+      
+      // Notify admin or cashier (for simplicity, just log to console here)
+      console.log('Product added successfully:', newProduct);
+      
+      // Optionally, reset form after submission
+      addProductForm.reset();
+    });
+    
+    addProductForm.addEventListener('reset', () => {
+      console.log('Form reset');
+    });
+  });), add both frontend and backend functionalities: post to Marketing.html, dynamically in these folowing section by categories" <!-- Product Section Start -->
+    <div class="container my-4">
+        <h2>Energy Drinks</h2>
+        <div class="row">
+            <!-- Product Card Example -->
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img src="path/to/energy-drink1.jpg" class="card-img-top" alt="Energy Drink">
+                    <div class="card-body">
+                        <h5 class="card-title">Energy Drink 1</h5>
+                        <p class="card-text">A refreshing energy drink.</p>
+                        <p class="card-text"><strong>Price: $2</strong></p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img src="path/to/energy-drink1.jpg" class="card-img-top" alt="Energy Drink">
+                    <div class="card-body">
+                        <h5 class="card-title">Energy Drink 1</h5>
+                        <p class="card-text">A refreshing energy drink.</p>
+                        <p class="card-text"><strong>Price: $2</strong></p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img src="path/to/energy-drink1.jpg" class="card-img-top" alt="Energy Drink">
+                    <div class="card-body">
+                        <h5 class="card-title">Energy Drink 1</h5>
+                        <p class="card-text">A refreshing energy drink.</p>
+                        <p class="card-text"><strong>Price: $2</strong></p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img src="path/to/energy-drink1.jpg" class="card-img-top" alt="Energy Drink">
+                    <div class="card-body">
+                        <h5 class="card-title">Energy Drink 1</h5>
+                        <p class="card-text">A refreshing energy drink.</p>
+                        <p class="card-text"><strong>Price: $2</strong></p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img src="path/to/energy-drink1.jpg" class="card-img-top" alt="Energy Drink">
+                    <div class="card-body">
+                        <h5 class="card-title">Energy Drink 1</h5>
+                        <p class="card-text">A refreshing energy drink.</p>
+                        <p class="card-text"><strong>Price: $2</strong></p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat for more product cards (total of 4 cards in this section) -->
+            <!-- ... -->
+        </div>
+    </div>
+
+    <div class="container my-4">
+        <h2>Maltina</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img src="path/to/maltina1.jpg" class="card-img-top" alt="Maltina">
+                    <div class="card-body">
+                        <h5 class="card-title">Maltina 1</h5>
+                        <p class="card-text">Delicious malt drink.</p>
+                        <p class="card-text"><strong>Price: $1.5</strong></p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat for more product cards (total of 4 cards in this section) -->
+            <!-- ... -->
+        </div>
+    </div>
+
+    <div class="container my-4">
+        <h2>Cola</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img src="path/to/cola1.jpg" class="card-img-top" alt="Cola">
+                    <div class="card-body">
+                        <h5 class="card-title">Cola 1</h5>
+                        <p class="card-text">Classic cola drink.</p>
+                        <p class="card-text"><strong>Price: $1</strong></p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat for more product cards (total of 4 cards in this section) -->
+            <!-- ... -->
+        </div>
+    </div>
+
+    <div class="container my-4">
+        <h2>Tropical</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img src="assets/images/bigi-lemon.jpeg" class="card-img-top" alt="Tropical Drink">
+                    <div class="card-body">
+                        <h5 class="card-title">Bigi Tropical Drink</h5>
+                        <p class="card-text">lemon fruit drink.</p>
+                        <p class="card-text"><strong>Price: $2</strong></p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat for more product cards (total of 4 cards in this section) -->
+            <!-- ... -->
+        </div>
+    </div>
+
+    <div class="container my-4">
+        <h2>Fanta</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img src="path/to/fanta1.jpg" class="card-img-top" alt="Fanta">
+                    <div class="card-body">
+                        <h5 class="card-title">Fanta</h5>
+                        <p class="card-text">Orange flavored drink.</p>
+                        <p class="card-text"><strong>Price: $1.8</strong></p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img src="path/to/fanta1.jpg" class="card-img-top" alt="Fanta">
+                    <div class="card-body">
+                        <h5 class="card-title">big Orange</big></h5>
+                        <p class="card-text">Orange flavored drink.</p>
+                        <p class="card-text"><strong>Price: $1.8</strong></p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img src="path/to/fanta1.jpg" class="card-img-top" alt="Fanta">
+                    <div class="card-body">
+                        <h5 class="card-title">5alive</h5>
+                        <p class="card-text">Orange flavored drink.</p>
+                        <p class="card-text"><strong>Price: $1.8</strong></p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img src="path/to/fanta1.jpg" class="card-img-top" alt="Fanta">
+                    <div class="card-body">
+                        <h5 class="card-title">bigi Orange</h5>
+                        <p class="card-text">Orange flavored drink.</p>
+                        <p class="card-text"><strong>Price: $1.8</strong></p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat for more product cards (total of 4 cards in this section) -->
+            <!-- ... -->
+        </div>
+    </div>
+    <!-- Product Section End -->" 
+so after admin or cashier successfully created a product, redirect to his role either cashier.html or admin.html

@@ -354,3 +354,53 @@ function removeAdmin(adminId) {
       }
   });
 }
+
+ // Toggle dark/light mode
+
+ document.getElementById('settings').addEventListener('click', () => {
+  // Logic to open the settings modal or page
+  // Toggle dark/light mode
+  const currentMode = localStorage.getItem('theme') || 'light';
+  if (currentMode === 'light') {
+      setDarkMode();
+  } else {
+      setLightMode();
+  }
+});
+
+
+
+function setDarkMode() {
+  document.body.classList.add('dark-mode');
+  document.body.classList.remove('light-mode');
+  localStorage.setItem('theme', 'dark');
+}
+
+function setLightMode() {
+  document.body.classList.add('light-mode');
+  document.body.classList.remove('dark-mode');
+  localStorage.setItem('theme', 'light');
+}
+
+// Apply theme on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+      setDarkMode();
+  } else {
+      setLightMode();
+  }
+});
+
+document.getElementById('login_logout').addEventListener('click', () => {
+  // Logic to log the user out
+  fetch('/logout', {
+      method: 'POST'
+  }).then(response => {
+      if (response.ok) {
+          window.location.href = 'signin.html';
+      } else {
+          alert('Error logging out');
+      }
+  });
+});
