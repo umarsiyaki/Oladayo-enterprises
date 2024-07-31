@@ -90,3 +90,31 @@ document.addEventListener('DOMContentLoaded', function() {
       .catch(error => {
         console.error('Error refreshing products data:', error);
       });
+ // Update Product
+ updateProductBtn.addEventListener('click', () => {
+  const productDetails = {
+      name: productName.value,
+      category: category.value,
+      size: size.value,
+      type: type.value,
+      price: parseFloat(price.value),
+      quantity: parseInt(quantity.value)
+  };
+
+  totalQuantity += productDetails.quantity;
+
+  totalProducts.textContent = `Total Products: ${totalQuantity}`;
+  updatedDetails.textContent = `Updated Details: ${JSON.stringify(productDetails)}`;
+
+  // Update the product details in the backend (placeholder)
+  fetch('/api/product/update', {
+      method: 'PUT',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(productDetails),
+  })
+  .then(response => response.json())
+  .then(data => console.log('Product updated:', data))
+  .catch(error => console.error('Error updating product:', error));
+});

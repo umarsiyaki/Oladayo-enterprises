@@ -239,6 +239,19 @@ app.use((err, req, res, next) => {
 });
 
 
+
+
+
+const express = require('express');
+const apiRoutes = require('./routes/api');
+
+app.use(express.json());
+app.use('/api', apiRoutes);
+
+// Other middleware and route setups...
+
+app.listen(3000, () => console.log('Server running on port 3000'));
+
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');

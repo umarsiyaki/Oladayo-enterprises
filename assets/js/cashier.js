@@ -226,3 +226,131 @@ function fetchDashboardData() {
   updateNotificationCount(notificationCount);
   updateMessageCount(messageCount);
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const addProductForm = document.getElementById('addProductForm');
+
+  // Add Product Form Submit Listener
+  if (addProductForm) {
+      addProductForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          // Get form data
+          const vendorCategory = document.getElementById('vendorCategory').value;
+          const brandCategory = document.getElementById('brandCategory').value;
+          const productSize = document.getElementById('productSize').value;
+          const productName = document.getElementById('productName').value;
+          const productPrice = document.getElementById('productPrice').value;
+
+          const newProduct = {
+              id: Date.now(), // unique ID for the product
+              vendorCategory,
+              brandCategory,
+              productSize,
+              productName,
+              productPrice
+          };
+
+          // Fetch current inventory from localStorage or initialize empty array if not present
+          let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+
+          // Add new product to inventory
+          inventory.push(newProduct);
+
+          // Save updated inventory back to localStorage
+          localStorage.setItem('inventory', JSON.stringify(inventory));
+
+          // Notify admin or cashier (for simplicity, just log to console here)
+          console.log('Product added successfully:', newProduct);
+
+          // Optionally, reset form after submission
+          addProductForm.reset();
+      });
+  }
+
+  // Notification Listener
+  const notificationDropdown = document.getElementById('notificationDropdown');
+  if (notificationDropdown) {
+      notificationDropdown.addEventListener('click', () => {
+          console.log('Notification dropdown clicked');
+          // Fetch and display notifications
+          // (Assuming a function fetchNotifications exists to get notifications from the server)
+          fetchNotifications();
+      });
+  }
+
+  // Message Listener
+  const messageDropdown = document.getElementById('messageDropdown');
+  if (messageDropdown) {
+      messageDropdown.addEventListener('click', () => {
+          console.log('Message dropdown clicked');
+          // Fetch and display messages
+          // (Assuming a function fetchMessages exists to get messages from the server)
+          fetchMessages();
+      });
+  }
+
+  // Sidebar Toggle
+  const sidebarToggler = document.querySelector('.sidebar-toggler');
+  if (sidebarToggler) {
+      sidebarToggler.addEventListener('click', () => {
+          document.querySelector('.sidebar').classList.toggle('collapsed');
+      });
+  }
+});
+
+// profile management
+
+document.getElementById('profile').addEventListener('click', () => {
+  // Logic to open the profile modal or page
+  // Fetch current profile details and populate the form
+  // Allow user to update details
+});
+
+function updateProfile(newDetails) {
+  // Update the user profile with new details
+  // Send updated details to the server
+  fetch('/update-profile', {
+      method: 'POST',
+      body: JSON.stringify(newDetails),
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  }).then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          alert('Profile updated successfully');
+      } else {
+          alert('Error updating profile');
+      }
+  });
+}
+
+function addAdmin(newAdminDetails) {
+  fetch('/add-admin', {
+      method: 'POST',
+      body: JSON.stringify(newAdminDetails),
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  }).then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          alert('Admin added successfully');
+      } else {
+          alert('Error adding admin');
+      }
+  });
+}
+
+function removeAdmin(adminId) {
+  fetch(`/remove-admin/${adminId}`, {
+      method: 'DELETE'
+  }).then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          alert('Admin removed successfully');
+      } else {
+          alert('Error removing admin');
+      }
+  });
+}

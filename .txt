@@ -1,52 +1,213 @@
-Here is the updated admin.html file with the added containers and sections:
+To achieve the desired functionality in your project, you need to implement several JavaScript functions to handle profile updates, settings (for dark and light mode), and logout functionality. Here's a detailed breakdown of how to implement each feature:
+
+#
+```
+
+#### JavaScript Functions
+
+1. **Profile Management:**
+```javascript
+
+```
+
+2. **Settings Management:**
+```javascript
+document.getElementById('settings').addEventListener('click', () => {
+    // Logic to open the settings modal or page
+    // Toggle dark/light mode
+    const currentMode = localStorage.getItem('theme') || 'light';
+    if (currentMode === 'light') {
+        setDarkMode();
+    } else {
+        setLightMode();
+    }
+});
+
+function setDarkMode() {
+    document.body.classList.add('dark-mode');
+    document.body.classList.remove('light-mode');
+    localStorage.setItem('theme', 'dark');
+}
+
+function setLightMode() {
+    document.body.classList.add('light-mode');
+    document.body.classList.remove('dark-mode');
+    localStorage.setItem('theme', 'light');
+}
+
+// Apply theme on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        setDarkMode();
+    } else {
+        setLightMode();
+    }
+});
+```
+
+3. **Logout Functionality:**
+```javascript
+document.getElementById('login_logout').addEventListener('click', () => {
+    // Logic to log the user out
+    fetch('/logout', {
+        method: 'POST'
+    }).then(response => {
+        if (response.ok) {
+            window.location.href = 'signin.html';
+        } else {
+            alert('Error logging out');
+        }
+    });
+});
+```
+
+### Backend Endpoints
+Ensure your backend supports the following endpoints:
+
+1. `/update-profile`: To update user profile details.
+2. `/add-admin`: To add a new admin.
+3. `/remove-admin/{adminId}`: To remove an admin by their ID.
+4. `/logout`: To log the user out.
+
+### CSS for Dark Mode
+```css
+
+```
+
+By implementing these features, you can provide the required dynamic functionalities for profile management, settings (dark/light mode), and logout in your project.
+
+
+
+
+
+
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin</title>
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>add product</title>
+<link rel="stylesheet" href="assets/css/styles.css">
 </head>
+
 <body>
-<header>
-<nav>
-
-</nav>
-</header>
-</main>
-</body>
-</html>
-
-And here is the updated cashier.html file with the added containers:
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cashier</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
-<header>
-<nav>
-<ul>
-<li><a href="cashier.html">Dashboard</a></li>
-<li>
-<div class="containers">
-<a href="#">Message</a>
-<a href="#">Notification</a>
-<a href="#">Order</a>
+ <form id="addProductForm">
+  <label>Category by Vendor:</label>
+  <select id="vendorCategory">
+    <option>Coca-Cola</option>
+    <option>Viju</option>
+    <option>Maltina</option>
+    <option>Holandia</option>
+    <option>Bigi</option>
+    <option>Pepsi</option>
+    <option>Slim</option>
+    <option>Lucozade</option>
+  </select>
+<div class="categor-by-activity"> <label for="categor-by-activity"> drinks functions category:</label>
+  <aside id="Maltina">
+    <select name="Malta" id="Malta">
+<option value="maltina">maltina</option>
+<option value="hi-malt">Hi-malt</option>
+<option value="malta-guenes">maltaguenes</option>
+    </select>
+    <aside id="youghort"><label for="youghort">category for youghort drinks:</label>
+      <select name="Holandia" id="Holandia">
+  <option value="peak-youghort">peak youghort</option>
+  <option value="Chivita">Chivita</option>
+  <option value="viju-youghort">viju youghort</option>
+      </select>
+  </aside>
+  <aside id="Energy-drinks"> <label for="Energy-drinks">Category for Energy</label>
+    <select name="Energy-drinks" id="Energy-drinks">
+      <option value="red bull">Red Bull.</option>
+     <option value="Monster Energy">Monster Energy.</option> 
+     <option value="bullet">Bullet.</option> 
+     <option value="Cintron">Cintron.</option> 
+     <option value="zagg">Zagg</option> .
+      <option value="tiger">Tiger</option> .
+     <option value="amber"> Amber.</option>
+    <option value="bull">Bull</option>
+    <option value="Predator">Predator</option>
+    <option value="reaktor">Reaktor</option>
+    <option value="Fearless">Fearless</option>
+    </select>
+  </aside>
 </div>
-</li>
-</ul>
-</nav>
-</header>
-<main>
-<!-- cashier dashboard content here -->
-</main>
-</body>
-</html>
+  <label>Category by Brand:</label>
+  <select id="brandCategory">
+    <option>Cola</option>
+    <option>Big Cola</option>
+    <option>Pepsi Cola</option>
+    <option>Lucozade Cola</option>
+    <option>Coke</option>
+    <option>Fanta</option>
+    <option>Big Tropical</option>
+    <option>Lucozade Tropical</option>
+    <option>5 Alive</option>
+    <option>Maltina</option>
+    <option>Hi-Maalt</option>
+    <option>Malta Gold</option>
+    <option>Guinness Malta</option>
+    <option>Exotics</option>
+    <option>Chivita</option>
+    <option>Peak</option>
+    <option>Holandia</option>
+    <option>Puppy</option>
+    <option>Caprison</option>
+      <option value="Holandia youghort">Holandia Youghort</option>
+      <option value="viju plain youghort">Viju Plain Youghort</option>
+      <option value="peak youghort">Peak Youghort</option>
+      <option value="vigort">Vigort</option>
+      <option>Chivita</option></optgroup>
 
-Please note that you will need to add the content for each section and style the containers and sections as needed.
+    <option value="red bull">Red Bull.</option>
+     <option value="Monster Energy">Monster Energy.</option> 
+     <option value="bullet">Bullet.</option> 
+     <option value="Cintron">Cintron.</option> 
+     <option value="zagg">Zagg</option> .
+      <option value="tiger">Tiger</option> .
+     <option value="amber"> Amber.</option>
+    <option value="bull">Bull</option>
+    <option value="Predator">Predator</option>
+    <option value="reaktor">Reaktor</option>
+    <option value="Fearless">Fearless</option>
+      <option>Viju Milk Apple</option>
+      <option>Pineapple</option>
+      <option>Bobo Milk</option>
+      <option>Nutrimilk</option>
+      <option >Other</option>
+    </optgroup>
+
+
+  </select>
+
+  <label>Product Size:</label>
+  <select id="productSize">
+    <option>45cm</option>
+    <option>1 liter</option>
+    <option>600mml</option>
+    <option>30cm</option>
+    <option>50cm</option>
+    <option>60cm</option>
+    <option>25cml</option>
+  </select>
+
+  <div><label>Product Name:</label>
+  <input type="text" id="productName" /></div>
+
+ <div><label>Price:</label>
+  <input type="number" id="productPrice" />
+</div> 
+  <button type="submit">Add Product</button>
+  <button type="reset">Reset</button>
+</form>
+<script src="assets/js/add-product.js"></script>
+<script src="assets/js/add-product.js"></script>
+<script src="assets/js/admin.js"></script>
+<script src="assets/js/cashier.js"></script>
+</body>
+
+</html>

@@ -1,8 +1,4 @@
 
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: rgb(192, 192, 192);
-}
 
 .container {
   background-color: rgba(231, 223, 223, 0.5);
@@ -313,9 +309,17 @@ button[type="submit"]:hover {
 
 
 
-body {
-  
-box-sizing: border-box;
+
+  body.light-mode {
+    background-color: #fff;
+    color: #000;
+}
+
+body.dark-mode {
+    background-color: #000;
+    color: #fff;
+}
+body{box-sizing: border-box;
 font-family: Arial, sans-serif;
 line-height: 1.6;
 color: #333;

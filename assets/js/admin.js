@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const updateProductBtn = document.getElementById('update-product-btn');
     const totalProducts = document.getElementById('total-products');
     const updatedDetails = document.getElementById('updated-details');
+    const spinner = document.getElementById("spinner");
+    const sidebarToggle = document.querySelector(".sidebar-toggler");
 
     let totalQuantity = 0;
 
@@ -46,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         totalProducts.textContent = `Total Products: ${totalQuantity}`;
         updatedDetails.textContent = `Updated Details: ${JSON.stringify(productDetails)}`;
 
-        // Update the product details in the backend (placeholder)
+        // Update the product details in the backend
         fetch('/api/product/update', {
             method: 'PUT',
             headers: {
@@ -60,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Spinner
-    const spinner = document.getElementById("spinner");
     if (spinner) {
         setTimeout(() => {
             spinner.classList.remove("show");
@@ -68,7 +69,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Sidebar Toggle
-    const sidebarToggle = document.querySelector(".sidebar-toggler");
     if (sidebarToggle) {
         sidebarToggle.addEventListener("click", () => {
             document.querySelector(".sidebar").classList.toggle("open");
@@ -200,67 +200,94 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleNotifications() {
         console.log('Checking notifications...');
     }
-});
 
-// admin.js
-
-document.addEventListener('DOMContentLoaded', () => {
     // Fetch initial data for admin dashboard
     fetchDashboardData();
 
     // Event listeners for navigation
-    document.querySelector('a[href="addproduct.html"]').addEventListener('click', () => navigateToPage('addproduct.html'));
-    document.querySelector('a[href="calculator.html"]').addEventListener('click', () => navigateToPage('calculator.html'));
-    document.querySelector('a[href="element.html"]').addEventListener('click', () => navigateToPage('element.html'));
-    document.querySelector('a[href="widget.html"]').addEventListener('click', () => navigateToPage('widget.html'));
-    document.querySelector('a[href="form.html"]').addEventListener('click', () => navigateToPage('form.html'));
-    document.querySelector('a[href="table.html"]').addEventListener('click', () => navigateToPage('table.html'));
-    document.querySelector('a[href="chart.html"]').addEventListener('click', () => navigateToPage('chart.html'));
-    document.querySelector('a[href="addcashier.html"]').addEventListener('click', () => navigateToPage('addcashier.html'));
-    document.querySelector('a[href="marketing.html"]').addEventListener('click', () => navigateToPage('marketing.html'));
-    document.querySelector('a[href="blank.html"]').addEventListener('click', () => navigateToPage('blank.html'));
-    document.querySelector('a[href="payment.html"]').addEventListener('click', () => navigateToPage('payment.html'));
-    document.querySelector('a[href="receipt.html"]').addEventListener('click', () => navigateToPage('receipt.html'));
+    const navLinks = document.querySelectorAll('.sidebar a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            navigateToPage(event.target.getAttribute('href'));
+        });
+    });
+
+    function fetchDashboardData() {
+        // Dummy data fetch - Replace with actual server call
+        const notificationCount = 5;
+        const messageCount = 3;
+
+        updateNotificationCount(notificationCount);
+        updateMessageCount(messageCount);
+    }
+
+    function updateNotificationCount(count) {
+        const notificationElement = document.querySelector('.fa-bell span');
+        notificationElement.innerText = count;
+    }
+
+    function updateMessageCount(count) {
+        const messageElement = document.querySelector('.fa-envelope span');
+        messageElement.innerText = count;
+    }
+
+    function navigateToPage(page) {
+        window.location.href = page;
+    }
 });
 
-// Fetch initial data for the dashboard
-function fetchDashboardData() {
-    // Dummy data fetch - Replace with actual server call
-    const notificationCount = 5;
-    const messageCount = 3;
+document.getElementById('profile').addEventListener('click', () => {
+    // Logic to open the profile modal or page
+    // Fetch current profile details and populate the form
+    // Allow user to update details
+});
 
-    updateNotificationCount(notificationCount);
-    updateMessageCount(messageCount);
+function updateProfile(newDetails) {
+    // Update the user profile with new details
+    // Send updated details to the server
+    fetch('/update-profile', {
+        method: 'POST',
+        body: JSON.stringify(newDetails),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Profile updated successfully');
+        } else {
+            alert('Error updating profile');
+        }
+    });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Code for initializing the spinner and removing it after content load
-    const spinner = document.getElementById('spinner');
-    spinner.classList.remove('show');
-  
-    // Initialize Calendar (Placeholder: replace with actual calendar logic)
-    const calendarElement = document.getElementById('calendar');
-    calendarElement.textContent = 'Calendar will be here...';
-  
-    // Populate orders and messages (Placeholder: replace with actual logic)
-    const orders = [
-      { id: 1, customer: 'John Doe', date: '2024-07-20', amount: '$100', status: 'Completed' },
-      { id: 2, customer: 'Jane Smith', date: '2024-07-21', amount: '$150', status: 'Pending' },
-    ];
-  
-    const ordersTableBody = document.querySelector('.table tbody');
-    orders.forEach(order => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${order.id}</td>
-        <td>${order.customer}</td>
-        <td>${order.date}</td>
-        <td>${order.amount}</td>
-        <td>${order.status}</td>
-      `;
-      ordersTableBody.appendChild(row);
+function addAdmin(newAdminDetails) {
+    fetch('/add-admin', {
+        method: 'POST',
+        body: JSON.stringify(newAdminDetails),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Admin added successfully');
+        } else {
+            alert('Error adding admin');
+        }
     });
-  
-    const messagesContainer = document.getElementById('messages-container');
-    messagesContainer.textContent = 'No new messages';
-  });
+}
+
+function removeAdmin(adminId) {
+    fetch(`/remove-admin/${adminId}`, {
+        method: 'DELETE'
+    }).then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Admin removed successfully');
+        } else {
+            alert('Error removing admin');
+        }
+    });
+}

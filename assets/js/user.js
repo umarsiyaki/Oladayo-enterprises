@@ -307,3 +307,30 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
               // Populate the page with data
+
+              //profile management
+              document.getElementById('profile').addEventListener('click', () => {
+                // Logic to open the profile modal or page
+                // Fetch current profile details and populate the form
+                // Allow user to update details
+            });
+            
+            function updateProfile(newDetails) {
+                // Update the user profile with new details
+                // Send updated details to the server
+                fetch('/update-profile', {
+                    method: 'POST',
+                    body: JSON.stringify(newDetails),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Profile updated successfully');
+                    } else {
+                        alert('Error updating profile');
+                    }
+                });
+            }
+            

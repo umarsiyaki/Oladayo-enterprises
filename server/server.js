@@ -124,7 +124,6 @@ app.listen(PORT, () => {
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const app = express();
 app.use(bodyParser.json());
 
 let products = [
@@ -197,7 +196,6 @@ app.listen(PORT, () => {
 
 // server.js
 const express = require('express');
-const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -223,7 +221,6 @@ app.use('/api/blog', blogPostRoutes);
 app.use('/api/users', userRoutes);
 
 // Start server
-const port = 3000;
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });

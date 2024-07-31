@@ -11,3 +11,18 @@ const CashierSchema = new mongoose.Schema({
 const Cashier = mongoose.model('Cashier', CashierSchema);
 
 module.exports = Cashier;
+
+
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
+
+
+Cashier.init({
+    username: DataTypes.STRING,
+    email: DataTypes.STRING,
+    phoneNumber: DataTypes.STRING,
+    address: DataTypes.STRING,
+    password: DataTypes.STRING
+}, { sequelize, modelName: 'Cashier' });
+
+module.exports = Cashier;
