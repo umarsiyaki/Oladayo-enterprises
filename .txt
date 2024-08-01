@@ -1,40 +1,193 @@
-To create a dynamic update product form in React.js that integrates with both `calculator.html` buttons and `admin.html` buttons, we need to:
+Let's set up the backend routes in Express.js to serve the necessary data for the dynamic sections in your `index.html`. We will create routes to serve the product slideshow, blog posts, team members, contact form submissions, and user info.
 
-1. Create a React component for the update product form.
-2. Add handlers for the buttons in `calculator.html` to interact with the form.
-3. Integrate the form with `admin.html` using an appropriate method (e.g., linking to the form with a specific product ID).
+### Setting Up Backend Routes
 
-Here's the step-by-step implementation:
+1. **Install Required Packages**:
+   Make sure you have the necessary packages installed:
 
-### Step 1: Create a React Component for the Update Product Form
+   ```sh
+   npm install express mongoose body-parser
+   ```
 
-First, set up a React component for the update product form:
+2. **Create `server.js`**:
+   This file will contain the Express.js server and the routes.
 
-```jsx
-```
+   ```javascript
+   const express = require('express');
+   const mongoose = require('mongoose');
+   const bodyParser = require('body-parser');
+   const { Product, BlogPost, User } = require('./database');
 
-### Step 2: Handle Button Clicks from `calculator.html`
+   const app = express();
+   const port = process.env.PORT || 3000;
 
-Modify `calculator.html` to add functionality that communicates with the React component:
+   // Middleware
+   app.use(bodyParser.json());
+   app.use(bodyParser.urlencoded({ extended: true }));
 
-```html
-<!-- calculator.html -->
+   // Connect to MongoDB
+   mongoose.connect('mongodb://localhost:27017/oladayo_enterprises', {
+     useNewUrlParser: true,
+     useUnifiedTopology: true,
+   }).then(() => {
+     console.log('Connected to MongoDB');
+   }).catch(err => {
+     console.error('Could not connect to MongoDB', err);
+   });
 
-```
+   // Serve static files
+   app.use(express.static('public'));
 
-### Step 3: Integrate with `admin.html`
+   // Routes
+   app.get('/api/products/slideshow', async (req, res) => {
+     try {
+       const products = await Product.find().limit(5);
+       res.json({ products });
+     } catch (error) {
+       res.status(500).send(error);
+     }
+   });
 
-Add the link in `admin.html` to update a specific product:
+   app.get('/api/blogs', async (req, res) => {
+     try {
+       const blogs = await BlogPost.find();
+       res.json({ blogs });
+     } catch (error) {
+       res.status(500).send(error);
+     }
+   });
 
-```html
+   app.get('/api/team', async (req, res) => {
+     // Replace with actual team member retrieval logic
+     const team = [
+       { name: 'John Doe', position: 'CEO', image: 'assets/images/team1.jpg' },
+       { name: 'Jane Doe', position: 'CTO', image: 'assets/images/team2.jpg' },
+       { name: 'John Smith', position: 'CFO', image: 'assets/images/team3.jpg' },
+     ];
+     res.json({ team });
+   });
 
-```
+   app.post('/api/contact', (req, res) => {
+     const { name, email, message } = req.body;
+     // Implement actual contact form handling logic here
+     res.json({ success: true });
+   });
 
-### Step 4: Main React Component to Handle Update Product Form
+   app.get('/api/user-info', (req, res) => {
+     // Replace with actual user info retrieval logic
+     const userInfo = {
+       isLoggedIn: true,
+       username: 'JohnDoe',
+       role: 'admin',
+     };
+     res.json(userInfo);
+   });
 
-Finally, create a main React component to render the form and handle submissions:
+   app.listen(port, () => {
+     console.log(`Server running at http://localhost:${port}`);
+   });
+   ```
 
-```jsx
-```
+3. **Create `database.js`**:
+   You've already provided the `database.js` code, so ensure it's correctly set up in the same directory as `server.js`.
 
-This setup ensures that when buttons are clicked in `calculator.html` or `admin.html`, they navigate to the `updateproduct.html` page with the product ID. The React component will fetch the product details and allow updating. When the form is submitted, it updates the local storage and redirects back to the admin page.
+   ```javascript
+   const mongoose = require('mongoose');
+
+   // Define schema for Products
+   const productSchema = new mongoose.Schema({
+     name: {
+       type: String,
+       required: true,
+     },
+     category: {
+       type: String,
+       required: true,
+     },
+     size: {
+       type: String,
+       required: true,
+     },
+     price: {
+       type: Number,
+       required: true,
+     },
+     quantity: {
+       type: Number,
+       required: true,
+     },
+     image: {
+       type: String,
+       required: true,
+     }
+   });
+
+   // Define schema for BlogPosts
+   const blogPostSchema = new mongoose.Schema({
+     title: {
+       type: String,
+       required: true,
+     },
+     subtitle: {
+       type: String,
+       required: true,
+     },
+     body: {
+       type: String,
+       required: true,
+     },
+     image: {
+       type: String,
+       required: true,
+     },
+   });
+
+   // Define schema for Users
+   const userSchema = new mongoose.Schema({
+     name: {
+       type: String,
+       required: true,
+     },
+     email: {
+       type: String,
+       required: true,
+     },
+     password: {
+       type: String,
+       required: true,
+     },
+   });
+
+   // Create models
+   const Product = mongoose.model('Product', productSchema);
+   const BlogPost = mongoose.model('BlogPost', blogPostSchema);
+   const User = mongoose.model('User', userSchema);
+
+   module.exports = { Product, BlogPost, User };
+   ```
+
+4. **Ensure Directory Structure**:
+   Your directory structure should look like this:
+
+   ```
+   project-root/
+   ├── public/
+   │   ├── assets/
+   │   │   ├── css/
+   │   │   ├── images/
+   │   │   └── js/
+   │   ├── index.html
+   │   └── other-static-files
+   ├── database.js
+   ├── server.js
+   └── package.json
+   ```
+
+5. **Run Your Server**:
+   Start your server to ensure everything is working correctly.
+
+   ```sh
+   node server.js
+   ```
+
+Now, your frontend should be able to fetch data from these routes, and your backend should serve the required data for the dynamic content in `index.html`.

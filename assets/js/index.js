@@ -43,3 +43,113 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+//index.js`
+document.addEventListener('DOMContentLoaded', function () {
+  // Handle dynamic loading of product slideshow
+  fetch('/api/products/slideshow')
+    .then(response => response.json())
+    .then(data => {
+      const carouselInner = document.querySelector('#carouselExampleIndicators .carousel-inner');
+      data.products.forEach((product, index) => {
+        const item = document.createElement('div');
+        item.className = `carousel-item${index === 0 ? ' active' : ''}`;
+        item.innerHTML = `
+          <img src="${product.image}" class="d-block w-100" alt="${product.name}">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>${product.name}</h5>
+            <p>${product.description}</p>
+          </div>
+        `;
+        carouselInner.appendChild(item);
+      });
+    });
+
+  // Handle dynamic loading of blog posts
+  fetch('/api/blogs')
+    .then(response => response.json())
+    .then(data => {
+      const blogRow = document.querySelector('#blogs .row');
+      data.blogs.forEach(blog => {
+        const blogPost = document.createElement('div');
+        blogPost.className = 'col-lg-4 col-md-6 mb-4';
+        blogPost.innerHTML = `
+          <div class="card">
+            <img src="${blog.image}" class="card-img-top" alt="${blog.title}">
+            <div class="card-body">
+              <h5 class="card-title">${blog.title}</h5>
+              <p class="card-text">${blog.summary}</p>
+              <a href="/blog/${blog.id}" class="btn btn-primary">Read More</a>
+            </div>
+          </div>
+        `;
+        blogRow.appendChild(blogPost);
+      });
+    });
+
+  // Handle dynamic loading of team members
+  fetch('/api/team')
+    .then(response => response.json())
+    .then(data => {
+      const teamRow = document.querySelector('#team .row');
+      data.team.forEach(member => {
+        const teamMember = document.createElement('div');
+        teamMember.className = 'col-lg-4 col-md-6 mb-4';
+        teamMember.innerHTML = `
+          <div class="card">
+            <img src="${member.image}" class="card-img-top" alt="${member.name}">
+            <div class="card-body">
+              <h5 class="card-title">${member.name}</h5>
+              <p class="card-text">${member.position}</p>
+            </div>
+          </div>
+        `;
+        teamRow.appendChild(teamMember);
+      });
+    });
+
+  // Handle form submission for contact us
+  const contactForm = document.getElementById('contact-us-form');
+  contactForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const formData = new FormData(contactForm);
+    fetch('/api/contact', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert('Message sent successfully!');
+        contactForm.reset();
+      } else {
+        alert('Failed to send message. Please try again later.');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Failed to send message. Please try again later.');
+    });
+  });
+
+  // Handle user-specific navbar changes
+  fetch('/api/user-info')
+    .then(response => response.json())
+    .then(data => {
+      const navbar = document.querySelector('.navbar-nav.ms-auto');
+      navbar.innerHTML = '';
+      if (data.isLoggedIn) {
+        navbar.innerHTML = `
+          <li class="nav-item"><a class="nav-link" href="/profile">${data.username}</a></li>
+          <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+        `;
+        if (data.role === 'admin') {
+          const adminNav = document.querySelector('.navbar-nav.me-auto');
+          adminNav.innerHTML += '<li class="nav-item"><a class="nav-link" href="/admin">Admin Panel</a></li>';
+        }
+      } else {
+        navbar.innerHTML = `
+          <li class="nav-item"><a class="nav-link" href="/login">Login/Register</a></li>
+        `;
+      }
+    });
+});
