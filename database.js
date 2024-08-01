@@ -46,21 +46,6 @@ const blogPostSchema = new mongoose.Schema({
   },
 });
 
-// Define schema for Users
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-});
 
 // Create models
 const Product = mongoose.model('Product', productSchema);
@@ -71,3 +56,28 @@ module.exports = { Product, BlogPost, User };
 
 
 Client (React.js);
+const mongoose = require('mongoose');
+
+   // Define schema for Products
+   
+   // Define schema for BlogPosts
+   
+
+   // Define schema for Users
+   const userSchema = new mongoose.Schema({
+     name: {
+       type: String,
+       required: true,
+     },
+     email: {
+       type: String,
+       required: true,
+     },
+     password: {
+       type: String,
+       required: true,
+     },
+   });
+
+
+   module.exports = { Product, BlogPost, User };

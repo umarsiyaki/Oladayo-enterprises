@@ -34,3 +34,12 @@ router.post('/messages', (req, res) => {
 });
 
 module.exports = router;
+
+const express = require('express');
+const User = require('../models/User');
+const auth = require('../middleware/auth');
+
+router.get('/', auth, async (req, res) => {
+  const users = await User.find();
+  res.status(200).json(users);
+});

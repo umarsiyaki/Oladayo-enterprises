@@ -25,8 +25,6 @@ const Notification = require('./models/Notification');
 const Message = require('./models/Message');
 
 // Initialize app
-const server = http.createServer(app);
-const io = socketIo(server);
 
 // Middleware
 app.use(bodyParser.json());
@@ -227,7 +225,6 @@ app.listen(port, () => {
 
 
 const express = require('express');
-const port = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -256,7 +253,6 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
 
-const app = express();
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -303,3 +299,122 @@ app.listen(PORT, () => {
 
  on http://localhost:${PORT}`);
 });
+
+
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const { Product, BlogPost, User } = require('./database');
+
+const port = process.env.PORT || 3000;
+
+// Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/oladayo_enterprises', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log('Connected to MongoDB');
+}).catch(err => {
+  console.error('Could not connect to MongoDB', err);
+});
+
+// Serve static files
+app.use(express.static('public'));
+
+// Routes
+app.get('/api/products/slideshow', async (req, res) => {
+  try {
+    const products = await Product.find().limit(5);
+    res.json({ products });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+app.get('/api/blogs', async (req, res) => {
+  try {
+    const blogs = await BlogPost.find();
+    res.json({ blogs });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+app.get('/api/team', async (req, res) => {
+  // Replace with actual team member retrieval logic
+  const team = [
+    { name: 'John Doe', position: 'CEO', image: 'assets/images/team1.jpg' },
+    { name: 'Jane Doe', position: 'CTO', image: 'assets/images/team2.jpg' },
+    { name: 'John Smith', position: 'CFO', image: 'assets/images/team3.jpg' },
+  ];
+  res.json({ team });
+});
+
+app.post('/api/contact', (req, res) => {
+  const { name, email, message } = req.body;
+  // Implement actual contact form handling logic here
+  res.json({ success: true });
+});
+
+app.get('/api/user-info', (req, res) => {
+  // Replace with actual user info retrieval logic
+  const userInfo = {
+    isLoggedIn: true,
+    username: 'JohnDoe',
+    role: 'admin',
+  };
+  res.json(userInfo);
+});
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+
+
+const express = require('express');
+const http = require('http');
+const mongoose = require('mongoose');
+const socketIo = require('socket.io');
+const cors = require('cors');
+const authRoutes = require('./routes/auth');
+const chatRoutes = require('./routes/chat');
+const userRoutes = require('./routes/user');
+const Message = require('./models/Message');
+
+const app = express();
+const server = http.createServer(app);
+const io = socketIo(server, {
+  cors: {
+    origin: '*',
+  },
+});
+
+app.use(cors());
+app.use(express.json());
+app.use('/auth', authRoutes);
+app.use('/chat', chatRoutes);
+app.use('/users', userRoutes);
+
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/advanced-chat-app', { useNewUrlParser: true, useUnifiedTopology: true });
+
+io.on('connection', (socket) => {
+  console.log('New client connected');
+
+  socket.on('sendMessage', async ({ senderId, receiverId, message }) => {
+    const newMessage = new Message({ sender: senderId, receiver: receiverId, message });
+
+    await newMessage.save();
+    io.emit('message', newMessage);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
+});
+
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
