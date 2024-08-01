@@ -271,12 +271,12 @@ body {
 }
 
 form {
-  max-width: 500px;
-  margin: 40px auto;
+  max-width: 1000px;
+  margin: 30px auto;
   padding: 20px;
   border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  box-shadow: 0 0 10px rgba(250, 6, 6, 0.267);
 }
 
 label {
@@ -284,19 +284,33 @@ label {
   margin-bottom: 10px;
 }
 
+aside{
+  background-color: #f4f4f400;
+  max-width: 600px;
+  border: none;
+}
+
+select{
+  background-color: #f4f4f400;
+  max-width: 600px;
+  border: none;
+}
+
 input, textarea {
-  width: 100%;
+  width: 90%;
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
 }
 
 button[type="submit"] {
-  background-color: #4CAF50;
+  background-color: #2e2e2aad;
   color: #fff;
   padding: 10px 20px;
-  border: none;
+  align-items: center;
+  border: solid rgba(48, 4, 245, 0.158) 3px;
   border-radius: 5px;
+  box-shadow: #0568fd54;
   cursor: pointer;
 }
 
@@ -310,14 +324,33 @@ button[type="submit"]:hover {
 
 
 
-  body.light-mode {
-    background-color: #fff;
-    color: #000;
+body.light {
+  background-color: #ffffff;
+  color: #000000;
 }
 
-body.dark-mode {
-    background-color: #000;
-    color: #fff;
+body.dark {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f8f8f8;
+}
+
+button {
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.product-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
 }
 body{box-sizing: border-box;
 font-family: Arial, sans-serif;

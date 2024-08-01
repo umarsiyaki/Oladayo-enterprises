@@ -341,3 +341,67 @@ document.getElementById('login_logout').addEventListener('click', () => {
         }
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleThemeButton = document.getElementById('toggleThemeButton');
+    const logoutButton = document.getElementById('logoutButton');
+  
+    // Load theme preference from localStorage
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    document.body.className = currentTheme;
+  
+    toggleThemeButton.addEventListener('click', () => {
+      const newTheme = document.body.className === 'light' ? 'dark' : 'light';
+      document.body.className = newTheme;
+      localStorage.setItem('theme', newTheme);
+    });
+  
+    logoutButton.addEventListener('click', () => {
+      localStorage.removeItem('userRole');
+      window.location.href = 'login.html';
+    });
+  });
+
+  
+document.addEventListener('DOMContentLoaded', () => {
+    const productList = document.getElementById('productList');
+  
+    let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+  
+    inventory.forEach(product => {
+      const productItem = document.createElement('div');
+      productItem.className = 'product-item';
+      productItem.innerHTML = `
+        <h3>${product.productName}</h3>
+        <p>Vendor: ${product.vendorCategory}</p>
+        <p>Brand: ${product.brandCategory}</p>
+        <p>Size: ${product.productSize}</p>
+        <p>Price: $${product.productPrice}</p>
+        <button class="edit-btn" data-id="${product.id}">Edit</button>
+        <button class="delete-btn" data-id="${product.id}">Delete</button>
+      `;
+      productList.appendChild(productItem);
+    });
+  
+    document.querySelectorAll('.edit-btn').forEach(button => {
+      button.addEventListener('click', (e) => {
+        const productId = e.target.getAttribute('data-id');
+        const product = inventory.find(p => p.id == productId);
+        if (product) {
+          // Redirect to update product page with product ID (you need to implement this)
+          window.location.href = `updateproduct.html?id=${productId}`;
+        }
+      });
+    });
+  
+    document.querySelectorAll('.delete-btn').forEach(button => {
+      button.addEventListener('click', (e) => {
+        const productId = e.target.getAttribute('data-id');
+        inventory = inventory.filter(p => p.id != productId);
+        localStorage.setItem('inventory', JSON.stringify(inventory));
+        e.target.parentElement.remove();
+        alert('Product deleted successfully');
+      });
+    });
+  });

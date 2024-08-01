@@ -1,346 +1,97 @@
-this is our add product.html
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>add product</title>
-<link rel="stylesheet" href="assets/css/styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oladayo Enterprises</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-
 <body>
- <form id="addProductForm">
-  <label>Category by Vendor:</label>
-  <select id="vendorCategory">
-    <option>Coca-Cola</option>
-    <option>Viju</option>
-    <option>Maltina</option>
-    <option>Holandia</option>
-    <option>Bigi</option>
-    <option>Pepsi</option>
-    <option>Slim</option>
-    <option>Lucozade</option>
-  </select>
-<div class="categor-by-activity"> <label for="categor-by-activity"> drinks functions category:</label>
-  <aside id="Maltina">
-    <select name="Malta" id="Malta">
-<option value="maltina">maltina</option>
-<option value="hi-malt">Hi-malt</option>
-<option value="malta-guenes">maltaguenes</option>
-    </select>
-    <aside id="youghort"><label for="youghort">category for youghort drinks:</label>
-      <select name="Holandia" id="Holandia">
-  <option value="peak-youghort">peak youghort</option>
-  <option value="Chivita">Chivita</option>
-  <option value="viju-youghort">viju youghort</option>
-      </select>
-  </aside>
-  <aside id="Energy-drinks"> <label for="Energy-drinks">Category for Energy</label>
-    <select name="Energy-drinks" id="Energy-drinks">
-      <option value="red bull">Red Bull.</option>
-     <option value="Monster Energy">Monster Energy.</option> 
-     <option value="bullet">Bullet.</option> 
-     <option value="Cintron">Cintron.</option> 
-     <option value="zagg">Zagg</option> .
-      <option value="tiger">Tiger</option> .
-     <option value="amber"> Amber.</option>
-    <option value="bull">Bull</option>
-    <option value="Predator">Predator</option>
-    <option value="reaktor">Reaktor</option>
-    <option value="Fearless">Fearless</option>
-    </select>
-  </aside>
-</div>
-  <label>Category by Brand:</label>
-  <select id="brandCategory">
-    <option>Cola</option>
-    <option>Big Cola</option>
-    <option>Pepsi Cola</option>
-    <option>Lucozade Cola</option>
-    <option>Coke</option>
-    <option>Fanta</option>
-    <option>Big Tropical</option>
-    <option>Lucozade Tropical</option>
-    <option>5 Alive</option>
-    <option>Maltina</option>
-    <option>Hi-Maalt</option>
-    <option>Malta Gold</option>
-    <option>Guinness Malta</option>
-    <option>Exotics</option>
-    <option>Chivita</option>
-    <option>Peak</option>
-    <option>Holandia</option>
-    <option>Puppy</option>
-    <option>Caprison</option>
-      <option value="Holandia youghort">Holandia Youghort</option>
-      <option value="viju plain youghort">Viju Plain Youghort</option>
-      <option value="peak youghort">Peak Youghort</option>
-      <option value="vigort">Vigort</option>
-      <option>Chivita</option></optgroup>
+  <header>
+    <div class="logo-container">
+      <img src="assets/images/logo.png" alt="Logo" class="logo">
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/products">Products</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/blogs">Blogs</a>
+      <a href="/contact">Contact</a>
+      <input type="text" placeholder="Search products..." class="search-bar">
+      <button type="button" class="search-btn">Search</button>
+      <a href="/login" class="login-btn">Login/Register</a>
+      <a href="/cart" class="cart-btn">Cart</a>
+      <a href="/locate-store" class="locate-store-btn">Locate Store</a>
+    </nav>
+  </header>
 
-    <option value="red bull">Red Bull.</option>
-     <option value="Monster Energy">Monster Energy.</option> 
-     <option value="bullet">Bullet.</option> 
-     <option value="Cintron">Cintron.</option> 
-     <option value="zagg">Zagg</option> .
-      <option value="tiger">Tiger</option> .
-     <option value="amber"> Amber.</option>
-    <option value="bull">Bull</option>
-    <option value="Predator">Predator</option>
-    <option value="reaktor">Reaktor</option>
-    <option value="Fearless">Fearless</option>
-      <option>Viju Milk Apple</option>
-      <option>Pineapple</option>
-      <option>Bobo Milk</option>
-      <option>Nutrimilk</option>
-      <option >Other</option>
-    </optgroup>
+  <section id="slideshow">
+    <!-- Slideshow content goes here -->
+  </section>
 
+  <section id="about-us">
+    <h2>About Us</h2>
+    <p>We are the number 1 Kaiama soft drinks wholesale supplier. Our extensive range of products ensures that you have a variety of options to choose from. We pride ourselves on providing top-notch service and quality products to our customers. Our commitment to excellence has made us a trusted name in the industry. Come experience the best in soft drink wholesale supplies with Oladayo Enterprises.</p>
+  </section>
 
-  </select>
+  <section id="happy-customers">
+    <h2>Happy Customers</h2>
+    <div class="customer-cards">
+      <div class="customer-card">
+        <p>"Oladayo Enterprises always delivers quality products on time. I highly recommend them!"</p>
+        <span>- John Doe</span>
+      </div>
+      <div class="customer-card">
+        <p>"The best wholesale supplier I have ever dealt with. Great prices and excellent customer service."</p>
+        <span>- Jane Smith</span>
+      </div>
+      <div class="customer-card">
+        <p>"Their product range is fantastic. I can always find what I need for my store."</p>
+        <span>- Mike Johnson</span>
+      </div>
+      <div class="customer-card">
+        <p>"Reliable, efficient, and always friendly. I couldn't ask for more."</p>
+        <span>- Sarah Williams</span>
+      </div>
+      <div class="customer-card">
+        <p>"Top-notch service and products. Oladayo Enterprises is my go-to supplier."</p>
+        <span>- David Brown</span>
+      </div>
+    </div>
+  </section>
 
-  <label>Product Size:</label>
-  <select id="productSize">
-    <option>45cm</option>
-    <option>1 liter</option>
-    <option>600mml</option>
-    <option>30cm</option>
-    <option>50cm</option>
-    <option>60cm</option>
-    <option>25cml</option>
-  </select>
-
-  <div><label>Product Name:</label>
-  <input type="text" id="productName" /></div>
-
- <div><label>Price:</label>
-  <input type="number" id="productPrice" />
-</div> 
-  <button type="submit">Add Product</button>
-  <button type="reset">Reset</button>
-</form>
-<script src="assets/js/add-product.js"></script>
-<script src="assets/js/add-product.js"></script>
-<script src="assets/js/admin.js"></script>
-<script src="assets/js/cashier.js"></script>
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>For any inquiries or orders, please reach out to us at:</p>
+    <p>Email: contact@oladayoenterprises.com</p>
+    <p>Phone: +234 123 456 7890</p>
+    <p>Address: 123 Kaiama Street, Lagos, Nigeria</p>
+  </section>
+  <div id="root"></div>
+  <script src="script.js"></script>
+<!---->
+  <footer>
+    <div class="footer-links">
+      <a href="/privacy-policy">Privacy Policy</a>
+      <a href="/terms-of-service">Terms of Service</a>
+      <a href="/faq">FAQ</a>
+      <a href="/support">Support</a>
+    </div>
+    <p>&copy; 2024 Oladayo Enterprises</p>
+  </footer>
+  <script src="assets/js/receipt.js"></script>
+  <script src="assets/js/cashier.js"></script>
+  <script src="assets/js/register-login.js"></script>
+  <script src="assets/js/payment.js"></script>
+  <script src="assets/js/product-update.js"></script>
+  <script src="assets/js/receipt.js"></script>
+  <script src="assets/js/add-cashier.js"></script>
+  <script src="assets/js/add-product.js"></script>
+  <script src="assets/js/message-user.js"></script>
+  <script src="assets/js/marketing.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/index.js"></script>
+  <script src="assets/js/user.js"></script>
+  <script src="assets/js/types.js"></script>
 </body>
-
 </html>
-as you can see, we hav lot of categories, task includes:
-1. with this file (
-document.addEventListener('DOMContentLoaded', () => {
-    const addProductForm = document.getElementById('addProductForm');
-    
-    addProductForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const vendorCategory = document.getElementById('vendorCategory').value;
-      const brandCategory = document.getElementById('brandCategory').value;
-      const productSize = document.getElementById('productSize').value;
-      const productName = document.getElementById('productName').value;
-      const productPrice = document.getElementById('productPrice').value;
-      
-      const newProduct = {
-        id: Date.now(), // unique ID for the product
-        vendorCategory,
-        brandCategory,
-        productSize,
-        productName,
-        productPrice
-      };
-      
-      // Fetch current inventory from localStorage or initialize empty array if not present
-      let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-      
-      // Add new product to inventory
-      inventory.push(newProduct);
-      
-      // Save updated inventory back to localStorage
-      localStorage.setItem('inventory', JSON.stringify(inventory));
-      
-      // Notify admin or cashier (for simplicity, just log to console here)
-      console.log('Product added successfully:', newProduct);
-      
-      // Optionally, reset form after submission
-      addProductForm.reset();
-    });
-    
-    addProductForm.addEventListener('reset', () => {
-      console.log('Form reset');
-    });
-  });), add both frontend and backend functionalities: post to Marketing.html, dynamically in these folowing section by categories" <!-- Product Section Start -->
-    <div class="container my-4">
-        <h2>Energy Drinks</h2>
-        <div class="row">
-            <!-- Product Card Example -->
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/energy-drink1.jpg" class="card-img-top" alt="Energy Drink">
-                    <div class="card-body">
-                        <h5 class="card-title">Energy Drink 1</h5>
-                        <p class="card-text">A refreshing energy drink.</p>
-                        <p class="card-text"><strong>Price: $2</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/energy-drink1.jpg" class="card-img-top" alt="Energy Drink">
-                    <div class="card-body">
-                        <h5 class="card-title">Energy Drink 1</h5>
-                        <p class="card-text">A refreshing energy drink.</p>
-                        <p class="card-text"><strong>Price: $2</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/energy-drink1.jpg" class="card-img-top" alt="Energy Drink">
-                    <div class="card-body">
-                        <h5 class="card-title">Energy Drink 1</h5>
-                        <p class="card-text">A refreshing energy drink.</p>
-                        <p class="card-text"><strong>Price: $2</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/energy-drink1.jpg" class="card-img-top" alt="Energy Drink">
-                    <div class="card-body">
-                        <h5 class="card-title">Energy Drink 1</h5>
-                        <p class="card-text">A refreshing energy drink.</p>
-                        <p class="card-text"><strong>Price: $2</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/energy-drink1.jpg" class="card-img-top" alt="Energy Drink">
-                    <div class="card-body">
-                        <h5 class="card-title">Energy Drink 1</h5>
-                        <p class="card-text">A refreshing energy drink.</p>
-                        <p class="card-text"><strong>Price: $2</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Repeat for more product cards (total of 4 cards in this section) -->
-            <!-- ... -->
-        </div>
-    </div>
-
-    <div class="container my-4">
-        <h2>Maltina</h2>
-        <div class="row">
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/maltina1.jpg" class="card-img-top" alt="Maltina">
-                    <div class="card-body">
-                        <h5 class="card-title">Maltina 1</h5>
-                        <p class="card-text">Delicious malt drink.</p>
-                        <p class="card-text"><strong>Price: $1.5</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Repeat for more product cards (total of 4 cards in this section) -->
-            <!-- ... -->
-        </div>
-    </div>
-
-    <div class="container my-4">
-        <h2>Cola</h2>
-        <div class="row">
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/cola1.jpg" class="card-img-top" alt="Cola">
-                    <div class="card-body">
-                        <h5 class="card-title">Cola 1</h5>
-                        <p class="card-text">Classic cola drink.</p>
-                        <p class="card-text"><strong>Price: $1</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Repeat for more product cards (total of 4 cards in this section) -->
-            <!-- ... -->
-        </div>
-    </div>
-
-    <div class="container my-4">
-        <h2>Tropical</h2>
-        <div class="row">
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="assets/images/bigi-lemon.jpeg" class="card-img-top" alt="Tropical Drink">
-                    <div class="card-body">
-                        <h5 class="card-title">Bigi Tropical Drink</h5>
-                        <p class="card-text">lemon fruit drink.</p>
-                        <p class="card-text"><strong>Price: $2</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Repeat for more product cards (total of 4 cards in this section) -->
-            <!-- ... -->
-        </div>
-    </div>
-
-    <div class="container my-4">
-        <h2>Fanta</h2>
-        <div class="row">
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/fanta1.jpg" class="card-img-top" alt="Fanta">
-                    <div class="card-body">
-                        <h5 class="card-title">Fanta</h5>
-                        <p class="card-text">Orange flavored drink.</p>
-                        <p class="card-text"><strong>Price: $1.8</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/fanta1.jpg" class="card-img-top" alt="Fanta">
-                    <div class="card-body">
-                        <h5 class="card-title">big Orange</big></h5>
-                        <p class="card-text">Orange flavored drink.</p>
-                        <p class="card-text"><strong>Price: $1.8</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/fanta1.jpg" class="card-img-top" alt="Fanta">
-                    <div class="card-body">
-                        <h5 class="card-title">5alive</h5>
-                        <p class="card-text">Orange flavored drink.</p>
-                        <p class="card-text"><strong>Price: $1.8</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/fanta1.jpg" class="card-img-top" alt="Fanta">
-                    <div class="card-body">
-                        <h5 class="card-title">bigi Orange</h5>
-                        <p class="card-text">Orange flavored drink.</p>
-                        <p class="card-text"><strong>Price: $1.8</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Repeat for more product cards (total of 4 cards in this section) -->
-            <!-- ... -->
-        </div>
-    </div>
-    <!-- Product Section End -->" 
-so after admin or cashier successfully created a product, redirect to his role either cashier.html or admin.html

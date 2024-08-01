@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
       .catch(error => {
         console.error('Error refreshing products data:', error);
       });
+    
  // Update Product
  updateProductBtn.addEventListener('click', () => {
   const productDetails = {
@@ -118,3 +119,53 @@ document.addEventListener('DOMContentLoaded', function() {
   .then(data => console.log('Product updated:', data))
   .catch(error => console.error('Error updating product:', error));
 });
+  
+document.addEventListener('DOMContentLoaded', () => {
+  const updateProductForm = document.getElementById('updateProductForm');
+  const urlParams = new URLSearchParams(window.location.search);
+  const productId = urlParams.get('id');
+
+  let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+  let product = inventory.find(p => p.id == productId);
+
+  if (product) {
+    document.getElementById('vendorCategory').value = product.vendorCategory;
+    document.getElementById('brandCategory').value = product.brandCategory;
+    document.getElementById('productSize').value = product.productSize;
+    document.getElementById('productName').value = product.productName;
+    document.getElementById('productPrice').value = product.productPrice;
+  }
+
+  updateProductForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const vendorCategory = document.getElementById('vendorCategory').value;
+    const brandCategory = document.getElementById('brandCategory').value;
+    const productSize = document.getElementById('productSize').value;
+    const productName = document.getElementById('productName').value;
+    const productPrice = document.getElementById('productPrice').value;
+    const image = document.querySelector('input[type="file"]').files[0];
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      product.vendorCategory = vendorCategory;
+      product.brandCategory = brandCategory;
+      product.productSize = productSize;
+      product.productName = productName;
+      product.productPrice = productPrice;
+      if (image) product.image = reader.result;
+
+      localStorage.setItem('inventory', JSON.stringify(inventory));
+
+      alert('Product updated successfully');
+      window.location.href = 'admin.html';
+    };
+
+    if (image) {
+      reader.readAsDataURL(image);
+    } else {
+      reader.onloadend();
+    }
+  });
+});
+    }

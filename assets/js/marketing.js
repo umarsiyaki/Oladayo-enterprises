@@ -100,3 +100,100 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const productList = document.getElementById('productList');
+
+  // Fetch inventory from localStorage (or server in real implementation)
+  let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+
+  inventory.forEach(product => {
+    const productItem = document.createElement('div');
+    productItem.className = 'product-item';
+    productItem.innerHTML = `
+      <h3>${product.productName}</h3>
+      <p>Vendor: ${product.vendorCategory}</p>
+      <p>Brand: ${product.brandCategory}</p>
+      <p>Size: ${product.productSize}</p>
+      <p>Price: $${product.productPrice}</p>
+    `;
+    productList.appendChild(productItem);
+  });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const categories = {
+    'Energy Drinks': 'energyDrinks',
+    'Maltina': 'maltinaDrinks',
+    'Cola': 'colaDrinks',
+    'Tropical': 'tropicalDrinks',
+    'Fanta': 'fantaDrinks'
+  };
+
+  // Fetch inventory from localStorage (or server in real implementation)
+  let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+
+  inventory.forEach(product => {
+    if (categories[product.vendorCategory]) {
+      const productList = document.getElementById(categories[product.vendorCategory]);
+      const productCard = createProductCard(product);
+      productList.appendChild(productCard);
+    }
+  });
+
+  function createProductCard(product) {
+    const colDiv = document.createElement('div');
+    colDiv.className = 'col-lg-3 col-md-6 mb-4';
+
+    const cardDiv = document.createElement('div');
+    cardDiv.className = 'card';
+
+    const img = document.createElement('img');
+    img.src = product.image || 'path/to/default-image.jpg'; // Use a default image if product.image is not provided
+    img.className = 'card-img-top';
+    img.alt = product.productName;
+
+    const cardBody = document.createElement('div');
+    cardBody.className = 'card-body';
+
+    const title = document.createElement('h5');
+    title.className = 'card-title';
+    title.textContent = product.productName;
+
+    const description = document.createElement('p');
+    description.className = 'card-text';
+    description.textContent = product.description || 'No description available.'; // Use a default description if not provided
+
+    const price = document.createElement('p');
+    price.className = 'card-text';
+    price.innerHTML = `<strong>Price: $${product.productPrice}</strong>`;
+
+    const addToCartButton = document.createElement('a');
+    addToCartButton.href = '#';
+    addToCartButton.className = 'btn btn-primary';
+    addToCartButton.textContent = 'Add to Cart';
+    addToCartButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      addToCart(product);
+    });
+
+    cardBody.appendChild(title);
+    cardBody.appendChild(description);
+    cardBody.appendChild(price);
+    cardBody.appendChild(addToCartButton);
+
+    cardDiv.appendChild(img);
+    cardDiv.appendChild(cardBody);
+    colDiv.appendChild(cardDiv);
+
+    return colDiv;
+  }
+
+  function addToCart(product) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push(product);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(`${product.productName} has been added to your cart.`);
+  }
+});

@@ -404,3 +404,24 @@ document.getElementById('login_logout').addEventListener('click', () => {
       }
   });
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleThemeButton = document.getElementById('toggleThemeButton');
+    const logoutButton = document.getElementById('logoutButton');
+  
+    // Load theme preference from localStorage
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    document.body.className = currentTheme;
+  
+    toggleThemeButton.addEventListener('click', () => {
+      const newTheme = document.body.className === 'light' ? 'dark' : 'light';
+      document.body.className = newTheme;
+      localStorage.setItem('theme', newTheme);
+    });
+  
+    logoutButton.addEventListener('click', () => {
+      localStorage.removeItem('userRole');
+      window.location.href = 'login.html';
+    });
+  });

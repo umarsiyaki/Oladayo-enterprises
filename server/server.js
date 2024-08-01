@@ -227,7 +227,6 @@ app.listen(port, () => {
 
 
 const express = require('express');
-const app = express();
 const port = 3000;
 
 app.use(express.json());
@@ -252,3 +251,55 @@ app.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });
 
+const express = require('express');
+const bodyParser = require('body-parser');
+const fs = require('fs');
+const path = require('path');
+
+const app = express();
+
+app.use(bodyParser.json());
+app.use(express.static('public'));
+
+app.post('/add-product', (req, res) => {
+  const newProduct = req.body;
+
+  fs.readFile('data/inventory.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Server error');
+      return;
+    }
+
+    const inventory = JSON.parse(data);
+    inventory.push(newProduct);
+
+    fs.writeFile('data/inventory.json', JSON.stringify(inventory), (err) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+        return;
+      }
+
+      res.status(200).send('Product added successfully');
+    });
+  });
+});
+
+app.get('/inventory', (req, res) => {
+  fs.readFile('data/inventory.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Server error');
+      return;
+    }
+
+    res.json(JSON.parse(data));
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running
+
+ on http://localhost:${PORT}`);
+});
