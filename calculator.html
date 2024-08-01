@@ -36,11 +36,18 @@
 
   <label>Number per Product:</label>
   <span id="number-per-product"></span>
-
-  <button type="button" onclick="addToCart()">Add to Cart</button>
-  <button type="button" onclick="subtractFromCart()">Subtract from Cart</button>
-  <button type="button" onclick="multiplyCart()">Multiply Cart</button>
-  <button type="button" onclick="divideCart()">Divide Cart</button>
+  <button type="button" onclick="updateProduct('addToCart')">Add to Cart</button>
+  <button type="button" onclick="updateProduct('subtractFromCart')">Subtract from Cart</button>
+  <button type="button" onclick="updateProduct('multiplyCart')">Multiply Cart</button>
+  <button type="button" onclick="updateProduct('divideCart')">Divide Cart</button>
+  
+  <script>
+    function updateProduct(action) {
+      const productId = 'some-product-id'; // Replace with actual product ID
+      localStorage.setItem('action', action);
+      window.location.href = `updateproduct.html?id=${productId}`;
+    }
+  </script>
   <button type="submit">Submit</button>
 </form>
 

@@ -42,3 +42,4 @@ document.addEventListener('DOMContentLoaded', function() {
     alert('Thank you for contacting us!');
   });
 });
+
