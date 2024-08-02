@@ -28,7 +28,7 @@
 }
 
 .navbar a {
-  color: white;
+  color: rgba(42, 4, 92, 0.651);
   text-decoration: none;
   padding: 8px 16px;
 }
@@ -46,7 +46,7 @@
   }
 
   .navbar a {
-    padding: 6px 12px;
+    padding: 2px 22px;
   }
 }
 
@@ -78,11 +78,15 @@ header {
   align-items: center;
   background-color: #333;
   color: #fff;
-  padding: 10px 20px;
+  padding: 1px 2px;
 }
 
 .logo-container img {
-  width: 150px;
+  width: 50px;
+}
+.log{
+  width: 40px;
+  height: 40px;
 }
 
 footer {

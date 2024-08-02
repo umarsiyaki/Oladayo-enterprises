@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
 const Notification = require('../models/Notification');
-const Message = require('../models/Message');
 
 // User dashboard route
 router.get('/dashboard', (req, res) => {
@@ -36,7 +35,6 @@ router.post('/messages', (req, res) => {
 module.exports = router;
 
 const express = require('express');
-const User = require('../models/User');
 const auth = require('../middleware/auth');
 
 router.get('/', auth, async (req, res) => {
