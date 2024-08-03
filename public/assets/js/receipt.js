@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function() {
   const receiptModal = document.getElementById('receipt-modal');
   const receiptContent = document.getElementById('receipt-content');
@@ -48,6 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
     showReceipt(orderDetails);
   }
 
-  // Uncomment this line to test the receipt display
-   completeOrderDemo();
+  // Simulate order completion
+  setTimeout(completeOrderDemo, 2000);
 });
