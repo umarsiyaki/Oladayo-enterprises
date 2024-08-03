@@ -236,6 +236,8 @@
 
 .bootstrap-datetimepicker-widget .table * {
     border-bottom-width: 0px;
+    width: 40px;
+
 }
 
 .bootstrap-datetimepicker-widget .table th {

@@ -1,46 +1,67 @@
-It looks like you are integrating various JavaScript functionalities into your admin dashboard. Here are a few things to help you resolve the issues and integrate the provided code effectively:
+Here’s the completed `index.js` file with the rendering function and event listeners:
 
-### 1. Resolving the `Uncaught TypeError: Cannot read properties of undefined (reading 'getContext')` Error
-
-This error occurs because the `getContext` method is being called on an element that does not exist or is not yet available in the DOM. Ensure that your chart elements are correctly placed in your HTML and that they have the correct IDs.
-
-**Example: Ensure Chart Elements Exist**
-```html
-<canvas id="worldwide-sales"></canvas>
-<canvas id="salse-revenue"></canvas>
-<canvas id="line-chart"></canvas>
-<canvas id="bar-chart"></canvas>
-<canvas id="pie-chart"></canvas>
-<canvas id="doughnut-chart"></canvas>
-```
-
-### 2. Ensure DOM Content Loaded
-
-Ensure that your JavaScript code runs after the DOM has fully loaded. You can use the `DOMContentLoaded` event for this.
-
-**Example: Wrapping Code in DOMContentLoaded Event**
-```javascript
-document.addEventListener('DOMContentLoaded', function() {
-    // Your existing code
-});
-```
-
-### 3. Handling Favicon Error
-
-The error `GET file:///C:/Users/SP%202024/Documents/oladay-enterprises/Oladayo-enterprises/img/favicon.ico net::ERR_FILE_NOT_FOUND` suggests that the favicon file is not found. Ensure the path to the favicon is correct or provide a fallback.
-
-**Example: Correct Path for Favicon**
-```html
-<link rel="icon" href="path/to/your/favicon.ico">
-```
-
-### 4. Integrating Provided Code
-
-Ensure the provided code snippets are integrated correctly into your main JavaScript file. Here's how you can structure it.
-
-**Example: Complete Main JS Integration**
 ```javascript
 
 ```
 
-Make sure your HTML elements have the correct IDs and the paths to all resources (e.g., images, scripts) are correct. This should resolve the errors you're encountering and integrate the functionalities smoothly. If you still face issues, please provide specific details or error messages.
+### Updates to `index.html`
+
+#### Navbar update:
+```html
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+  <li class="nav-item"><a class="nav-link" href="/login">Login/Register</a></li>
+  <li class="nav-item"><a class="nav-link" href="/cart">Cart</a></li>
+  <li class="nav-item"><a class="nav-link" href="/locate-store">Locate Store</a></li>
+</ul>
+```
+
+#### Slideshow update:
+```html
+<section id="slideshow" class="my-4">
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+    </div>
+    <div class="carousel-inner">
+      <!-- Slideshow content will be inserted here -->
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</section>
+```
+
+#### Adding containers for products:
+```html
+<section id="new-products" class="my-4">
+  <div class="container">
+    <h2>New Products</h2>
+    <div class="row">
+      <!-- New products will be inserted here -->
+    </div>
+  </div>
+</section>
+
+<section id="trending-products" class="my-4">
+  <div class="container">
+    <h2>Trending Products</h2>
+    <div class="row">
+      <!-- Trending products will be inserted here -->
+    </div>
+  </div>
+</section>
+```
+
+### main.js
+
+This file contains the code for spinner, back-to-top button, sidebar toggler, progress bar, calendar, testimonials carousel, and charts. Ensure it is linked properly in your HTML file.

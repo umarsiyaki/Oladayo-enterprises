@@ -61,6 +61,16 @@ my-inventory-app/
 |   |-- payment.html
 |   |-- receipt.html
 |   |-- blogs.html
+|   |-- updatedProduct.html
+|   |-- user.html
+|   |-- widget.html
+|   |-- element.html
+|   |-- table.html
+|   |-- calendar.html
+|   |-- Calculator.html
+|   |-- addProduct.html
+|   |-- blogs.html
+|   |-- blogs.html
 |-- src/
 |-- server/
 |-- package.json
