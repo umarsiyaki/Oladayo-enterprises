@@ -1,50 +1,348 @@
+Your code snippets outline different functionalities for handling user profiles, updating product details, and completing orders. Below is an integrated view with additional context and comments for clarity.
+
+### profile.js
+This script handles the profile click event to open a profile modal or page.
+
+```javascript
+document.getElementById('profile').addEventListener('click', () => {
+  // Logic to open the profile modal or page
+  // Example: Open a modal with profile details form
+  const profileModal = document.getElementById('profile-modal');
+  profileModal.style.display = 'block';
+
+  // Fetch current profile details and populate the form
+  fetch('/api/profile') // Placeholder for fetching profile data
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('profile-username').value = data.username;
+      document.getElementById('profile-email').value = data.email;
+      document.getElementById('profile-phone').value = data.phone;
+      // Populate other profile fields as needed
+    })
+    .catch(error => console.error('Error fetching profile:', error));
+
+  // Logic to allow user to update details
+  document.getElementById('profile-update-btn').addEventListener('click', () => {
+    const updatedProfile = {
+      username: document.getElementById('profile-username').value,
+      email: document.getElementById('profile-email').value,
+      phone: document.getElementById('profile-phone').value,
+      // Collect other updated profile fields as needed
+    };
+
+    fetch('/api/profile/update', { // Placeholder for updating profile data
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedProfile)
+    })
+    .then(response => response.json())
+    .then(data => {
+      alert('Profile updated successfully!');
+      profileModal.style.display = 'none'; // Close the modal
+    })
+    .catch(error => console.error('Error updating profile:', error));
+  });
+});
+```
+
+### cashier.js
+This script handles the update of product details and updates the total quantity displayed.
+
+```javascript
+const updateProductBtn = document.getElementById('update-product-btn'); // Ensure this ID matches your HTML
+
+if (updateProductBtn) {
+  updateProductBtn.addEventListener('click', () => {
+    const productDetails = {
+      name: document.getElementById('product-name').value,
+      category: document.getElementById('category').value,
+      size: document.getElementById('size').value,
+      type: document.getElementById('type').value,
+      price: parseFloat(document.getElementById('price').value),
+      quantity: parseInt(document.getElementById('quantity').value)
+    };
+
+    let totalQuantity = 0; // Ensure this is declared outside and accessible
+    totalQuantity += productDetails.quantity;
+
+    document.getElementById('total-products').textContent = `Total Products: ${totalQuantity}`;
+    document.getElementById('updated-details').textContent = `Updated Details: ${JSON.stringify(productDetails)}`;
+
+    // Update the product details in the backend (placeholder)
+    fetch('/api/products/update', { // Placeholder for updating product data
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(productDetails)
+    })
+    .then(response => response.json())
+    .then(data => console.log('Product updated successfully:', data))
+    .catch(error => console.error('Error updating product:', error));
+  });
+}
+```
+
+### receipt.js
+This script demonstrates completing an order and showing a receipt.
+
+```javascript
 
 ```
 
-Make sure your HTML structure matches the IDs used in the script:
+### HTML Structure
+Ensure you have the necessary HTML structure to support the JavaScript functionalities:
 
 ```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/styles/style.css">
-  <title>Product Page</title>
-</head>
-<body>
-  <!-- New Products Section -->
-  <section id="new-products" class="products-section">
-    <h2>New Products</h2>
-    <!-- Products will be injected here -->
-  </section>
+<!-- Profile Modal -->
+<div id="profile-modal" style="display: none;">
+  <h2>Update Profile</h2>
+  <form>
+    <label for="profile-username">Username:</label>
+    <input type="text" id="profile-username" name="username">
+    <label for="profile-email">Email:</label>
+    <input type="email" id="profile-email" name="email">
+    <label for="profile-phone">Phone:</label>
+    <input type="tel" id="profile-phone" name="phone">
+    <!-- Add other profile fields as needed -->
+    <button type="button" id="profile-update-btn">Update</button>
+  </form>
+</div>
 
-  <!-- Trending Products Section -->
-  <section id="trending-products" class="products-section">
-    <h2>Trending Products</h2>
-    <!-- Products will be injected here -->
-  </section>
+<!-- Update Product Section -->
+<section id="update-product-section">
+  <h2>Update Product</h2>
+  <form>
+    <input type="text" id="product-name" placeholder="Product Name">
+    <input type="text" id="category" placeholder="Category">
+    <input type="text" id="size" placeholder="Size">
+    <input type="text" id="type" placeholder="Type">
+    <input type="number" id="price" placeholder="Price">
+    <input type="number" id="quantity" placeholder="Quantity">
+    <button type="button" id="update-product-btn">Update Product</button>
+  </form>
+  <p id="total-products">Total Products: 0</p>
+  <p id="updated-details">Updated Details: None</p>
+</section>
 
-  <!-- Contact Us Form -->
-  <section id="contact-us">
-    <h2>Contact Us</h2>
-    <form id="contact-us-form">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required>
-      
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
-      
-      <label for="message">Message:</label>
-      <textarea id="message" name="message" required></textarea>
-      
-      <button type="submit">Send</button>
-    </form>
-  </section>
+<!-- Receipt Section -->
+<section id="receipt">
+  <!-- Receipt details will be populated here -->
+</section>
 
-  <script src="assets/scripts/main.js"></script>
-</body>
-</html>
+<script src="profile.js"></script>
+<script src="cashier.js"></script>
+<script src="receipt.js"></script>
 ```
 
-Ensure your images are placed in the `assets/images` directory, and the `style.css` and `main.js` are correctly linked. This will allow your products to be displayed and your contact form to function as intended.
+These snippets should be integrated into your existing project structure, ensuring proper ID matching and styling as needed.
+You've provided multiple `DOMContentLoaded` event listeners and similar functionality spread across different sections of your code. To create a clean, organized, and functional implementation, let's consolidate and organize the various parts of your script. Here's a more structured approach:
+
+```javascript
+document.addEventListener('DOMContentLoaded', () => {
+  // Sidebar toggle for smaller screens
+  const sidebarToggler = document.querySelector('.sidebar-toggler');
+  if (sidebarToggler) {
+    sidebarToggler.addEventListener('click', () => {
+      document.querySelector('.sidebar').classList.toggle('open');
+    });
+  }
+
+  // Fetch and display products from the server
+  loadProducts();
+
+  // Setup search functionality
+  const searchInput = document.querySelector('.form-control');
+  if (searchInput) {
+    searchInput.addEventListener('input', async (event) => {
+      const query = event.target.value;
+      try {
+        const response = await fetch(`/api/products/search?q=${query}`);
+        const products = await response.json();
+        displayProducts(products);
+      } catch (error) {
+        console.error('Error searching products:', error);
+      }
+    });
+  }
+
+  // Fetch inventory from localStorage (or server in real implementation)
+  loadInventory();
+
+  function loadProducts() {
+    fetch('/api/products')
+      .then(response => response.json())
+      .then(products => displayProducts(products))
+      .catch(error => console.error('Error fetching products:', error));
+  }
+
+  function displayProducts(products) {
+    const productSections = {
+      'Energy Drinks': document.querySelector('.row:nth-of-type(1)'),
+      'Maltina': document.querySelector('.row:nth-of-type(2)'),
+      'Cola': document.querySelector('.row:nth-of-type(3)'),
+      'Tropical': document.querySelector('.row:nth-of-type(4)'),
+      'Fanta': document.querySelector('.row:nth-of-type(5)')
+    };
+
+    // Clear existing products
+    for (let section in productSections) {
+      productSections[section].innerHTML = '';
+    }
+
+    products.forEach(product => {
+      const productCard = createProductCard(product);
+      if (productSections[product.category]) {
+        productSections[product.category].appendChild(productCard);
+      }
+    });
+  }
+
+  function createProductCard(product) {
+    const cardDiv = document.createElement('div');
+    cardDiv.className = 'col-lg-3 col-md-6 mb-4';
+
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    const img = document.createElement('img');
+    img.className = 'card-img-top';
+    img.src = product.image || '../images/default.jpg'; // Use a default image if product.image is not provided
+    img.alt = product.name;
+
+    const cardBody = document.createElement('div');
+    cardBody.className = 'card-body';
+
+    const cardTitle = document.createElement('h5');
+    cardTitle.className = 'card-title';
+    cardTitle.textContent = product.name;
+
+    const cardText1 = document.createElement('p');
+    cardText1.className = 'card-text';
+    cardText1.textContent = product.description || 'No description available.'; // Use a default description if not provided
+
+    const cardText2 = document.createElement('p');
+    cardText2.className = 'card-text';
+    cardText2.innerHTML = `<strong>Price: $${product.price}</strong>`;
+
+    const addButton = document.createElement('button');
+    addButton.className = 'btn btn-primary';
+    addButton.textContent = 'Add to Cart';
+    addButton.onclick = () => addToCart(product.id);
+
+    cardBody.append(cardTitle, cardText1, cardText2, addButton);
+    card.append(img, cardBody);
+    cardDiv.appendChild(card);
+
+    return cardDiv;
+  }
+
+  function addToCart(productId) {
+    fetch('/api/cart', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ productId })
+    })
+      .then(response => response.json())
+      .then(result => alert(result.message))
+      .catch(error => console.error('Error adding to cart:', error));
+  }
+
+  function loadInventory() {
+    const categories = {
+      'Energy Drinks': 'energyDrinks',
+      'Maltina': 'maltinaDrinks',
+      'Cola': 'colaDrinks',
+      'Tropical': 'tropicalDrinks',
+      'Fanta': 'fantaDrinks'
+    };
+
+    let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+
+    for (let category in categories) {
+      const productList = document.getElementById(categories[category]);
+      if (productList) {
+        productList.innerHTML = ''; // Clear existing products
+      }
+    }
+
+    inventory.forEach(product => {
+      if (categories[product.vendorCategory]) {
+        const productList = document.getElementById(categories[product.vendorCategory]);
+        const productCard = createInventoryProductCard(product);
+        if (productList) {
+          productList.appendChild(productCard);
+        }
+      }
+    });
+  }
+
+  function createInventoryProductCard(product) {
+    const colDiv = document.createElement('div');
+    colDiv.className = 'col-lg-3 col-md-6 mb-4';
+
+    const cardDiv = document.createElement('div');
+    cardDiv.className = 'card';
+
+    const img = document.createElement('img');
+    img.src = product.image || '../images/default.jpg'; // Use a default image if product.image is not provided
+    img.className = 'card-img-top';
+    img.alt = product.productName;
+
+    const cardBody = document.createElement('div');
+    cardBody.className = 'card-body';
+
+    const title = document.createElement('h5');
+    title.className = 'card-title';
+    title.textContent = product.productName;
+
+    const description = document.createElement('p');
+    description.className = 'card-text';
+    description.textContent = product.description || 'No description available.'; // Use a default description if not provided
+
+    const price = document.createElement('p');
+    price.className = 'card-text';
+    price.innerHTML = `<strong>Price: $${product.productPrice}</strong>`;
+
+    const addToCartButton = document.createElement('a');
+    addToCartButton.href = '#';
+    addToCartButton.className = 'btn btn-primary';
+    addToCartButton.textContent = 'Add to Cart';
+    addToCartButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      addToCart(product);
+    });
+
+    cardBody.appendChild(title);
+    cardBody.appendChild(description);
+    cardBody.appendChild(price);
+    cardBody.appendChild(addToCartButton);
+
+    cardDiv.appendChild(img);
+    cardDiv.appendChild(cardBody);
+    colDiv.appendChild(cardDiv);
+
+    return colDiv;
+  }
+});
+```
+
+### Explanation:
+1. **Sidebar Toggle**: Toggles the sidebar for smaller screens.
+2. **Fetch and Display Products**: Loads products from the server and displays them in their respective categories.
+3. **Search Functionality**: Allows for live search and display of products based on the search query.
+4. **Inventory Management**: Loads inventory data from localStorage and displays it in categorized sections.
+5. **Consolidation**: Combines similar functionalities into single event listeners and reusable functions to reduce redundancy and improve code readability.
+
+### HTML Structure:
+Ensure you have the necessary HTML structure to support these functionalities, such as product containers, search input, and category sections.
+
+```html
+
+```
+
+This approach should help you maintain a clean, organized, and functional codebase. Adjust the IDs and class names as per your actual HTML structure.
+
+

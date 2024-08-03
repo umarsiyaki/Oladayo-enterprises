@@ -34,21 +34,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Simulate an order completion event for demonstration purposes
-  // In a real application, this function should be called when an order is completed
-  function completeOrderDemo() {
-    const orderDetails = {
-      id: '12345',
-      username: 'john_doe',
-      products: [
-        { name: 'Product 1', quantity: 2, price: 10 },
-        { name: 'Product 2', quantity: 1, price: 20 }
-      ],
-      total: 40
-    };
-    showReceipt(orderDetails);
-  }
+// Function to be called when an order is completed
+function completeOrderDemo() {
+  const orderDetails = {
+    id: '12345',
+    username: 'john_doe',
+    products: [
+      { name: 'Product 1', quantity: 2, price: 10 },
+      { name: 'Product 2', quantity: 1, price: 20 }
+    ],
+    total: 40
+  };
+  showReceipt(orderDetails);
+}
 
-  // Simulate order completion
-  setTimeout(completeOrderDemo, 2000);
+// Function to display the receipt (example implementation)
+function showReceipt(orderDetails) {
+  const receiptSection = document.getElementById('receipt');
+  receiptSection.innerHTML = `
+    <h2>Order Receipt</h2>
+    <p>Order ID: ${orderDetails.id}</p>
+    <p>Username: ${orderDetails.username}</p>
+    <ul>
+      ${orderDetails.products.map(product => `
+        <li>${product.name} - Quantity: ${product.quantity}, Price: $${product.price}</li>
+      `).join('')}
+    </ul>
+    <p>Total: $${orderDetails.total}</p>
+  `;
+}
+
+// Simulate order completion after 2 seconds (for demo purposes)
+setTimeout(completeOrderDemo, 2000);
 });

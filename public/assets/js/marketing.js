@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cardDiv.className = 'card';
 
     const img = document.createElement('img');
-    img.src = product.image || 'path/to/default-image.jpg'; // Use a default image if product.image is not provided
+    img.src = product.image || '../images/coke.jpeg'; // Use a default image if product.image is not provided
     img.className = 'card-img-top';
     img.alt = product.productName;
 
