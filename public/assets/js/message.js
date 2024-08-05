@@ -18,6 +18,38 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(error => console.error('Error fetching messages:', error));
     }
 
+
+
+    document.getElementById('message-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      var messageContent = document.getElementById('message-content').value;
+      
+      // Simulate sending a message (replace this with actual message sending logic)
+      setTimeout(function() {
+        var messagesDiv = document.getElementById('messages');
+        var newMessage = document.createElement('div');
+        newMessage.textContent = 'You: ' + messageContent;
+        messagesDiv.appendChild(newMessage);
+        
+        document.getElementById('message-content').value = '';
+        
+        // Show the message area
+        document.getElementById('message-area').classList.add('show');
+      }, 500);
+    });
+
+    // Simulate receiving a message
+    setTimeout(function() {
+      var messagesDiv = document.getElementById('messages');
+      var newMessage = document.createElement('div');
+      newMessage.textContent = 'Admin: Hello, how can we assist you?';
+      messagesDiv.appendChild(newMessage);
+      
+      // Show the message area
+      document.getElementById('message-area').classList.add('show');
+    }, 2000);
+
+
     function populateMessages(messages) {
         const messageContainer = document.querySelector(".dropdown-menu.dropdown-menu-end.bg-secondary.border-0.rounded-0.rounded-bottom.m-0");
         messageContainer.innerHTML = '';

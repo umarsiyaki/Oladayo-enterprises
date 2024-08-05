@@ -96,20 +96,6 @@ This script demonstrates completing an order and showing a receipt.
 Ensure you have the necessary HTML structure to support the JavaScript functionalities:
 
 ```html
-<!-- Profile Modal -->
-<div id="profile-modal" style="display: none;">
-  <h2>Update Profile</h2>
-  <form>
-    <label for="profile-username">Username:</label>
-    <input type="text" id="profile-username" name="username">
-    <label for="profile-email">Email:</label>
-    <input type="email" id="profile-email" name="email">
-    <label for="profile-phone">Phone:</label>
-    <input type="tel" id="profile-phone" name="phone">
-    <!-- Add other profile fields as needed -->
-    <button type="button" id="profile-update-btn">Update</button>
-  </form>
-</div>
 
 <!-- Update Product Section -->
 <section id="update-product-section">
@@ -141,192 +127,7 @@ These snippets should be integrated into your existing project structure, ensuri
 You've provided multiple `DOMContentLoaded` event listeners and similar functionality spread across different sections of your code. To create a clean, organized, and functional implementation, let's consolidate and organize the various parts of your script. Here's a more structured approach:
 
 ```javascript
-document.addEventListener('DOMContentLoaded', () => {
-  // Sidebar toggle for smaller screens
-  const sidebarToggler = document.querySelector('.sidebar-toggler');
-  if (sidebarToggler) {
-    sidebarToggler.addEventListener('click', () => {
-      document.querySelector('.sidebar').classList.toggle('open');
-    });
-  }
 
-  // Fetch and display products from the server
-  loadProducts();
-
-  // Setup search functionality
-  const searchInput = document.querySelector('.form-control');
-  if (searchInput) {
-    searchInput.addEventListener('input', async (event) => {
-      const query = event.target.value;
-      try {
-        const response = await fetch(`/api/products/search?q=${query}`);
-        const products = await response.json();
-        displayProducts(products);
-      } catch (error) {
-        console.error('Error searching products:', error);
-      }
-    });
-  }
-
-  // Fetch inventory from localStorage (or server in real implementation)
-  loadInventory();
-
-  function loadProducts() {
-    fetch('/api/products')
-      .then(response => response.json())
-      .then(products => displayProducts(products))
-      .catch(error => console.error('Error fetching products:', error));
-  }
-
-  function displayProducts(products) {
-    const productSections = {
-      'Energy Drinks': document.querySelector('.row:nth-of-type(1)'),
-      'Maltina': document.querySelector('.row:nth-of-type(2)'),
-      'Cola': document.querySelector('.row:nth-of-type(3)'),
-      'Tropical': document.querySelector('.row:nth-of-type(4)'),
-      'Fanta': document.querySelector('.row:nth-of-type(5)')
-    };
-
-    // Clear existing products
-    for (let section in productSections) {
-      productSections[section].innerHTML = '';
-    }
-
-    products.forEach(product => {
-      const productCard = createProductCard(product);
-      if (productSections[product.category]) {
-        productSections[product.category].appendChild(productCard);
-      }
-    });
-  }
-
-  function createProductCard(product) {
-    const cardDiv = document.createElement('div');
-    cardDiv.className = 'col-lg-3 col-md-6 mb-4';
-
-    const card = document.createElement('div');
-    card.className = 'card';
-
-    const img = document.createElement('img');
-    img.className = 'card-img-top';
-    img.src = product.image || '../images/default.jpg'; // Use a default image if product.image is not provided
-    img.alt = product.name;
-
-    const cardBody = document.createElement('div');
-    cardBody.className = 'card-body';
-
-    const cardTitle = document.createElement('h5');
-    cardTitle.className = 'card-title';
-    cardTitle.textContent = product.name;
-
-    const cardText1 = document.createElement('p');
-    cardText1.className = 'card-text';
-    cardText1.textContent = product.description || 'No description available.'; // Use a default description if not provided
-
-    const cardText2 = document.createElement('p');
-    cardText2.className = 'card-text';
-    cardText2.innerHTML = `<strong>Price: $${product.price}</strong>`;
-
-    const addButton = document.createElement('button');
-    addButton.className = 'btn btn-primary';
-    addButton.textContent = 'Add to Cart';
-    addButton.onclick = () => addToCart(product.id);
-
-    cardBody.append(cardTitle, cardText1, cardText2, addButton);
-    card.append(img, cardBody);
-    cardDiv.appendChild(card);
-
-    return cardDiv;
-  }
-
-  function addToCart(productId) {
-    fetch('/api/cart', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ productId })
-    })
-      .then(response => response.json())
-      .then(result => alert(result.message))
-      .catch(error => console.error('Error adding to cart:', error));
-  }
-
-  function loadInventory() {
-    const categories = {
-      'Energy Drinks': 'energyDrinks',
-      'Maltina': 'maltinaDrinks',
-      'Cola': 'colaDrinks',
-      'Tropical': 'tropicalDrinks',
-      'Fanta': 'fantaDrinks'
-    };
-
-    let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-
-    for (let category in categories) {
-      const productList = document.getElementById(categories[category]);
-      if (productList) {
-        productList.innerHTML = ''; // Clear existing products
-      }
-    }
-
-    inventory.forEach(product => {
-      if (categories[product.vendorCategory]) {
-        const productList = document.getElementById(categories[product.vendorCategory]);
-        const productCard = createInventoryProductCard(product);
-        if (productList) {
-          productList.appendChild(productCard);
-        }
-      }
-    });
-  }
-
-  function createInventoryProductCard(product) {
-    const colDiv = document.createElement('div');
-    colDiv.className = 'col-lg-3 col-md-6 mb-4';
-
-    const cardDiv = document.createElement('div');
-    cardDiv.className = 'card';
-
-    const img = document.createElement('img');
-    img.src = product.image || '../images/default.jpg'; // Use a default image if product.image is not provided
-    img.className = 'card-img-top';
-    img.alt = product.productName;
-
-    const cardBody = document.createElement('div');
-    cardBody.className = 'card-body';
-
-    const title = document.createElement('h5');
-    title.className = 'card-title';
-    title.textContent = product.productName;
-
-    const description = document.createElement('p');
-    description.className = 'card-text';
-    description.textContent = product.description || 'No description available.'; // Use a default description if not provided
-
-    const price = document.createElement('p');
-    price.className = 'card-text';
-    price.innerHTML = `<strong>Price: $${product.productPrice}</strong>`;
-
-    const addToCartButton = document.createElement('a');
-    addToCartButton.href = '#';
-    addToCartButton.className = 'btn btn-primary';
-    addToCartButton.textContent = 'Add to Cart';
-    addToCartButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      addToCart(product);
-    });
-
-    cardBody.appendChild(title);
-    cardBody.appendChild(description);
-    cardBody.appendChild(price);
-    cardBody.appendChild(addToCartButton);
-
-    cardDiv.appendChild(img);
-    cardDiv.appendChild(cardBody);
-    colDiv.appendChild(cardDiv);
-
-    return colDiv;
-  }
-});
 ```
 
 ### Explanation:
@@ -344,5 +145,54 @@ Ensure you have the necessary HTML structure to support these functionalities, s
 ```
 
 This approach should help you maintain a clean, organized, and functional codebase. Adjust the IDs and class names as per your actual HTML structure.
+
+
+To set up your `package.json` for the specified environment, you need to define the scripts, dependencies, and settings for your project. Below is an example of how you can structure your `package.json` file to include all necessary files, extensions, routes, models, components, and database modules:
+
+```json
+
+```
+
+### Explanation:
+
+1. **Scripts**: These commands help in running the application, linting, fixing lint errors, and formatting the code.
+- `start`: Starts the server.
+- `dev`: Starts the server with `nodemon` for development.
+- `lint`: Runs ESLint to check for code issues.
+- `lint:fix`: Automatically fixes ESLint errors where possible.
+- `build`: Builds the project using Webpack for production.
+- `prettify`: Formats the code using Prettier.
+
+2. **Engines**: Specifies the required Node.js version.
+
+3. **Dependencies**: Lists the packages needed for production.
+- Commonly used libraries for Express.js, MongoDB, caching, security, etc.
+
+4. **DevDependencies**: Lists the packages needed for development.
+- Includes tools for linting, formatting, and watching files.
+
+5. **ESLint Configuration**: Provides linting rules and environment settings for ESLint.
+
+6. **Prettier Configuration**: Configures Prettier settings for code formatting.
+
+7. **Nodemon Configuration**: Configures `nodemon` to watch specific files and extensions, ignoring `node_modules`.
+
+8. **Author and License**: Provides metadata about the project.
+
+Make sure to adjust `"server.js"`, `"routes/"`, `"models/"`, `"components/"`, and `"db/"` paths according to your project's actual structure if they differ.
+
+You can create this `package.json` by running `npm init` and then manually adding the sections, or directly placing this content into your `package.json` file and running `npm install` to install all dependencies.
+
+
+
+
+
+
+Here is the cleaned-up and debugged version of your code. I noticed some duplicate code and potential issues, so I consolidated and organized the code for clarity and functionality.
+
+### Server Code (`server.js`):
+
+```javascript
+
 
 
