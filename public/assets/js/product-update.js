@@ -1,37 +1,30 @@
-document.addEventListener('DOMContentLoaded', function() {
+
+document.addEventListener('DOMContentLoaded', () => {
   const updateProductForm = document.getElementById('update-product-form');
-  
-  updateProductForm.addEventListener('submit', function(event) {
+  const urlParams = new URLSearchParams(window.location.search);
+  const productId = urlParams.get('id');
+
+  if (productId) {
+    document.getElementById('update-product-id').value = productId;
+    fetchProductDetails(productId);
+  }
+
+  updateProductForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const productId = document.getElementById('update-product-id').value;
-    const productName = document.getElementById('update-product-name').value;
-    const productCategory = document.getElementById('update-product-category').value;
-    const productSize = document.getElementById('update-product-size').value;
-    const productQuantity = document.getElementById('update-product-quantity').value;
-    const productPrice = document.getElementById('update-product-price').value;
-    const productImage = document.getElementById('update-product-image').files[0];
+    const formData = new FormData(updateProductForm);
 
-    if (!validateForm(productName, productCategory, productSize, productQuantity, productPrice)) {
+    if (!validateForm(formData)) {
       alert('Please fill out all fields correctly.');
       return;
     }
-
-    const formData = new FormData();
-    formData.append('productId', productId);
-    formData.append('name', productName);
-    formData.append('category', productCategory);
-    formData.append('size', productSize);
-    formData.append('quantity', productQuantity);
-    formData.append('price', productPrice);
-    formData.append('image', productImage);
 
     updateProduct(formData)
       .then(response => {
         if (response.success) {
           alert('Product updated successfully!');
-          // Redirect to admin dashboard or show success message
-          window.location.href = '/admin';
+          notifyUsers();
+          window.location.href = '/admin.html';
         } else {
           alert('Failed to update product: ' + response.message);
         }
@@ -42,8 +35,12 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   });
 
-  function validateForm(name, category, size, quantity, price) {
-    return name && category && size && !isNaN(quantity) && !isNaN(price);
+  function validateForm(formData) {
+    return formData.get('update-product-name') &&
+           formData.get('update-product-category') &&
+           formData.get('update-product-size') &&
+           !isNaN(formData.get('update-product-quantity')) &&
+           !isNaN(formData.get('update-product-price'));
   }
 
   function updateProduct(formData) {
@@ -70,102 +67,16 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
 
-  // Fetch product details if editing an existing product
-  const urlParams = new URLSearchParams(window.location.search);
-  const productId = urlParams.get('id');
-  if (productId) {
-    document.getElementById('update-product-id').value = productId;
-    fetchProductDetails(productId);
+  function notifyUsers() {
+    // Notify admin and cashier about the update
+    // You can customize this function as needed
+    fetch('/api/notify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: 'Product updated successfully.' })
+    })
+    .then(response => response.json())
+    .then(data => console.log('Users notified:', data))
+    .catch(error => console.error('Error notifying users:', error));
   }
-
-  // Additional listeners for other functionalities (if any)
-  // Example: button to fetch the latest products data
-  document.getElementById('refresh-products-btn').addEventListener('click', () => {
-    fetch('/api/products')
-      .then(response => response.json())
-      .then(products => {
-        console.log('Products data refreshed:', products);
-        // Update the UI with the latest products data
-      })
-      .catch(error => {
-        console.error('Error refreshing products data:', error);
-      });
-    
- // Update Product
- updateProductBtn.addEventListener('click', () => {
-  const productDetails = {
-      name: productName.value,
-      category: category.value,
-      size: size.value,
-      type: type.value,
-      price: parseFloat(price.value),
-      quantity: parseInt(quantity.value)
-  };
-
-  totalQuantity += productDetails.quantity;
-
-  totalProducts.textContent = `Total Products: ${totalQuantity}`;
-  updatedDetails.textContent = `Updated Details: ${JSON.stringify(productDetails)}`;
-
-  // Update the product details in the backend (placeholder)
-  fetch('/api/product/update', {
-      method: 'PUT',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(productDetails),
-  })
-  .then(response => response.json())
-  .then(data => console.log('Product updated:', data))
-  .catch(error => console.error('Error updating product:', error));
 });
-  
-document.addEventListener('DOMContentLoaded', () => {
-  const updateProductForm = document.getElementById('updateProductForm');
-  const urlParams = new URLSearchParams(window.location.search);
-  const productId = urlParams.get('id');
-
-  let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-  let product = inventory.find(p => p.id == productId);
-
-  if (product) {
-    document.getElementById('vendorCategory').value = product.vendorCategory;
-    document.getElementById('brandCategory').value = product.brandCategory;
-    document.getElementById('productSize').value = product.productSize;
-    document.getElementById('productName').value = product.productName;
-    document.getElementById('productPrice').value = product.productPrice;
-  }
-
-  updateProductForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const vendorCategory = document.getElementById('vendorCategory').value;
-    const brandCategory = document.getElementById('brandCategory').value;
-    const productSize = document.getElementById('productSize').value;
-    const productName = document.getElementById('productName').value;
-    const productPrice = document.getElementById('productPrice').value;
-    const image = document.querySelector('input[type="file"]').files[0];
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      product.vendorCategory = vendorCategory;
-      product.brandCategory = brandCategory;
-      product.productSize = productSize;
-      product.productName = productName;
-      product.productPrice = productPrice;
-      if (image) product.image = reader.result;
-
-      localStorage.setItem('inventory', JSON.stringify(inventory));
-
-      alert('Product updated successfully');
-      window.location.href = 'admin.html';
-    };
-
-    if (image) {
-      reader.readAsDataURL(image);
-    } else {
-      reader.onloadend();
-    }
-  });
-});
-    }

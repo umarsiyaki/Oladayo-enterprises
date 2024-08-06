@@ -32,7 +32,6 @@ const Notification = require('./models/Notification');
 const Message = require('./models/Message');
 
 // Initialize app
-const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 const cache = new NodeCache();
@@ -104,7 +103,7 @@ serveHTML('/cashier', 'cashier.html');
 serveHTML('/user', 'user.html');
 serveHTML('/register', 'register.html');
 serveHTML('/login', 'login.html');
-serveHTML('/market', 'marketing.html');
+serveHTML('/market', 'market.html');
 serveHTML('/payment', 'payment.html');
 serveHTML('/receipt', 'receipt.html');
 serveHTML('/blogs', 'blogs.html');
@@ -135,7 +134,46 @@ app.use((req, res, next) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+});
+
+
+require('dotenv').config();
+const connectDB = require('./src/config');
+
+// Connect to the database
+connectDB();
+
+const app = express();
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const messageRoutes = require('./src/routes/messages');
+
+
+app.use(bodyParser.json());
+
+// Use the message routes
+app.use('/api/messages', messageRoutes);
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+app.use(bodyParser.json());
+
+// Use the message routes
+app.use('/api/messages', messageRoutes);
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+
+const app = require('./app');
+const config = require('./config/config');
+
+const PORT = config.server.port || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });

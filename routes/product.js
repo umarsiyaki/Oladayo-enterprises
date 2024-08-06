@@ -65,8 +65,6 @@ module.exports = mongoose.model('Product', productSchema);
 
 const express = require('express');
 
-const router = express.Router();
-
 // Add product
 router.post('/', async (req, res) => {
 try {
@@ -98,4 +96,13 @@ res.status(400).json({ error: error.message });
 }
 });
 
+
+const express = require('express');
+const router = express.Router();
+const productController = require('../controllers/productController');
+
+router.get('/', productController.getAllProducts);
+router.post('/', productController.createProduct);
+
+module.exports = router;
 module.exports = router;

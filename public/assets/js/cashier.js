@@ -51,6 +51,37 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+if (updateProductBtn) {
+  updateProductBtn.addEventListener('click', () => {
+    const productDetails = {
+      name: document.getElementById('product-name').value,
+      category: document.getElementById('category').value,
+      size: document.getElementById('size').value,
+      type: document.getElementById('type').value,
+      price: parseFloat(document.getElementById('price').value),
+      quantity: parseInt(document.getElementById('quantity').value)
+    };
+
+    let totalQuantity = 0; // Ensure this is declared outside and accessible
+    totalQuantity += productDetails.quantity;
+
+    document.getElementById('total-products').textContent = `Total Products: ${totalQuantity}`;
+    document.getElementById('updated-details').textContent = `Updated Details: ${JSON.stringify(productDetails)}`;
+
+    // Update the product details in the backend (placeholder)
+    fetch('/api/products/update', { // Placeholder for updating product data
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(productDetails)
+    })
+    .then(response => response.json())
+    .then(data => console.log('Product updated successfully:', data))
+    .catch(error => console.error('Error updating product:', error));
+  });
+}
+
   // Notifications and messaging
   const notificationsDropdown = document.getElementById('notificationDropdown');
   const messagingWindow = document.getElementById('messageDropdown');

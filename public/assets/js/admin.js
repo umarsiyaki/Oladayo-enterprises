@@ -18,48 +18,64 @@ document.addEventListener('DOMContentLoaded', function() {
     let totalQuantity = 0;
 
     // Quantity Control
-    countAddBtn.addEventListener('click', () => {
-        quantity.value = parseInt(quantity.value) + 1;
-    });
+    if (countAddBtn) {
+        countAddBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            quantity.value = parseInt(quantity.value) + 1;
+        });
+    }
 
-    countSubtractBtn.addEventListener('click', () => {
-        if (parseInt(quantity.value) > 1) {
-            quantity.value = parseInt(quantity.value) - 1;
-        }
-    });
+    if (countSubtractBtn) {
+        countSubtractBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (parseInt(quantity.value) > 1) {
+                quantity.value = parseInt(quantity.value) - 1;
+            }
+        });
+    }
 
-    countMultiplyBtn.addEventListener('click', () => {
-        quantity.value = parseInt(quantity.value) * 2;
-    });
+    if (countMultiplyBtn) {
+        countMultiplyBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            quantity.value = parseInt(quantity.value) * 2;
+        });
+    }
 
     // Update Product
-    updateProductBtn.addEventListener('click', () => {
-        const productDetails = {
-            name: productName.value,
-            category: category.value,
-            size: size.value,
-            type: type.value,
-            price: parseFloat(price.value),
-            quantity: parseInt(quantity.value)
-        };
+    if (updateProductBtn) {
+        updateProductBtn.addEventListener('click', () => {
+            const productDetails = {
+                name: productName.value,
+                category: category.value,
+                size: size.value,
+                type: type.value,
+                price: parseFloat(price.value),
+                quantity: parseInt(quantity.value)
+            };
 
-        totalQuantity += productDetails.quantity;
+            totalQuantity += productDetails.quantity;
 
-        totalProducts.textContent = `Total Products: ${totalQuantity}`;
-        updatedDetails.textContent = `Updated Details: ${JSON.stringify(productDetails)}`;
+            totalProducts.textContent = `Total Products: ${totalQuantity}`;
+            updatedDetails.textContent = `Updated Details: ${JSON.stringify(productDetails)}`;
 
-        // Update the product details in the backend
-        fetch('/api/product/update', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(productDetails),
-        })
-        .then(response => response.json())
-        .then(data => console.log('Product updated:', data))
-        .catch(error => console.error('Error updating product:', error));
-    });
+            // Update the product details in the backend
+            fetch('/api/product/update', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(productDetails),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => console.log('Product updated:', data))
+            .catch(error => console.error('Error updating product:', error));
+        });
+    }
 
     // Spinner
     if (spinner) {
@@ -80,7 +96,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function fetchAdminData() {
         fetch('/api/admin/data')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 document.getElementById('today-sale').innerText = `$${data.todaySale}`;
                 document.getElementById('total-sale').innerText = `$${data.totalSale}`;
@@ -113,7 +134,12 @@ document.addEventListener('DOMContentLoaded', function() {
     trackBusinessRecords();
     function trackBusinessRecords() {
         fetch('/api/business/records')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => console.log(data))
             .catch(error => console.error('Error fetching business records:', error));
     }
@@ -122,7 +148,12 @@ document.addEventListener('DOMContentLoaded', function() {
     trackCashierPerformance();
     function trackCashierPerformance() {
         fetch('/api/cashier/performance')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => console.log(data))
             .catch(error => console.error('Error fetching cashier performance:', error));
     }
@@ -131,7 +162,12 @@ document.addEventListener('DOMContentLoaded', function() {
     trackProducts();
     function trackProducts() {
         fetch('/api/products')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => console.log(data))
             .catch(error => console.error('Error fetching products:', error));
     }
@@ -141,58 +177,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function calculateGainLoss() {
         let gainLoss = calculateFromRecords(); // Example: Use business records to calculate
         console.log('Gain/Loss:', gainLoss);
-    }
-
-    // Add Cashier
-    function addCashier(cashierData) {
-        fetch('/api/cashier/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(cashierData),
-        })
-        .then(response => response.json())
-        .then(data => console.log('New cashier added:', data))
-        .catch(error => console.error('Error adding cashier:', error));
-    }
-
-    // Remove Cashier
-    function removeCashier(cashierId) {
-        fetch(`/api/cashier/remove/${cashierId}`, {
-            method: 'DELETE',
-        })
-        .then(response => response.json())
-        .then(data => console.log('Cashier removed:', data))
-        .catch(error => console.error('Error removing cashier:', error));
-    }
-
-    // Add New Product
-    function addNewProduct(productData) {
-        fetch('/api/product/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(productData),
-        })
-        .then(response => response.json())
-        .then(data => console.log('New product added:', data))
-        .catch(error => console.error('Error adding product:', error));
-    }
-
-    // Update Product Info
-    function updateProductInfo(productId, updatedInfo) {
-        fetch(`/api/product/update/${productId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(updatedInfo),
-        })
-        .then(response => response.json())
-        .then(data => console.log('Product updated:', data))
-        .catch(error => console.error('Error updating product:', error));
     }
 
     // Handle Notifications
@@ -224,12 +208,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateNotificationCount(count) {
         const notificationElement = document.querySelector('.fa-bell span');
-        notificationElement.innerText = count;
+        if (notificationElement) {
+            notificationElement.innerText = count;
+        }
     }
 
     function updateMessageCount(count) {
         const messageElement = document.querySelector('.fa-envelope span');
-        messageElement.innerText = count;
+        if (messageElement) {
+            messageElement.innerText = count;
+        }
     }
 
     function navigateToPage(page) {
@@ -292,116 +280,7 @@ function removeAdmin(adminId) {
     });
 }
 
- // Toggle dark/light mode
-
- document.getElementById('settings').addEventListener('click', () => {
-    // Logic to open the settings modal or page
-    // Toggle dark/light mode
-    const currentMode = localStorage.getItem('theme') || 'light';
-    if (currentMode === 'light') {
-        setDarkMode();
-    } else {
-        setLightMode();
-    }
+// Toggle dark/light mode
+document.getElementById('toggle-mode').addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
 });
-
-
-
-function setDarkMode() {
-    document.body.classList.add('dark-mode');
-    document.body.classList.remove('light-mode');
-    localStorage.setItem('theme', 'dark');
-}
-
-function setLightMode() {
-    document.body.classList.add('light-mode');
-    document.body.classList.remove('dark-mode');
-    localStorage.setItem('theme', 'light');
-}
-
-// Apply theme on page load
-document.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        setDarkMode();
-    } else {
-        setLightMode();
-    }
-});
-
-document.getElementById('login_logout').addEventListener('click', () => {
-    // Logic to log the user out
-    fetch('/logout', {
-        method: 'POST'
-    }).then(response => {
-        if (response.ok) {
-            window.location.href = 'signin.html';
-        } else {
-            alert('Error logging out');
-        }
-    });
-});
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleThemeButton = document.getElementById('toggleThemeButton');
-    const logoutButton = document.getElementById('logoutButton');
-  
-    // Load theme preference from localStorage
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    document.body.className = currentTheme;
-  
-    toggleThemeButton.addEventListener('click', () => {
-      const newTheme = document.body.className === 'light' ? 'dark' : 'light';
-      document.body.className = newTheme;
-      localStorage.setItem('theme', newTheme);
-    });
-  
-    logoutButton.addEventListener('click', () => {
-      localStorage.removeItem('userRole');
-      window.location.href = 'login.html';
-    });
-  });
-
-  
-document.addEventListener('DOMContentLoaded', () => {
-    const productList = document.getElementById('productList');
-  
-    let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-  
-    inventory.forEach(product => {
-      const productItem = document.createElement('div');
-      productItem.className = 'product-item';
-      productItem.innerHTML = `
-        <h3>${product.productName}</h3>
-        <p>Vendor: ${product.vendorCategory}</p>
-        <p>Brand: ${product.brandCategory}</p>
-        <p>Size: ${product.productSize}</p>
-        <p>Price: $${product.productPrice}</p>
-        <button class="edit-btn" data-id="${product.id}">Edit</button>
-        <button class="delete-btn" data-id="${product.id}">Delete</button>
-      `;
-      productList.appendChild(productItem);
-    });
-  
-    document.querySelectorAll('.edit-btn').forEach(button => {
-      button.addEventListener('click', (e) => {
-        const productId = e.target.getAttribute('data-id');
-        const product = inventory.find(p => p.id == productId);
-        if (product) {
-          // Redirect to update product page with product ID (you need to implement this)
-          window.location.href = `updateproduct.html?id=${productId}`;
-        }
-      });
-    });
-  
-    document.querySelectorAll('.delete-btn').forEach(button => {
-      button.addEventListener('click', (e) => {
-        const productId = e.target.getAttribute('data-id');
-        inventory = inventory.filter(p => p.id != productId);
-        localStorage.setItem('inventory', JSON.stringify(inventory));
-        e.target.parentElement.remove();
-        alert('Product deleted successfully');
-      });
-    });
-  });

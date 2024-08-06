@@ -1,28 +1,3 @@
-
-// script.js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import AddProduct from './components/AddProduct';
-import Calculator from './components/Calculator';
-import Blog from './components/Blog';
-import Admin from './components/Admin';
-
-function App() {
-  return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/" exact component={AddProduct} />
-        <Route path="/calculator" component={Calculator} />
-        <Route path="/blog" component={Blog} />
-        <Route path="/admin" component={Admin} />
-      </Switch>
-    </BrowserRouter>
-  );
-}
-
-ReactDOM.render(<App />, document.getElementById('root'));
-
 document.addEventListener('DOMContentLoaded', () => {
   const addProductForm = document.getElementById('addProductForm');
   const profileModal = document.getElementById('profile-modal');
@@ -148,9 +123,27 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Toggle Theme
-  toggleThemeButton.addEventListener('click', () => {
-    const newTheme = document.body.className === 'light' ? 'dark' : 'light';
-    document.body.className = newTheme;
-})
-  
-}
+  if (toggleThemeButton) {
+    toggleThemeButton.addEventListener('click', () => {
+      const newTheme = document.body.className === 'light' ? 'dark' : 'light';
+      document.body.className = newTheme;
+      local
+
+Storage.setItem('theme', newTheme);
+    });
+
+    const storedTheme = localStorage.getItem('theme') || 'light';
+    document.body.className = storedTheme;
+  }
+
+  // Logout
+  if (logoutButton) {
+    logoutButton.addEventListener('click', () => {
+      fetch('/api/logout')
+        .then(() => {
+          window.location.href = '/login.html';
+        })
+        .catch(error => console.error('Error logging out:', error));
+    });
+  }
+});
