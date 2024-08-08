@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+</head>
+
+<body>
+  <body>
+    <form>
+      <label>Category:</label>
+      <select>
+        <!-- categories will be fetched from admin cashier and marketing.html -->
+      </select>
+    
+      <label>Size:</label>
+      <select>
+        <!-- sizes will be fetched from admin cashier and marketing.html -->
+      </select>
+    
+      <label>Quantities:</label>
+      <input type="number" id="quantity" value="1" />
+    
+      <label>Price:</label>
+      <input type="number" id="price" />
+    
+      <label>Name:</label>
+      <input type="text" id="product-name" />
+    
+      <button type="button" onclick="calculateTotal()">Calculate Total</button>
+    
+      <label>Total Amount:</label>
+      <span id="total-amount"></span>
+    
+      <label>Number per Product:</label>
+      <span id="number-per-product"></span>
+      <button type="button" onclick="updateProduct('subtractFromCart')">Subtract from Cart</button>
+      <button type="button" onclick="updateProduct('multiplyCart')">Multiply Cart</button>
+      <button type="button" onclick="updateProduct('divideCart')">Divide Cart</button>
+      <button type="submit">Submit</button>
+    </form>
+    
+    <script>
+      function calculateTotal() {
+        const quantity = document.getElementById('quantity').value;
+        const price = document.getElementById('price').value;
+        const totalAmount = quantity * price;
+        const numberPerProduct = quantity; // Assuming quantity is number per product
+    
+        document.getElementById("total-amount").innerText = `Total Amount: ${totalAmount}`;
+        document.getElementById("number-per-product").innerText = `Number per Product: ${numberPerProduct}`;
+      }
+    
+      function updateProduct(action) {
+        const productId = 'some-product-id'; // Replace with actual product ID
+        localStorage.setItem('action', action);
+        window.location.href = `updateproduct.html?id=${productId}`;
+      }
+    </script>
+<script src="calculator.js"></script>
+  <script>
+    function updateProduct(action) {
+      const productId = 'some-product-id'; // Replace with actual product ID
+      localStorage.setItem('action', action);
+      window.location.href = `updateproduct.html?id=${productId}`;
+    }
+  </script>
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  function calculateTotal() {
+    // calculate total amount and number per product
+    document.getElementById("total-amount").innerHTML = "Total Amount: " + totalAmount;
+    document.getElementById("number-per-product").innerHTML = "Number per Product: " + numberPerProduct;
+  }
+
+  function addToCart() {
+    // add product to cart
+  }
+
+  function subtractFromCart() {
+    // subtract product from cart
+  }
+
+  function multiplyCart() {
+    // multiply cart quantity
+  }
+
+  function divideCart() {
+    // divide cart quantity
+  }
+</script>
+</body>
+
+</html>
