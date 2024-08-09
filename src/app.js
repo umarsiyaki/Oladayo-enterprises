@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Slideshow from './components/Slideshow';
+import Slideshow from './components/Slideshow';  // Make sure these paths are correct
 import ProductList from './components/ProductList';
 import AddProductForm from './components/AddProductForm';
 
@@ -37,9 +37,7 @@ const App = () => {
       });
   };
 
-  const delete
-
-Product = (id) => {
+  const deleteProduct = (id) => {
     axios.delete(`/api/products/${id}`)
       .then(response => {
         setProducts(products.filter(product => product.id !== id));
@@ -59,3 +57,5 @@ Product = (id) => {
 };
 
 export default App;
+
+
