@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <p>Vendor: ${product.vendorCategory}</p>
       <p>Brand: ${product.brandCategory}</p>
       <p>Size: ${product.productSize}</p>
-      <p>Price: $${product.productPrice}</p>
+      <p>Price: N${product.productPrice}</p>
     `;
     productList.appendChild(productItem);
   });
@@ -125,12 +125,17 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
   const categories = {
     'Energy Drinks': 'energyDrinks',
-    'Maltina': 'maltinaDrinks',
+    'maltina Drinks': 'maltinaDrinks',
     'Cola': 'colaDrinks',
     'Tropical': 'tropicalDrinks',
     'Fanta': 'fantaDrinks'
   };
 
+  const Vendor = {
+   'Bigi' : 'bigi products',
+   'coca-Cola' : 'coca cola drinks',
+   'Maltina' : 'maltinadrinks'
+  };
   // Fetch inventory from localStorage (or server in real implementation)
   let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
 

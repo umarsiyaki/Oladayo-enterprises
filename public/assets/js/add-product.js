@@ -1,89 +1,55 @@
-
-document.addEventListener('DOMContentLoaded', () => {
-    const addProductForm = document.getElementById('addProductForm');
-    
-    addProductForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const vendorCategory = document.getElementById('vendorCategory').value;
-      const brandCategory = document.getElementById('brandCategory').value;
-      const productSize = document.getElementById('productSize').value;
-      const productName = document.getElementById('productName').value;
-      const productPrice = document.getElementById('productPrice').value;
-      
-      const newProduct = {
-        id: Date.now(), // unique ID for the product
-        vendorCategory,
-        brandCategory,
-        productSize,
-        productName,
-        productPrice
-      };
-      
-      // Fetch current inventory from localStorage or initialize empty array if not present
-      let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-      
-      // Add new product to inventory
-      inventory.push(newProduct);
-      
-      // Save updated inventory back to localStorage
-      localStorage.setItem('inventory', JSON.stringify(inventory));
-      
-      // Notify admin or cashier (for simplicity, just log to console here)
-      console.log('Product added successfully:', newProduct);
-      
-      // Optionally, reset form after submission
-      addProductForm.reset();
-    });
-    
-    addProductForm.addEventListener('reset', () => {
-      console.log('Form reset');
-    });
-  });
-
-  
 document.addEventListener('DOMContentLoaded', () => {
   const addProductForm = document.getElementById('addProductForm');
 
   addProductForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
+    // Fetch values from form fields
     const vendorCategory = document.getElementById('vendorCategory').value;
     const brandCategory = document.getElementById('brandCategory').value;
     const productSize = document.getElementById('productSize').value;
     const productName = document.getElementById('productName').value;
     const productPrice = document.getElementById('productPrice').value;
+    const productDesc = document.getElementById('productDescription')?.value || ''; // Optional description
+    const image = document.querySelector('input[type="file"]').files[0];
+    const reader = new FileReader();
 
-    const newProduct = {
-      id: Date.now(), // unique ID for the product
-      vendorCategory,
-      brandCategory,
-      productSize,
-      productName,
-      productPrice
+    reader.onloadend = () => {
+      // Create new product object
+      const newProduct = {
+        id: Date.now(),
+        vendorCategory,
+        brandCategory,
+        productSize,
+        productName,
+        productPrice,
+        productDesc,
+        image: reader.result
+      };
+
+      // Retrieve existing inventory or initialize an empty array
+      let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+      inventory.push(newProduct);
+
+      // Save updated inventory to localStorage
+      localStorage.setItem('inventory', JSON.stringify(inventory));
+
+      // Also save to external database (simulated)
+      saveToDatabase(newProduct);
+
+      // Notify the user and reset the form
+      alert('Product added successfully');
+      addProductForm.reset();
+
+      // Redirect to marketing.html
+      window.location.href = 'marketing.html';
     };
 
-    // Fetch current inventory from localStorage or initialize empty array if not present
-    let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-
-    // Add new product to inventory
-    inventory.push(newProduct);
-
-    // Save updated inventory back to localStorage
-    localStorage.setItem('inventory', JSON.stringify(inventory));
-
-    // Notify admin or cashier (for simplicity, just log to console here)
-    console.log('Product added successfully:', newProduct);
-
-    // Optionally, reset form after submission
-    addProductForm.reset();
-
-    // Redirect to the appropriate dashboard
-    const userRole = localStorage.getItem('userRole'); // assuming user role is stored in localStorage
-    if (userRole === 'admin') {
-      window.location.href = 'admin.html';
-    } else if (userRole === 'cashier') {
-      window.location.href = 'cashier.html';
+    // Read the image if it exists, else proceed with form submission
+    if (image) {
+      reader.readAsDataURL(image);
+    } else {
+      reader.onloadend(); // Manually trigger onloadend if no image is selected
     }
   });
 
@@ -92,45 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-
-document.addEventListener('DOMContentLoaded', () => {
-  const addProductForm = document.getElementById('addProductForm');
-
-  addProductForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const vendorCategory = document.getElementById('vendorCategory').value;
-    const brandCategory = document.getElementById('brandCategory').value;
-    const productSize = document.getElementById('productSize').value;
-    const productName = document.getElementById('productName').value;
-    const productPrice = document.getElementById('productPrice').value;
-    const image = document.querySelector('input[type="file"]').files[0];
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      const newProduct = {
-        id: Date.now(),
-        vendorCategory,
-        brandCategory,
-        productSize,
-        productName,
-        productPrice,
-        image: reader.result
-      };
-
-      let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-      inventory.push(newProduct);
-      localStorage.setItem('inventory', JSON.stringify(inventory));
-
-      alert('Product added successfully');
-      addProductForm.reset();
-      window.location.href = 'admin.html';
-    };
-
-    if (image) {
-      reader.readAsDataURL(image);
-    } else {
-      reader.onloadend();
-    }
-  });
-});
+// Function to simulate saving to an external database
+function saveToDatabase(product) {
+  const database = localStorage.getItem('../../database.js');
+  let data = database ? JSON.parse(database) : [];
+  data.push(product);
+  localStorage.setItem('../../database.js', JSON.stringify(data));
+}
