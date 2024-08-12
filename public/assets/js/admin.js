@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function() {
     // Elements
     const productName = document.getElementById('product-name');
@@ -14,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const updatedDetails = document.getElementById('updated-details');
     const spinner = document.getElementById("spinner");
     const sidebarToggle = document.querySelector(".sidebar-toggler");
+    const profileBtn = document.getElementById('profile');
+    const toggleModeBtn = document.getElementById('toggle-mode');
 
     let totalQuantity = 0;
 
@@ -124,15 +127,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td>${sale.customer}</td>
                 <td>${sale.amount}</td>
                 <td>${sale.status}</td>
-                <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                <td><a class="btn btn-sm btn-primary" href="#">Detail</a></td>
             `;
             salesTableBody.appendChild(row);
         });
     }
 
-    // Business Records
-    trackBusinessRecords();
-    function trackBusinessRecords() {
+    // Fetch and handle business records and cashier performance
+    fetchBusinessRecords();
+    fetchCashierPerformance();
+    fetchProducts();
+
+    function fetchBusinessRecords() {
         fetch('/api/business/records')
             .then(response => {
                 if (!response.ok) {
@@ -140,13 +146,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 return response.json();
             })
-            .then(data => console.log(data))
+            .then(data => console.log('Business Records:', data))
             .catch(error => console.error('Error fetching business records:', error));
     }
 
-    // Cashier Performance
-    trackCashierPerformance();
-    function trackCashierPerformance() {
+    function fetchCashierPerformance() {
         fetch('/api/cashier/performance')
             .then(response => {
                 if (!response.ok) {
@@ -154,13 +158,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 return response.json();
             })
-            .then(data => console.log(data))
+            .then(data => console.log('Cashier Performance:', data))
             .catch(error => console.error('Error fetching cashier performance:', error));
     }
 
-    // Products
-    trackProducts();
-    function trackProducts() {
+    function fetchProducts() {
         fetch('/api/products')
             .then(response => {
                 if (!response.ok) {
@@ -168,40 +170,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 return response.json();
             })
-            .then(data => console.log(data))
+            .then(data => console.log('Products:', data))
             .catch(error => console.error('Error fetching products:', error));
     }
 
     // Calculate Gain or Loss
     calculateGainLoss();
     function calculateGainLoss() {
-        let gainLoss = calculateFromRecords(); // Example: Use business records to calculate
-        console.log('Gain/Loss:', gainLoss);
+        // Example calculation
+        console.log('Gain/Loss:', calculateFromRecords()); // Implement calculateFromRecords function
     }
 
     // Handle Notifications
     handleNotifications();
     function handleNotifications() {
         console.log('Checking notifications...');
+        // Implement notification fetching logic
     }
 
-    // Fetch initial data for admin dashboard
+    // Fetch initial dashboard data
     fetchDashboardData();
-
-    // Event listeners for navigation
-    const navLinks = document.querySelectorAll('.sidebar a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault();
-            navigateToPage(event.target.getAttribute('href'));
-        });
-    });
-
     function fetchDashboardData() {
-        // Dummy data fetch - Replace with actual server call
         const notificationCount = 5;
         const messageCount = 3;
-
         updateNotificationCount(notificationCount);
         updateMessageCount(messageCount);
     }
@@ -223,17 +214,33 @@ document.addEventListener('DOMContentLoaded', function() {
     function navigateToPage(page) {
         window.location.href = page;
     }
+
+    // Event listeners for navigation
+    const navLinks = document.querySelectorAll('.sidebar a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            navigateToPage(event.target.getAttribute('href'));
+        });
+    });
+
+    // Profile Button
+    if (profileBtn) {
+        profileBtn.addEventListener('click', () => {
+            // Open profile modal or page and fetch/update profile details
+        });
+    }
+
+    // Toggle Dark/Light Mode
+    if (toggleModeBtn) {
+        toggleModeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+    }
 });
 
-document.getElementById('profile').addEventListener('click', () => {
-    // Logic to open the profile modal or page
-    // Fetch current profile details and populate the form
-    // Allow user to update details
-});
-
+// Define functions for profile update, adding/removing admin (if not already defined elsewhere)
 function updateProfile(newDetails) {
-    // Update the user profile with new details
-    // Send updated details to the server
     fetch('/update-profile', {
         method: 'POST',
         body: JSON.stringify(newDetails),
@@ -257,7 +264,9 @@ function addAdmin(newAdminDetails) {
         headers: {
             'Content-Type': 'application/json'
         }
-    }).then(response => response.json())
+    }).then(response =>
+
+ response.json())
     .then(data => {
         if (data.success) {
             alert('Admin added successfully');
@@ -279,45 +288,3 @@ function removeAdmin(adminId) {
         }
     });
 }
-// AdminDashboard.js or CashierDashboard.js
-import React, { useState, useEffect } from 'react';
-import StoreForm from './StoreForm';
-import axios from 'axios';
-
-const Dashboard = () => {
-  const [stores, setStores] = useState([]);
-
-  useEffect(() => {
-    axios.get('/api/stores')
-      .then(response => {
-        setStores(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching stores:', error);
-      });
-  }, []);
-
-  const addStore = (store) => {
-    setStores([...stores, store]);
-  };
-
-  return (
-    <div>
-      <h1>Dashboard</h1>
-      <StoreForm addStore={addStore} />
-      <h2>Stores</h2>
-      <ul>
-        {stores.map(store => (
-          <li key={store.id}>{store.name} - {store.address}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
-export default Dashboard;
-
-// Toggle dark/light mode
-document.getElementById('toggle-mode').addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-});

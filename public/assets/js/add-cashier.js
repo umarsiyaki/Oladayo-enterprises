@@ -1,75 +1,134 @@
 
-document.getElementById('add-cashier-form').addEventListener('submit', function(event) {
-  event.preventDefault();
-  
-  const cashierName = document.getElementById('cashier-name').value;
-  const cashierEmail = document.getElementById('cashier-email').value;
-  const cashierPassword = document.getElementById('cashier-password').value;
-  
-  // Perform form validation and submission logic here
-  
-  console.log('Cashier added:', {
-    cashierName,
-    cashierEmail,
-    cashierPassword
-  });
-  
-  // Redirect to admin dashboard or show success message
-});
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('add-cashier-form');
+    const notification = document.getElementById('notification');
 
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-document.getElementById('add-cashier-form').addEventListener('submit', function(event) {
-  event.preventDefault();
+        // Gather form data
+        const cashierData = {
+            role: 'cashier',  // Predefined as 'cashier'
+            username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            address: document.getElementById('address').value,
+            password: document.getElementById('password').value,
+            firstname: document.getElementById('firstname').value,
+            middlename: document.getElementById('middlename').value,
+            surname: document.getElementById('surname').value
+        };
 
-  const cashierData = {
-      username: document.getElementById('username').value,
-      email: document.getElementById('email').value,
-      phone: document.getElementById('phone').value,
-      address: document.getElementById('address').value,
-      password: document.getElementById('password').value
-  };
+        // Validate input fields
+        const validationMessage = validateForm(cashierData);
+        if (validationMessage) {
+            notifyUser(notification, validationMessage, 'error');
+            return;
+        }
 
-  fetch('/api/cashier/add', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(cashierData),
-  })
-  .then(response => response.json())
-  .then(data => {
-      if (data.success) {
-          document.getElementById('notification').textContent = 'Cashier added successfully.';
-          sendEmailNotification(cashierData);
-      } else {
-          document.getElementById('notification').textContent = 'Error adding cashier.';
-      }
-  })
-  .catch(error => {
-      console.error('Error:', error);
-      document.getElementById('notification').textContent = 'Error adding cashier.';
-  });
+        // Submit cashier data to the server
+        fetch('/api/user/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(cashierData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                notifyUser(notification, 'Cashier added successfully.', 'success');
 
-  function sendEmailNotification(cashierData) {
-      fetch('/api/send-email', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-              to: cashierData.email,
-              subject: 'Welcome to Our Team',
-              body: `Hello ${cashierData.username}, your account has been created. Your login details are Username: ${cashierData.username} and Password: ${cashierData.password}`
-          }),
-      })
-      .then(response => response.json())
-      .then(data => {
-          if (data.success) {
-              console.log('Email sent successfully.');
-          } else {
-              console.error('Error sending email.');
-          }
-      })
-      .catch(error => console.error('Error:', error));
-  }
+                // Send email notification
+                sendEmailNotification(cashierData);
+
+                // Optionally reset the form
+                form.reset();
+
+                // Redirect to cashier dashboard or desired page
+                setTimeout(() => {
+                    window.location.href = '/cashier/dashboard';
+                }, 1500);
+            } else {
+                notifyUser(notification, 'Error adding cashier.', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            notifyUser(notification, 'Error adding cashier.', 'error');
+        });
+    });
+
+    // Function to validate form data
+    function validateForm(cashierData) {
+        // Check for empty required fields
+        if (!cashierData.username || !cashierData.email || !cashierData.password) {
+            return 'Please fill out all required fields.';
+        }
+
+        // Validate email format using a regular expression
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(cashierData.email)) {
+            return 'Please enter a valid email address.';
+        }
+
+        // Validate password strength (minimum 8 characters, at least one uppercase letter, one lowercase letter, one number, and one special character)
+        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if (!passwordPattern.test(cashierData.password)) {
+            return 'Password must be at least 8 characters long, and include an uppercase letter, a lowercase letter, a number, and a special character.';
+        }
+
+        // All validations passed
+        return null;
+    }
+
+    // Function to send an email notification to the new cashier
+    function sendEmailNotification(cashierData) {
+        fetch('/api/send-email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                to: cashierData.email,
+                subject: 'Welcome to Our Team',
+                body: `Hello ${cashierData.firstname} ${cashierData.surname},\n\nYour account has been created. Your login details are:\n\nUsername: ${cashierData.username}\nPassword: ${cashierData.password}\n\nWelcome aboard!`
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Email sent successfully.');
+            } else {
+                console.error('Error sending email.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Function to notify the user
+    function notifyUser(notificationElement, message, type) {
+        notificationElement.textContent = message;
+        notificationElement.className = type;
+        notificationElement.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
+    }
+
+    // Futuristic Feature: Real-time Username Availability Check
+    const usernameInput = document.getElementById('username');
+    usernameInput.addEventListener('input', () => {
+        const username = usernameInput.value;
+
+        if (username.length > 3) {
+            fetch(`/api/user/check-username?username=${encodeURIComponent(username)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (!data.available) {
+                    notifyUser(notification, 'Username is already taken.', 'error');
+                } else {
+                    notification.textContent = '';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    });
 });

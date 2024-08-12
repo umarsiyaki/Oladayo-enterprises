@@ -1,0 +1,99 @@
+
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #ff7e5f, #feb47b); /* Gradient background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container for the form */
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Box shadow */
+    width: 100%;
+    max-width: 450px;
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #333;
+}
+
+/* Form labels */
+label {
+    font-size: 15px;
+    color: #555;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Form inputs */
+input[type="text"],
+input[type="username"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+/* Submit button */
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* Notification message */
+#notification {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 15px;
+    color: #d9534f; /* Default red color for errors */
+}
+
+/* Success message styling */
+.success {
+    color: #28a745; /* Green color for success */
+}
+
+/* Responsive design */
+@media (max-width: 450px) {
+    .container {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    button[type="submit"] {
+        font-size: 14px;
+    }
+}

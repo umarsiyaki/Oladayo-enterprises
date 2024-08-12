@@ -134,8 +134,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const Vendor = {
    'Bigi' : 'bigi products',
    'coca-Cola' : 'coca cola drinks',
-   'Maltina' : 'maltinadrinks'
+   'Maltina' : 'maltina drinks',
+   'chivta' : 'exhautics',
+   'pesi' : 'pepsi drinks',
+   'big' : 'Big drinks',
+   'dudu' : 'dudu drinks',
+   'lucozade' : 'lucozade',
+   'climax' : 'climax',
+
   };
+
+  const size = {
+    '1 liter' : '1l',
+    'mediun' : 'medium',
+    '600ml' : 'big',
+    '400ml' : 'small',
+    '60cl' : 'big size',
+    '50cl' : 'big',
+    '40cl' : 'medium',
+    '35cl' : 'small',
+    '45cl' : 'big',
+    'small' : 'small',
+
+  }
   // Fetch inventory from localStorage (or server in real implementation)
   let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
 
