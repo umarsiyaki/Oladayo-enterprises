@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <p>Vendor: ${product.vendorCategory}</p>
       <p>Brand: ${product.brandCategory}</p>
       <p>Size: ${product.productSize}</p>
-      <p>Price: N${product.productPrice}</p>
+      <p>Price: $${product.productPrice}</p>
     `;
     productList.appendChild(productItem);
   });
@@ -125,38 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
   const categories = {
     'Energy Drinks': 'energyDrinks',
-    'maltina Drinks': 'maltinaDrinks',
+    'Maltina': 'maltinaDrinks',
     'Cola': 'colaDrinks',
     'Tropical': 'tropicalDrinks',
     'Fanta': 'fantaDrinks'
   };
 
-  const Vendor = {
-   'Bigi' : 'bigi products',
-   'coca-Cola' : 'coca cola drinks',
-   'Maltina' : 'maltina drinks',
-   'chivta' : 'exhautics',
-   'pesi' : 'pepsi drinks',
-   'big' : 'Big drinks',
-   'dudu' : 'dudu drinks',
-   'lucozade' : 'lucozade',
-   'climax' : 'climax',
-
-  };
-
-  const size = {
-    '1 liter' : '1l',
-    'mediun' : 'medium',
-    '600ml' : 'big',
-    '400ml' : 'small',
-    '60cl' : 'big size',
-    '50cl' : 'big',
-    '40cl' : 'medium',
-    '35cl' : 'small',
-    '45cl' : 'big',
-    'small' : 'small',
-
-  }
   // Fetch inventory from localStorage (or server in real implementation)
   let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
 

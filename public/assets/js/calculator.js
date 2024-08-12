@@ -1,86 +1,66 @@
 
-document.addEventListener('DOMContentLoaded', function() {
-  const form = document.getElementById('calculator-form');
-  const category = document.getElementById('category');
-  const size = document.getElementById('size');
-  const productName = document.getElementById('product-name');
+const form = document.querySelector('form');
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const data = {
+    category: document.querySelector('#category').value,
+    size: document.querySelector('#size').value,
+    quantity: document.querySelector('#quantity').value,
+    price: document.querySelector('#price').value,
+    name: document.querySelector('#name').value,
+  };
+  fetch('/api/calculator', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+    .then((res) => res.json())
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
+});
+
+document.getElementById('count-add-btn').addEventListener('click', () => {
   const quantity = document.getElementById('quantity');
-  const price = document.getElementById('price');
-  const totalAmount = document.getElementById('total-amount');
-  const numberPerProduct = document.getElementById('number-per-product');
+  quantity.value = parseInt(quantity.value) + 1;
+  document.getElementById('calculated-value').textContent = quantity.value;
+});
 
-  // Fetch categories and sizes
-  fetch('/api/categories')
-      .then(response => response.json())
-      .then(data => {
-          populateSelect(category, data.categories);
-      });
-
-  fetch('/api/sizes')
-      .then(response => response.json())
-      .then(data => {
-          populateSelect(size, data.sizes);
-      });
-
-  function populateSelect(selectElement, items) {
-      selectElement.innerHTML = items.map(item => `<option value="${item}">${item}</option>`).join('');
+document.getElementById('count-subtract-btn').addEventListener('click', () => {
+  const quantity = document.getElementById('quantity');
+  if (parseInt(quantity.value) > 1) {
+      quantity.value = parseInt(quantity.value) - 1;
   }
+  document.getElementById('calculated-value').textContent = quantity.value;
+});
 
-  // Calculate total amount
-  document.getElementById('calculate-btn').addEventListener('click', () => {
-      const qty = parseInt(quantity.value) || 0;
-      const prc = parseFloat(price.value) || 0;
-      totalAmount.innerText = (qty * prc).toFixed(2);
-      numberPerProduct.innerText = qty;
+document.getElementById('count-multiply-btn').addEventListener('click', () => {
+  const quantity = document.getElementById('quantity');
+  quantity.value = parseInt(quantity.value) * 2;
+  document.getElementById('calculated-value').textContent = quantity.value;
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const countButtons = document.querySelectorAll('.count-btn');
+
+  countButtons.forEach(button => {
+      button.addEventListener('click', (event) => {
+          event.preventDefault();
+          const action = button.getAttribute('data-action');
+          const quantityInput = document.getElementById('quantity');
+          let quantity = parseInt(quantityInput.value);
+
+          if (action === 'add') {
+              quantity += 1;
+          } else if (action === 'subtract' && quantity > 1) {
+              quantity -= 1;
+          } else if (action === 'multiply') {
+              quantity *= 2;
+          }
+          
+          quantityInput.value = quantity;
+      });
   });
 
-  // Quantity controls
-  document.getElementById('count-add-btn').addEventListener('click', () => {
-      quantity.value = parseInt(quantity.value) + 1;
-      document.getElementById('calculate-btn').click();
-  });
-
-  document.getElementById('count-subtract-btn').addEventListener('click', () => {
-      if (parseInt(quantity.value) > 1) {
-          quantity.value = parseInt(quantity.value) - 1;
-      }
-      document.getElementById('calculate-btn').click();
-  });
-
-  document.getElementById('count-multiply-btn').addEventListener('click', () => {
-      quantity.value = parseInt(quantity.value) * 2;
-      document.getElementById('calculate-btn').click();
-  });
-
-  document.getElementById('count-divide-btn').addEventListener('click', () => {
-      quantity.value = Math.max(1, parseInt(quantity.value) / 2);
-      document.getElementById('calculate-btn').click();
-  });
-
-  // Handle form submission
-  form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const productDetails = {
-          name: productName.value,
-          category: category.value,
-          size: size.value,
-          quantity: parseInt(quantity.value),
-          price: parseFloat(price.value),
-          totalAmount: parseFloat(totalAmount.innerText)
-      };
-
-      fetch('/api/products', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(productDetails)
-      })
-      .then(response => response.json())
-      .then(data => {
-          console.log('Product added:', data);
-          // Redirect or show success message
-      })
-      .catch(error => console.error('Error adding product:', error));
-  });
+  // Other codes...
 });

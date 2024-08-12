@@ -16,7 +16,9 @@ my-inventory-app/
 |-- README.md
 ```
 
-- `Sr your React application and will also be in the `src` folder.
+- `Slideshow.js`, `ProductList.js`, and `AddProductForm.js` will go into the `components` folder.
+- `App.js` will be in the `src` folder.
+- `index.js` is the entry point for your React application and will also be in the `src` folder.
 
 2. **Express.js Files**: These files will be part of your server-side application, typically structured in the root folder or a folder named `server` or `backend`. Here’s an example structure:
 
@@ -35,6 +37,44 @@ my-inventory-app/
 3. **Public Files**: Your HTML, CSS, and static JavaScript files (if any) will go into the `public` folder. This folder might include subfolders like `css`, `js`, and `img` for better organization. Here’s an example structure:
 
 ```
+my-inventory-app/
+|-- public/
+|   |-- assets/
+|   |   |-- css/
+|   |   |   |-- styles.css
+|   |   |-- js/
+|   |   |   |-- admin.js
+|   |   |   |-- cashier.js
+|   |   |   |-- user.js
+|   |   |   |-- register.js
+|   |   |   |-- login.js
+|   |   |-- img/
+|   |   |   |-- logo.png
+|   |   |   |-- avatar.png
+|   |-- index.html
+|   |-- admin.html
+|   |-- cashier.html
+|   |-- user.html
+|   |-- register.html
+|   |-- login.html
+|   |-- market.html
+|   |-- payment.html
+|   |-- receipt.html
+|   |-- blogs.html
+|   |-- updatedProduct.html
+|   |-- user.html
+|   |-- widget.html
+|   |-- element.html
+|   |-- table.html
+|   |-- calendar.html
+|   |-- Calculator.html
+|   |-- addProduct.html
+|   |-- blogs.html
+|   |-- blogs.html
+|-- src/
+|-- server/
+|-- package.json
+|-- README.md
 ```
 
 In summary:
@@ -570,7 +610,67 @@ app.listen(PORT, () => {
 
 ```jsx
 // App.js
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Slideshow from './components/Slideshow';
+import ProductList from './components/ProductList';
+import AddProductForm from './components/AddProductForm';
 
+const App = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/products')
+      .then(response => {
+        setProducts(response.data);
+      })
+      .catch(error => {
+        console.error('There was an error fetching the products!', error);
+      });
+  }, []);
+
+  const addProduct = (product) => {
+    axios.post('/api/products', product)
+      .then(response => {
+        setProducts([...products, response.data]);
+      })
+      .catch(error => {
+        console.error('There was an error adding the product!', error);
+      });
+  };
+
+  const updateProduct = (id, updatedProduct) => {
+    axios.put(`/api/products/${id}`, updatedProduct)
+      .then(response => {
+        setProducts(products.map(product => product.id === id ? response.data : product));
+      })
+      .catch(error => {
+        console.error('There was an error updating the product!', error);
+      });
+  };
+
+  const delete
+
+Product = (id) => {
+    axios.delete(`/api/products/${id}`)
+      .then(response => {
+        setProducts(products.filter(product => product.id !== id));
+      })
+      .catch(error => {
+        console.error('There was an error deleting the product!', error);
+      });
+  };
+
+  return (
+    <div className="App">
+      <Slideshow products={products.slice(0, 5)} />
+      <ProductList products={products} updateProduct={updateProduct} deleteProduct={deleteProduct} />
+      <AddProductForm addProduct={addProduct} />
+    </div>
+  );
+};
+
+export default App;
 ```
 
 #### Slideshow Component

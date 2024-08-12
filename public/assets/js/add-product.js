@@ -1,55 +1,49 @@
+
 document.addEventListener('DOMContentLoaded', () => {
   const addProductForm = document.getElementById('addProductForm');
 
   addProductForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    // Fetch values from form fields
-    const vendorCategory = document.getElementById('vendorCategory').value;
-    const brandCategory = document.getElementById('brandCategory').value;
-    const productSize = document.getElementById('productSize').value;
-    const productName = document.getElementById('productName').value;
-    const productPrice = document.getElementById('productPrice').value;
-    const productDesc = document.getElementById('productDescription')?.value || ''; // Optional description
-    const image = document.querySelector('input[type="file"]').files[0];
+    const vendorCategory = document.getElementById('vendorCategory').value || 'Default Vendor';
+    const brandCategory = document.getElementById('brandCategory').value || 'Default Brand';
+    const productSize = document.getElementById('productSize').value || 'Default Size';
+    const productName = document.getElementById('productName').value || 'Default Name';
+    const productPrice = document.getElementById('productPrice').value || 0;
+    const image = document.getElementById('productImage').files[0];
     const reader = new FileReader();
 
     reader.onloadend = () => {
-      // Create new product object
       const newProduct = {
-        id: Date.now(),
+        id: Date.now(), // unique ID for the product
         vendorCategory,
         brandCategory,
         productSize,
         productName,
         productPrice,
-        productDesc,
-        image: reader.result
+        image: reader.result || 'default-image.jpg' // Fallback to a default image
       };
 
-      // Retrieve existing inventory or initialize an empty array
       let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
       inventory.push(newProduct);
-
-      // Save updated inventory to localStorage
       localStorage.setItem('inventory', JSON.stringify(inventory));
 
-      // Also save to external database (simulated)
-      saveToDatabase(newProduct);
-
-      // Notify the user and reset the form
       alert('Product added successfully');
       addProductForm.reset();
 
-      // Redirect to marketing.html
-      window.location.href = 'marketing.html';
+      // Redirect to the appropriate dashboard
+      const userRole = localStorage.getItem('userRole'); // assuming user role is stored in localStorage
+      if (userRole === 'admin') {
+        window.location.href = 'admin.html';
+      } else if (userRole === 'cashier') {
+        window.location.href = 'cashier.html';
+      }
     };
 
-    // Read the image if it exists, else proceed with form submission
     if (image) {
       reader.readAsDataURL(image);
     } else {
-      reader.onloadend(); // Manually trigger onloadend if no image is selected
+      reader.onloadend();
     }
   });
 
@@ -57,11 +51,3 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Form reset');
   });
 });
-
-// Function to simulate saving to an external database
-function saveToDatabase(product) {
-  const database = localStorage.getItem('../../database.js');
-  let data = database ? JSON.parse(database) : [];
-  data.push(product);
-  localStorage.setItem('../../database.js', JSON.stringify(data));
-}

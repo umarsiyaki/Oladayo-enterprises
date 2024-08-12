@@ -87,190 +87,293 @@
     <div id="productList">
         
 <!-- Product Sections -->
-<div class="row" id="energyDrinks">
-    <div class="container my-4">
-        <h2>Energy Drinks</h2>
-        <div class="row">
-            <!-- Product Card Example -->
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/energy-drink1.jpg" class="card-img-top" alt="Energy Drink">
-                    <div class="card-body">
-                        <h5 class="card-title">Energy Drink 1</h5>
-                        <p class="card-text">A refreshing energy drink.</p>
-                        <p class="card-text"><strong>Price: $2</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/energy-drink1.jpg" class="card-img-top" alt="Energy Drink">
-                    <div class="card-body">
-                        <h5 class="card-title">Energy Drink 1</h5>
-                        <p class="card-text">A refreshing energy drink.</p>
-                        <p class="card-text"><strong>Price: $2</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/energy-drink1.jpg" class="card-img-top" alt="Energy Drink">
-                    <div class="card-body">
-                        <h5 class="card-title">Energy Drink 1</h5>
-                        <p class="card-text">A refreshing energy drink.</p>
-                        <p class="card-text"><strong>Price: $2</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/energy-drink1.jpg" class="card-img-top" alt="Energy Drink">
-                    <div class="card-body">
-                        <h5 class="card-title">Energy Drink 1</h5>
-                        <p class="card-text">A refreshing energy drink.</p>
-                        <p class="card-text"><strong>Price: $2</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/energy-drink1.jpg" class="card-img-top" alt="Energy Drink">
-                    <div class="card-body">
-                        <h5 class="card-title">Energy Drink 1</h5>
-                        <p class="card-text">A refreshing energy drink.</p>
-                        <p class="card-text"><strong>Price: $2</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
+<style>
+    .product-section {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin: 20px 0;
+    }
 
-</div>
-<div class="row" id="maltinaDrinks">
-    <div class="container my-4">
-        <h2>Maltina</h2>
-        <div class="row">
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/maltina1.jpg" class="card-img-top" alt="Maltina">
-                    <div class="card-body">
-                        <h5 class="card-title">Maltina 1</h5>
-                        <p class="card-text">Delicious malt drink.</p>
-                        <p class="card-text"><strong>Price: $1.5</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Repeat for more product cards (total of 4 cards in this section) -->
-            <!-- ... -->
-        </div>
-    </div>
+    .product-section > div {
+        width: 200px;
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #cccccc;
+        border-radius: 5px;
+    }
 
-    <div class="container my-4">
-        <h2>Cola</h2>
-        <div class="row">
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/cola1.jpg" class="card-img-top" alt="Cola">
-                    <div class="card-body">
-                        <h5 class="card-title">Cola 1</h5>
-                        <p class="card-text">Classic cola drink.</p>
-                        <p class="card-text"><strong>Price: $1</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Repeat for more product cards (total of 4 cards in this section) -->
-            <!-- ... -->
-        </div>
-    </div>
-</div>
+    .product-card {
+        margin: 10px 0;
+        padding: 10px;
+        border: 1px solid #cccccc;
+        border-radius: 5px;
+        background-color: white;
+    }
 
-<div class="row" id="colaDrinks"></div>
-<div class="row" id="tropicalDrinks">
-    <div class="container my-4">
-        <h2>Tropical</h2>
-        <div class="row">
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="assets/images/bigi-lemon.jpeg" class="card-img-top" alt="Tropical Drink">
-                    <div class="card-body">
-                        <h5 class="card-title">Bigi Tropical Drink</h5>
-                        <p class="card-text">lemon fruit drink.</p>
-                        <p class="card-text"><strong>Price: $2</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Repeat for more product cards (total of 4 cards in this section) -->
-            <!-- ... -->
-        </div>
-    </div>
-</div>
-<div class="row" id="fantaDrinks">
-    <div class="container my-4">
-        <h2>Fanta</h2>
-        <div class="row">
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/fanta1.jpg" class="card-img-top" alt="Fanta">
-                    <div class="card-body">
-                        <h5 class="card-title">Fanta</h5>
-                        <p class="card-text">Orange flavored drink.</p>
-                        <p class="card-text"><strong>Price: $1.8</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/fanta1.jpg" class="card-img-top" alt="Fanta">
-                    <div class="card-body">
-                        <h5 class="card-title">big Orange</big></h5>
-                        <p class="card-text">Orange flavored drink.</p>
-                        <p class="card-text"><strong>Price: $1.8</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/fanta1.jpg" class="card-img-top" alt="Fanta">
-                    <div class="card-body">
-                        <h5 class="card-title">5alive</h5>
-                        <p class="card-text">Orange flavored drink.</p>
-                        <p class="card-text"><strong>Price: $1.8</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="card">
-                    <img src="path/to/fanta1.jpg" class="card-img-top" alt="Fanta">
-                    <div class="card-body">
-                        <h5 class="card-title">bigi Orange</h5>
-                        <p class="card-text">Orange flavored drink.</p>
-                        <p class="card-text"><strong>Price: $1.8</strong></p>
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Repeat for more product cards (total of 4 cards in this section) -->
-            <!-- ... -->
-        </div>
-    </div>
-</div>
-</div>
-                        <!-- Repeat for more product cards (total of 4 cards in this section) -->
-                <!-- ... -->
-            </div>
-        </div>
+    .product-image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .product-info {
+        margin-top: 10px;
+    }
+
+    .product-name {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .product-description {
+        font-size: 14px;
+    }
+
+    .product-rate {
+        font-size: 16px;
+        color: #f00;
+    }
+
+    .add-to-cart {
+        margin-top: 10px;
+        padding: 5px 10px;
+        background-color: #f00;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .add-to-cart:hover {
+        transform: scale(1.05);
+        transition: 0.2s ease-in-out;
+    }
+</style>
+<script>
+    // Function to dynamically update product data
+    function updateProductInfo(productId, newInfo) {
+        const productCard = document.getElementById(productId);
+        const nameEl = productCard.querySelector('.product-name');
+        const descriptionEl = productCard.querySelector('.product-description');
+        const rateEl = productCard.querySelector('.product-rate');
+
+        // Assuming newInfo is an object with keys 'name', 'description', and 'rate'
+        nameEl.innerHTML = newInfo.name;
+        descriptionEl.innerHTML = newInfo.description;
+        rateEl.innerHTML = `₦ ${newInfo.rate}`;
+    }
+
+    // Example usage:
+    // updateProductInfo('product-card-1', {name: 'New Product Name', description: 'Updated Product Description', rate: '200'});
+</script>
+<body>
+<div class="product-section">
+    <div class="flex-container">
+        <div class="flex-items"></div>
+        <div class="flex-items"></div>
+        <div class="flex-items"></div>
+        <div class="flex-items"></div>
+     </div>
     
-            
-        
+    <div id="big">
+        <div class="product-card" id="product-card-5">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?big-cola" alt="Big Cola Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-5', {name: 'Big Cola', description: 'A large cola drink', rate: '180'})">Add to Cart</button>
+            </div>
+        <div class="product-card" id="product-card-6">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?big-apple" alt="Big Apple Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-6', {name: 'Big Apple', description: 'A apple flavored drink', rate: '170'})">Add to Cart</button>
+            </div>
+        <div class="product-card" id="product-card-7">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?big-tropical" alt="Big Tropical Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-7', {name: 'Big Tropical', description: 'A tropical flavored drink', rate: '180'})">Add to Cart</button>
+            </div>
+    </div>
+    <div id="bigi">
+        <div class="product-card" id="product-card-8">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?bigi-apple" alt="Bigi Apple Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-8', {name: 'Bigi Apple', description: 'A refreshing apple flavored drink', rate: '150'})">Add to Cart</button>
+            </div>
+        <div class="product-card" id="product-card-9">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?bigi-tropical" alt="Bigi Tropical Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-9', {name: 'Bigi Tropical', description: 'A delightful tropical flavored drink', rate: '150'})">Add to Cart</button>
+            </div>
+        <div class="product-card" id="product-card-10">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?bigi-lemon" alt="Bigi Lemon Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-10', {name: 'Bigi Lemon', description: 'A zesty lemon flavored drink', rate: '160'})">Add to Cart</button>
+            </div>
+        <div class="product-card" id="product-card-11">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?bigi-chapman" alt="Bigi Chapman Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-11', {name: 'Bigi Chapman', description: 'A mix of flavors in one bottle', rate: '160'})">Add to Cart</button>
+            </div>
+    </div>
+    <div id="pepsi">
+        <div class="product-card" id="product-card-12">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?pepsi-cola" alt="Pepsi Cola Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-12', {name: 'Pepsi Cola', description: 'A cola beverage with a twist', rate: '160'})">Add to Cart</button>
+            </div>
+        <div class="product-card" id="product-card-13">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?team" alt="Team Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-13', {name: 'Team', description: 'A refreshing lemon flavored drink', rate: '180'})">Add to Cart</button>
+            </div>
+        <div class="product-card" id="product-card-14">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?7up" alt="7up Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-14', {name: '7up', description: 'A lemon-lime flavored soda', rate: '170'})">Add to Cart</button>
+            </div>
+        <div class="product-card" id="product-card-15">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?comando" alt="Comando Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-15', {name: 'Comando', description: 'A strong cola flavored drink', rate: '190'})">Add to Cart</button>
+            </div>
+    </div>
+    <div id="maltina">
+        <div class="product-card" id="product-card-16">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?hi-malt" alt="Hi-Malt Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-16', {name: 'Hi-Malt', description: 'A nourishing malt drink', rate: '200'})">Add to Cart</button>
+            </div>
+        <div class="product-card" id="product-card-17">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?malta-guiness" alt="Malta Guiness Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-17', {name: 'Malta Guiness', description: 'A rich malt beverage', rate: '220'})">Add to Cart</button>
+            </div>
+        <div class="product-card" id="product-card-18">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?maltina" alt="Maltina Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-18', {name: 'Maltina', description: 'A creamy malt drink', rate: '200'})">Add to Cart</button>
+            </div>
+        <div class="product-card" id="product-card-19">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?beta-malt" alt="Beta Malt Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-19', {name: 'Beta Malt', description: 'A vitamin-enriched malt drink', rate: '230'})">Add to Cart</button>
+            </div>
+    </div>
+    <div id="youghort">
+        <div class="product-card" id="product-card-20">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?hollandia-yoghurt" alt="Hollandia Yoghurt Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-20', {name: 'Hollandia Yoghurt', description: 'A tasty yoghurt drink', rate: '190'})">Add to Cart</button>
+            </div>
+        <div class="product-card" id="product-card-21">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?chivita" alt="Chivita Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-21', {name: 'Chivita', description: 'A delicious apple flavored drink', rate: '180'})">Add to Cart</button>
+            </div>
+        <div class="product-card" id="product-card-22">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?viju-yoghurt" alt="Viju Yoghurt Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-22', {name: 'Viju Yoghurt', description: 'A refreshing fruit flavored yoghurt drink', rate: '170'})">Add to Cart</button>
+            </div>
+        <div class="product-card" id="product-card-23">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?peak-yoghurt" alt="Peak Yoghurt Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-23', {name: 'Peak Yoghurt', description: 'A creamy yoghurt drink', rate: '200'})">Add to Cart</button>
+            </div>
+    </div>
+    <div id="viju">
+        <div class="product-card" id="product-card-24">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?viju-apple" alt="Viju Apple Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-24', {name: 'Viju Apple', description: 'A apple flavored drink', rate: '170'})">Add to Cart</button>
+            </div>
+        <div class="product-card" id="product-card-25">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?v-cool-cola" alt="V-Cool Cola Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-25', {name: 'V-Cool Cola', description: 'A cool cola flavored drink', rate: '180'})">Add to Cart</button>
+            </div>
+        <div class="product-card" id="product-card-26">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?viju-wheat" alt="Viju Wheat Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-26', {name: 'Viju Wheat', description: 'A wheat flavored drink', rate: '190'})">Add to Cart</button>
+            </div>
+        <div class="product-card" id="product-card-27">
+            <img class="product-image" src="https://source.unsplash.com/random/100x100?viju-chocolate" alt="Viju Chocolate Product">
+            <div class="product-info">
+                <div class="product-name"></div>
+                <div class="product-description"></div>
+                <div class="product-rate"></div>
+                <button class="add-to-cart" onclick="updateProductInfo('product-card-27', {name: 'Viju Chocolate', description: 'A chocolate flavored drink', rate: '190'})">Add to Cart</button>
+            </div>
+    </div>
+</div>
+</body>
     
        
     <!-- Product Section End -->

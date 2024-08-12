@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     // Elements
     const productName = document.getElementById('product-name');
@@ -15,8 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const updatedDetails = document.getElementById('updated-details');
     const spinner = document.getElementById("spinner");
     const sidebarToggle = document.querySelector(".sidebar-toggler");
-    const profileBtn = document.getElementById('profile');
-    const toggleModeBtn = document.getElementById('toggle-mode');
 
     let totalQuantity = 0;
 
@@ -127,18 +124,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td>${sale.customer}</td>
                 <td>${sale.amount}</td>
                 <td>${sale.status}</td>
-                <td><a class="btn btn-sm btn-primary" href="#">Detail</a></td>
+                <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
             `;
             salesTableBody.appendChild(row);
         });
     }
 
-    // Fetch and handle business records and cashier performance
-    fetchBusinessRecords();
-    fetchCashierPerformance();
-    fetchProducts();
-
-    function fetchBusinessRecords() {
+    // Business Records
+    trackBusinessRecords();
+    function trackBusinessRecords() {
         fetch('/api/business/records')
             .then(response => {
                 if (!response.ok) {
@@ -146,11 +140,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 return response.json();
             })
-            .then(data => console.log('Business Records:', data))
+            .then(data => console.log(data))
             .catch(error => console.error('Error fetching business records:', error));
     }
 
-    function fetchCashierPerformance() {
+    // Cashier Performance
+    trackCashierPerformance();
+    function trackCashierPerformance() {
         fetch('/api/cashier/performance')
             .then(response => {
                 if (!response.ok) {
@@ -158,11 +154,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 return response.json();
             })
-            .then(data => console.log('Cashier Performance:', data))
+            .then(data => console.log(data))
             .catch(error => console.error('Error fetching cashier performance:', error));
     }
 
-    function fetchProducts() {
+    // Products
+    trackProducts();
+    function trackProducts() {
         fetch('/api/products')
             .then(response => {
                 if (!response.ok) {
@@ -170,29 +168,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 return response.json();
             })
-            .then(data => console.log('Products:', data))
+            .then(data => console.log(data))
             .catch(error => console.error('Error fetching products:', error));
     }
 
     // Calculate Gain or Loss
     calculateGainLoss();
     function calculateGainLoss() {
-        // Example calculation
-        console.log('Gain/Loss:', calculateFromRecords()); // Implement calculateFromRecords function
+        let gainLoss = calculateFromRecords(); // Example: Use business records to calculate
+        console.log('Gain/Loss:', gainLoss);
     }
 
     // Handle Notifications
     handleNotifications();
     function handleNotifications() {
         console.log('Checking notifications...');
-        // Implement notification fetching logic
     }
 
-    // Fetch initial dashboard data
+    // Fetch initial data for admin dashboard
     fetchDashboardData();
+
+    // Event listeners for navigation
+    const navLinks = document.querySelectorAll('.sidebar a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            navigateToPage(event.target.getAttribute('href'));
+        });
+    });
+
     function fetchDashboardData() {
+        // Dummy data fetch - Replace with actual server call
         const notificationCount = 5;
         const messageCount = 3;
+
         updateNotificationCount(notificationCount);
         updateMessageCount(messageCount);
     }
@@ -214,33 +223,17 @@ document.addEventListener('DOMContentLoaded', function() {
     function navigateToPage(page) {
         window.location.href = page;
     }
-
-    // Event listeners for navigation
-    const navLinks = document.querySelectorAll('.sidebar a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault();
-            navigateToPage(event.target.getAttribute('href'));
-        });
-    });
-
-    // Profile Button
-    if (profileBtn) {
-        profileBtn.addEventListener('click', () => {
-            // Open profile modal or page and fetch/update profile details
-        });
-    }
-
-    // Toggle Dark/Light Mode
-    if (toggleModeBtn) {
-        toggleModeBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-        });
-    }
 });
 
-// Define functions for profile update, adding/removing admin (if not already defined elsewhere)
+document.getElementById('profile').addEventListener('click', () => {
+    // Logic to open the profile modal or page
+    // Fetch current profile details and populate the form
+    // Allow user to update details
+});
+
 function updateProfile(newDetails) {
+    // Update the user profile with new details
+    // Send updated details to the server
     fetch('/update-profile', {
         method: 'POST',
         body: JSON.stringify(newDetails),
@@ -264,9 +257,7 @@ function addAdmin(newAdminDetails) {
         headers: {
             'Content-Type': 'application/json'
         }
-    }).then(response =>
-
- response.json())
+    }).then(response => response.json())
     .then(data => {
         if (data.success) {
             alert('Admin added successfully');
@@ -288,3 +279,8 @@ function removeAdmin(adminId) {
         }
     });
 }
+
+// Toggle dark/light mode
+document.getElementById('toggle-mode').addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+});

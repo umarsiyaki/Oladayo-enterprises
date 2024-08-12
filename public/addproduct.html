@@ -1,11 +1,14 @@
+
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Add Product</title>
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
+
 <body>
   <form id="addProductForm">
     <label>Category by Vendor:</label>
@@ -18,9 +21,7 @@
       <option>Pepsi</option>
       <option>Slim</option>
       <option>Lucozade</option>
-      <option>Other</option> <!-- Added 'Other' category -->
     </select>
-
     <div class="category-by-activity">
       <label for="category-by-activity">Drink Functions Category:</label>
       <aside id="Maltina">
@@ -28,20 +29,16 @@
           <option value="maltina">Maltina</option>
           <option value="hi-malt">Hi-malt</option>
           <option value="malta-guinness">Malta Guinness</option>
-          <option value="other-malt">Other Malt Drinks</option> <!-- Added 'Other Malt Drinks' -->
         </select>
       </aside>
-      <aside id="yogurt">
-        <label for="yogurt">Category for Yogurt Drinks:</label>
+      <aside id="yogurt"><label for="yogurt">Category for Yogurt Drinks:</label>
         <select name="Holandia" id="Holandia">
           <option value="peak-yogurt">Peak Yogurt</option>
           <option value="Chivita">Chivita</option>
           <option value="viju-yogurt">Viju Yogurt</option>
-          <option value="other-yogurt">Other Yogurt Drinks</option> <!-- Added 'Other Yogurt Drinks' -->
         </select>
       </aside>
-      <aside id="Energy-drinks">
-        <label for="Energy-drinks">Category for Energy Drinks:</label>
+      <aside id="Energy-drinks"><label for="Energy-drinks">Category for Energy</label>
         <select name="Energy-drinks" id="Energy-drinks">
           <option value="red-bull">Red Bull</option>
           <option value="Monster Energy">Monster Energy</option>
@@ -54,11 +51,9 @@
           <option value="Predator">Predator</option>
           <option value="reaktor">Reaktor</option>
           <option value="Fearless">Fearless</option>
-          <option value="other-energy">Other Energy Drinks</option> <!-- Added 'Other Energy Drinks' -->
         </select>
       </aside>
     </div>
-
     <label>Category by Brand:</label>
     <select id="brandCategory">
       <option>Cola</option>
@@ -99,9 +94,8 @@
       <option>Pineapple</option>
       <option>Bobo Milk</option>
       <option>Nutrimilk</option>
-      <option>Other</option> <!-- Added 'Other' category -->
+      <option>Other</option>
     </select>
-
     <label>Product Size:</label>
     <select id="productSize">
       <option>45cm</option>
@@ -112,26 +106,19 @@
       <option>60cm</option>
       <option>25cm</option>
     </select>
-
-    <div>
-      <label>Product Name:</label>
+    <div><label>Product Name:</label>
       <input type="text" id="productName" />
     </div>
-
-    <div>
-      <label>Price:</label>
+    <div><label>Price:</label>
       <input type="number" id="productPrice" />
     </div>
-
-    <center>
-      <button type="submit">Add Product</button>
-      <input type="file" id="productImage" />
-      <button type="reset">Reset</button>
-    </center>
+   <center> <button type="submit">Add Product</button>
+    <button type="img"><input type="file" src="" alt=""></button>
+    <button type="reset">Reset</button></center>
   </form>
-  
   <script src="assets/js/add-product.js"></script>
   <script src="assets/js/admin.js"></script>
   <script src="assets/js/cashier.js"></script>
 </body>
+
 </html>
