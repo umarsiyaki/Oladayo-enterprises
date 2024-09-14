@@ -1,0 +1,26 @@
+.flex-container {
+
+    display: flex;
+         
+
+    background-color: #bbdefb;
+    height: 100%;
+    padding: 15px;
+    gap: 5px;
+
+  }
+
+  .flex-container > div{
+    background: #ffecb3;
+    border: 3px solid #ffcc80;
+    border-radius: 5px;
+    padding: 8px;
+  }
+
+
+  .item2 { 
+    /* flex:5 1 auto; */
+    order:2;
+    flex-grow:5;
+  }
+			

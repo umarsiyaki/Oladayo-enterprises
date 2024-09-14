@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/receipt.js"></script>
+
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="assets/images/logo.png" alt="Logo" class="logo">
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/market">Products</a>
+      <a href="/user">Dashboard</a>
+      <a href="/blogs">Blogs</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <section class="payment">
+      <h2>Payment</h2>
+      <form id="payment-form">
+        <div class="form-group">
+          <label for="payment-mode">Payment Mode:</label>
+ 
+        </div>
+        <div class="form-group">
+          <label for="product-id">Product ID:</label>
+          <input type="text" id="product-id" name="product-id">
+        </div>
+      
+<div class="form-group">
+  <label for="payment-method">Payment Method:</label>
+  <select id="payment-method" name="payment-method">
+    <option value="cash">Cash</option>
+    <option value="direct-deposit">Direct Deposit</option>
+    <option value="debit-card">Debit Card</option>
+    <option value="wallet">Wallet</option>
+  </select>
+</div>
+<div id="card-details" class="form-group" style="display: none;">
+  <label for="card-number">Card Number:</label>
+  <input type="text" id="card-number" name="card-number">
+  <label for="card-expiry">Expiry Date:</label>
+  <input type="text" id="card-expiry" name="card-expiry">
+  <label for="card-cvc">CVC:</label>
+  <input type="text" id="card-cvc" name="card-cvc">
+</div>
+        <button type="button" id="cancel-payment">Cancel</button>
+        <button type="button" id="confirm-payment">Confirm Payment</button>
+      </form>
+    </section>
+  </main>
+  
+  
+<main>
+<section class="payment-methods">
+<h2>Payment Methods</h2>
+<ul id="payment-methods-list">
+<li>Cash Payment</li>
+<li>POS</li>
+<li>Direct Deposit</li>
+<li>Gateway</li>
+</ul>
+</section>
+<section class="payment-details">
+<h2>Payment Details</h2>
+<p>Total Amount: <span id="total-amount">amount</span></p>
+<button id="confirm-payment-button">Confirm Payment</button>
+</section>
+</main>
+<script>
+// JavaScript code to handle payment functionality
+</script>
+  <footer>
+    <p>&copy; 2024 Oladayo Enterprises</p>
+  </footer>
+  <script src="assets/js/payment.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+ <title>Oladayo Ventures</title>
+ <meta content="width=device-width, initial-scale=1.0" name="viewport">
+ <link href="img/favicon.ico" rel="icon">
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+ <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+ <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+ <link href="css/bootstrap.min.css" rel="stylesheet">
+ <link href="css/style.css" rel="stylesheet">
+ </head>
+
+ <body>
+   <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50">
+     <div class="spinner-grow text-primary" role="status">
+       <span class="sr-only">Loading...</span>
+     </div>
+   </div>
+
+   <div class="container-fluid d-flex p-0">
+     <nav class="sidebar pe-4 pb-3">
+       <a href="index.html" class="navbar-brand mx-4 mb-3">
+         <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Oladayo Ventures</h3>
+       </a>
+       <div class="d-flex align-items-center ms-4 mb-4">
+         <div class="position-relative">
+           <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+           <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+         </div>
+         <div class="ms-3">
+           <h6 class="mb-0">Admin</h6>
+           <span>Admin</span>
+         </div>
+       </div>
+       <div class="navbar-nav w-100">
+         <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+         <!-- admin.html -->
+    <a href="calculator.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Calculator</a>
+         <a href="element.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Elements</a>
+         <a href="widget.html" class="nav-item nav-link"><i class="fa fa-chart-area me-2"></i>Widgets</a>
+     
+         <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
+         <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-pie me-2"></i>Charts</a>
+       
+         <a href="marketing.html" class="nav-item nav-link"><i class="fa fa-book me-2"></i>product Market</a>
+       
+         <a href="payment.html" class="nav-item nav-link"><i class="fa fa-money-bill me-2"></i>Payment</a>
+         <a href="receipt.html" class="nav-item nav-link"><i class="fa fa-receipt me-2"></i>Receipt</a>
+       </div>
+     </nav>
+
+     <div class="content">
+       <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+         <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+           <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+         </a>
+         <a href="#" class="sidebar-toggler flex-shrink-0">
+           <i class="fa fa-bars"></i>
+         </a>
+         <form class="d-none d-md-flex ms-4">
+           <input class="form-control border-0" type="search" placeholder="Search">
+         </form>
+         <div class="navbar-nav align-items-center ms-auto">
+           <!-- Admin Notifications -->
+           <div class="navbar-nav align-items-center ms-auto">
+             <div class="nav-item dropdown" id="notificationDropdown">
+               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                 <i class="fa fa-bell me-lg-2"></i>
+                 <span class="d-none d-lg-inline-flex">Notification</span>
+               </a>
+               <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                 <a href="#" class="dropdown-item">
+                   <h6 class="fw-normal mb-0">New order received</h6>
+                   <small>15 minutes ago</small>
+                 </a>
+                 <hr class="dropdown-divider">
+                 <a href="#" class="dropdown-item text-center">See all notifications</a>
+               </div>
+             </div>
+             <div class="nav-item dropdown" id="messageDropdown">
+               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                 <i class="fa fa-envelope me-lg-2"></i>
+                 <span class="d-none d-lg-inline-flex">Message</span>
+               </a>
+               <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                 <a href="#" class="dropdown-item">
+                   <h6 class="fw-normal mb-0">User sent a message</h6>
+                   <small>15 minutes ago</small>
+                 </a>
+                 <hr class="dropdown-divider">
+                 <a href="#" class="dropdown-item text-center">See all messages</a>
+               </div>
+             </div>
+             <div class="nav-item dropdown">
+               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                 <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                 <span class="d-none d-lg-inline-flex">user</span>
+               </a>
+               <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                 <div class="header">
+                   <button id="logoutButton">Logout</button>
+                   <button id="toggleThemeButton">Toggle Theme</button>
+                   <a href="#" class="dropdown-item" id="profile">My Profile</a>
+                   <a href="#" class="dropdown-item" id="settings">Settings</a>
+                   <a href="blog.html" class="dropdown-item" id="write-blog">Blog Post</a>
+             
+                 </div>
+
+               </div>
+             </div>
+       </nav>
+  
+  <!-- Profile Modal -->
+<div id="profile-modal" style="display: none;">
+  <h2>Update Profile</h2>
+  <form>
+    <label for="profile-username">Username:</label>
+    <input type="text" id="profile-username" name="username">
+    <label for="profile-email">Email:</label>
+    <input type="email" id="profile-email" name="email">
+    <label for="profile-phone">Phone:</label>
+    <input type="tel" id="profile-phone" name="phone">
+    <!-- Add other profile fields as needed -->
+    <button type="button" id="profile-update-btn">Update</button>
+  </form>
+</div>
+
+  <!-- Content End -->
+</div>
+  <footer>
+    <p>&copy; 2024 Oladayo Enterprises</p>
+  </footer>    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="assets/js/admin.js"></script>
+    <script src="assets/js/add-cashier.js"></script>
+    <script src="assets/js/add-product.js"></script>
+    <script src="assets/js/blog.js"></script>
+    <script src="assets/js/fetch-data.js"></script>
+    
+
+
+</body>
+</html>
+

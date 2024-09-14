@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add Product</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+  <form id="addProductForm">
+    <label>Category by Vendor:</label>
+    <select id="vendorCategory">
+      <option>Coca-Cola</option>
+      <option>Viju</option>
+      <option>Maltina</option>
+      <option>Holandia</option>
+      <option>Bigi</option>
+      <option>Pepsi</option>
+      <option>Slim</option>
+      <option>Lucozade</option>
+    </select>
+    <div class="category-by-activity">
+      <label for="category-by-activity">Drink Functions Category:</label>
+      <aside id="Maltina">
+        <select name="Malta" id="Malta">
+          <option value="maltina">Maltina</option>
+          <option value="hi-malt">Hi-malt</option>
+          <option value="malta-guinness">Malta Guinness</option>
+        </select>
+      </aside>
+      <aside id="yogurt"><label for="yogurt">Category for Yogurt Drinks:</label>
+        <select name="Holandia" id="Holandia">
+          <option value="peak-yogurt">Peak Yogurt</option>
+          <option value="Chivita">Chivita</option>
+          <option value="viju-yogurt">Viju Yogurt</option>
+        </select>
+      </aside>
+      <aside id="Energy-drinks"><label for="Energy-drinks">Category for Energy</label>
+        <select name="Energy-drinks" id="Energy-drinks">
+          <option value="red-bull">Red Bull</option>
+          <option value="Monster Energy">Monster Energy</option>
+          <option value="bullet">Bullet</option>
+          <option value="Cintron">Cintron</option>
+          <option value="zagg">Zagg</option>
+          <option value="tiger">Tiger</option>
+          <option value="amber">Amber</option>
+          <option value="bull">Bull</option>
+          <option value="Predator">Predator</option>
+          <option value="reaktor">Reaktor</option>
+          <option value="Fearless">Fearless</option>
+        </select>
+      </aside>
+    </div>
+    <label>Category by Brand:</label>
+    <select id="brandCategory">
+      <option>Cola</option>
+      <option>Big Cola</option>
+      <option>Pepsi Cola</option>
+      <option>Lucozade Cola</option>
+      <option>Coke</option>
+      <option>Fanta</option>
+      <option>Big Tropical</option>
+      <option>Lucozade Tropical</option>
+      <option>5 Alive</option>
+      <option>Maltina</option>
+      <option>Hi-Malt</option>
+      <option>Malta Gold</option>
+      <option>Guinness Malta</option>
+      <option>Exotics</option>
+      <option>Chivita</option>
+      <option>Peak</option>
+      <option>Holandia</option>
+      <option>Puppy</option>
+      <option>Caprison</option>
+      <option value="Holandia-yogurt">Holandia Yogurt</option>
+      <option value="viju-plain-yogurt">Viju Plain Yogurt</option>
+      <option value="peak-yogurt">Peak Yogurt</option>
+      <option value="vigort">Vigort</option>
+      <option value="red-bull">Red Bull</option>
+      <option value="Monster Energy">Monster Energy</option>
+      <option value="bullet">Bullet</option>
+      <option value="Cintron">Cintron</option>
+      <option value="zagg">Zagg</option>
+      <option value="tiger">Tiger</option>
+      <option value="amber">Amber</option>
+      <option value="bull">Bull</option>
+      <option value="Predator">Predator</option>
+      <option value="reaktor">Reaktor</option>
+      <option value="Fearless">Fearless</option>
+      <option>Viju Milk Apple</option>
+      <option>Pineapple</option>
+      <option>Bobo Milk</option>
+      <option>Nutrimilk</option>
+      <option>Other</option>
+    </select>
+    <label>Product Size:</label>
+    <select id="productSize">
+      <option>45cm</option>
+      <option>1 liter</option>
+      <option>600ml</option>
+      <option>30cm</option>
+      <option>50cm</option>
+      <option>60cm</option>
+      <option>25cm</option>
+    </select>
+    <div><label>Product Name:</label>
+      <input type="text" id="productName" />
+    </div>
+    <div><label>Price:</label>
+      <input type="number" id="productPrice" />
+    </div>
+   <center> <button type="submit">Add Product</button>
+    <button type="img"><input type="file" src="" alt=""></button>
+    <button type="reset">Reset</button></center>
+  </form>
+  <script src="assets/js/add-product.js"></script>
+  <script src="assets/js/admin.js"></script>
+  <script src="assets/js/cashier.js"></script>
+</body>
+
+</html>
