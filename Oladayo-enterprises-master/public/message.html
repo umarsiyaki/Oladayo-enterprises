@@ -30,7 +30,7 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-    <link href="assets/css/styles.css" rel="stylesheet">
+    <link href="assets/css/message.css" rel="stylesheet">
 </head>
 
 <body>
@@ -153,13 +153,75 @@
             </div>
 
             <!-- Existing Messages Section -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-secondary rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Messages</h6>
-                    </div>
-                    <div id="message-container"></div>
-                </div>
+          <body>
+  <div class="messaging-container" id="messaging-container">
+    <div class="theme-toggle">
+      <button id="light-theme-btn">Light</button>
+      <button id="dark-theme-btn">Dark</button>
+      <button id="minimalist-theme-btn">Minimalist</button>
+    </div>
+    <div class="conversation-list">
+      <ul id="conversation-list">
+        <li>
+          <img src="user1.jpg" alt="User 1">
+          <span>John Doe</span>
+          <p>Last message: Hello!</p>
+          <span class="unread">1</span>
+        </li>
+        <li>
+          <img src="user2.jpg" alt="User 2">
+          <span>Jane Doe</span>
+          <p>Last message: Hi!</p>
+        </li>
+      </ul>
+    </div>
+    <div class="conversation-view">
+      <div class="header">
+        <img src="user1.jpg" alt="User 1">
+        <span>John Doe</span>
+        <span class="status">Online</span>
+        <button id="add-recipient-btn">Add Recipient</button>
+        <button id="delete-recipient-btn">Delete Recipient</button>
+      </div>
+      <div class="messages" id="messages">
+        <ul>
+          <li>
+            <p>Hi!</p>
+            <span>10:00 AM</span>
+          </li>
+          <li>
+            <p>Hello!</p>
+            <span>10:05 AM</span>
+          </li>
+        </ul>
+      </div>
+      <div class="compose-message">
+        <textarea placeholder="Type a message..." id="message-input"></textarea>
+        <button id="send-btn">Send</button>
+        <button id="attach-file-btn">Attach File</button>
+        <button id="emoji-btn">Emojis</button>
+        <input type="file" id="file-input" style="display: none;">
+        <div class="emoji-container" id="emoji-container">
+          <!-- emoji list -->
+        </div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <h2>Contacts</h2>
+      <ul id="contacts-list">
+        <li>
+          <img src="user3.jpg" alt="User 3">
+          <span>Jane Smith</span>
+        </li>
+        <li>
+          <img src="user4.jpg" alt="User 4">
+          <span>Bob Johnson</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
             </div>
 
             <!-- Back to Top -->

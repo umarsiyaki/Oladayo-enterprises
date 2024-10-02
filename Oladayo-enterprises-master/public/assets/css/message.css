@@ -1,0 +1,176 @@
+
+/* Default styles */
+
+.messaging-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.conversation-list {
+    width: 30%;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.conversation-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.conversation-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.conversation-view {
+    width: 70%;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.compose-message {
+    padding: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.compose-message textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.compose-message button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sidebar {
+    width: 20%;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border:
+
+.sidebar h2 {
+    margin-top: 0;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.sidebar li img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Dark theme */
+
+.dark-theme {
+    background-color: #333;
+    color: #fff;
+}
+
+.dark-theme .conversation-list {
+    background-color: #444;
+    border: 1px solid #555;
+}
+
+.dark-theme .conversation-view {
+    background-color: #666;
+    border: 1px solid #777;
+}
+
+.dark-theme .compose-message {
+    border-top: 1px solid #888;
+}
+
+.dark-theme .compose-message textarea {
+    border: 1px solid #999;
+}
+
+.dark-theme .compose-message button {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+/* Minimalist theme */
+
+.minimalist-theme {
+    background-color: #fff;
+    color: #000;
+}
+
+.minimalist-theme .conversation-list {
+    background-color: #fff;
+    border: none;
+}
+
+.minimalist-theme .conversation-view {
+    background-color: #fff;
+    border: none;
+}
+
+.minimalist-theme .compose-message {
+    border-top: none;
+}
+
+.minimalist-theme .compose-message textarea {
+    border: none;
+}
+
+.minimalist-theme .compose-message button {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+/* Emoji container */
+
+.emoji-container {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    display: none;
+}
+
+.emoji-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.emoji-container li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.emoji-container li:last-child {
+    border-bottom: none;
+}
+
+.emoji-container img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
